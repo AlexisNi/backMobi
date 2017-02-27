@@ -4,10 +4,11 @@
 var jwt = require('jsonwebtoken');
 var User = require('../models/users');
 var authConfig = require('../config/auth');
+var Statistics=require('../models/statistics');
 
 function generateToken(user){
     return jwt.sign(user, authConfig.secret, {
-        expiresIn: 10080
+        expiresIn: 1008000
     });
 }
 
@@ -34,6 +35,7 @@ exports.register = function(req, res, next){
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;
+    var userName=req.body.userName
 
     if(!email){
         return res.status(422).send({error: 'You must enter an email address'});
@@ -56,7 +58,8 @@ exports.register = function(req, res, next){
         var user = new User({
             email: email,
             password: password,
-            role: role
+            role: role,
+            userName:userName
         });
 
         user.save(function(err, user){
@@ -64,6 +67,8 @@ exports.register = function(req, res, next){
             if(err){
                 return next(err);
             }
+            var statistics=new Statistics({user:user._id});
+            statistics.save();
 
             var userInfo = setUserInfo(user);
 

@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+var Schema = mongoose.Schema;
 
 var UserSchema = new mongoose.Schema({
 
     email: {
         type: String,
         lowercase: true,
+        trim:true,
         unique: true,
         required: true
     },
@@ -17,7 +19,20 @@ var UserSchema = new mongoose.Schema({
         type: String,
         enum: ['reader', 'creator', 'editor'],
         default: 'reader'
-    }
+    },
+    userName: {
+        type: String
+
+    },
+    arenas:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Arena'
+        }
+    ]
+
+
+
 
 }, {
     timestamps: true

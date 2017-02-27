@@ -1,8 +1,6 @@
-/**
- * Created by alex on 16/02/2017.
- */
+
 var AuthenticationController = require('../controllers/authentication'),
-    arenaController = require('../controllers/arena'),
+    UserController = require('../controllers/users'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
@@ -12,12 +10,19 @@ var router=express.Router();
 
 
 
-// Todo Routes
 
-router.post('/ra',requireAuth,function (res,req) {
+
+router.post('/ra',function (res,req) {
     console.log('Entered') ;
+
 });
-router.post('/', requireAuth,arenaController.createArena);
+/*router.get('/find', requireAuth, function(req, res){
+    res.send({ content: 'Success'});
+});*/
+router.post('/find',requireAuth , UserController.findUser);
+
+
+
 
 // Set up routes
 

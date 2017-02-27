@@ -50,7 +50,6 @@ var jwtOptions = {
 };
 
 var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
-
     User.findById(payload._id, function(err, user){
 
         if(err){
