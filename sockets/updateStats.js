@@ -5,6 +5,7 @@ var Statistics=require('../models/statistics');
 
 module.exports=function (io,connectedUserList) {
     io.on('getStats',function (req) {
+        console.log('get stasts');
         Statistics.findOne({user:req.userId}).exec(function (err,result) {
             if (err) {
                 throw err;

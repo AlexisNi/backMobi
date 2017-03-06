@@ -17,6 +17,7 @@ module.exports=function (req,connectedUserList) {
             .populate('arenas', '_id')
             .exec(function (err, arenasArr) {
 
+
                 if (err) {
                     throw err;
                 }
@@ -24,16 +25,15 @@ module.exports=function (req,connectedUserList) {
                     arenasArray.push(arenasArr.arenas[i]._id);
                 }
                 ArenaUser.find({$and: [{user: req.userId}, {_id: {$in: arenasArray}}]},'user invite invite_played  status_accept  user_played')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
-                    .populate('invite', 'lastName')
+                    .populate('invite', 'userName')
                     .deepPopulate('questions')
                     .exec(function (err, arenas) {
-
                         if (err) {
                             throw err;
                         }
 
                         ArenaUser.find({$and: [{invite: req.userId}, {_id: {$in: arenasArray}}]},'user invite invite_played  status_accept  user_played')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
-                            .populate('user', 'lastName')
+                            .populate('user', 'userName')
                             .deepPopulate('questions')
                             .exec(function (err, arenasUser) {
                                 if (err) {
@@ -41,6 +41,8 @@ module.exports=function (req,connectedUserList) {
                                     throw err;
                                 }
                                 if(connectedUserList!=null) {
+                                    console.log(arenas);
+                                    console.log(arenasUser);
                                     connectedUserList.emit('loadArenas', {
                                         obj: arenas,
                                         objUser: arenasUser

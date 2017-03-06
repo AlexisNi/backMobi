@@ -8,7 +8,7 @@ var Statistics=require('../models/statistics');
 
 function generateToken(user){
     return jwt.sign(user, authConfig.secret, {
-        expiresIn: 1008000
+
     });
 }
 

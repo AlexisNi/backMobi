@@ -61,5 +61,45 @@ exports.createArena=function (req,res,next) {
             });
         });
     });
+}
+exports.statusPlayed=function (req,res,next) {
+    console.log('Post Received played status');
+    console.log(req.body);
+    var userId=req.body.userId;
+    var arenaId=req.body.arenaId;
+    ArenaUser.findOne({_id:arenaId})
+        .populate('user')
+        .populate('invite')
+        .exec(function (err,arenas) {
+            if (arenas.user._id==userId){
+                console.log(arenas.user_played);
+                ArenaUser.update({_id:arenaId},{$set:{user_played:true}},function (err,result) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: err
+                        });
+                    }
+                    res.status(200).json({
+                        message: 'success',
+                    });
+                });
+            }else {
+                ArenaUser.update({_id:arenaId},{$set:{invite_played:true}},function (err,result) {
+                    if (err) {
+                        return res.status(500).json({
+                            title:'Error',
+                            message:'An error has occured....',
+                            status:'500'
+                        });
+                    }
+                    res.status(200).json({
+                        message: 'success',
+                    });
+                });
+            }
 
+
+
+        });
 }
