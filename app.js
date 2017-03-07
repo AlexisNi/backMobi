@@ -13,6 +13,7 @@ var todosRoutes=require('./routes/todos')
 var authethenticationRoute=require('./routes/authentication');
 var userRoutes=require('./routes/user');
 var arenaRoutes=require('./routes/arenas');
+var activeArena=require('./routes/activeArena');
 
 ///////////////socket config//////////////////
 var socket_io=require("socket.io");
@@ -55,6 +56,7 @@ app.use('/api/auth',authethenticationRoute);
 app.use('/api/todos',todosRoutes);
 app.use('/api/users',userRoutes);
 app.use('/api/arenas',arenaRoutes);
+app.use('/api/activeArena',activeArena);
 
 app.use(function (req, res, next) {
     return res.render('index');

@@ -4,7 +4,6 @@
  var Arenas=require('../models/arena');
 
 module.exports=function (req,connectedUserList) {
-    console.log(req.arenaId);
 
     Arenas.findOne({_id:req.arenaId})
         .populate('questions')
@@ -19,7 +18,6 @@ module.exports=function (req,connectedUserList) {
                 })
             }
 
-            console.log(arenas);
 
 
         });

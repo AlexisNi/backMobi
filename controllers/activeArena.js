@@ -7,7 +7,6 @@ var User=require('../models/users');
 
 
 exports.saveAnsweredQuestion=function (req,res,next) {
-
     console.log('Post received! On ArenaQuestion');
     console.log(req.body);
     ArenaQuestions.findOne({ $and:[ {arenaId:req.body.arenaId}, {userId:req.body.userId}]})

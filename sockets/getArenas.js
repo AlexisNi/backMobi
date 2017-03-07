@@ -41,8 +41,6 @@ module.exports=function (req,connectedUserList) {
                                     throw err;
                                 }
                                 if(connectedUserList!=null) {
-                                    console.log(arenas);
-                                    console.log(arenasUser);
                                     connectedUserList.emit('loadArenas', {
                                         obj: arenas,
                                         objUser: arenasUser
