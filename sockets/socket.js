@@ -77,7 +77,7 @@ module.exports = function (io) {
 
                 if (connectedUserList[otherUser]!=null){
                     if(otherUser!=null) {
-                        console.log('othe user');
+                        console.log('other user');
                         require('./getArenasOnDisconnect')(otherUser,connectedUserList[otherUser]);
                     }
 

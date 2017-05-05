@@ -54,35 +54,75 @@ exports.saveAnsweredQuestion = function (req, res, next) {
         });
 }
 exports.getQuestions = function (req, res, next) {
-    let arenaId=req.body.arenaId;
-    
-    try{
-    Arenas.findOne({_id:arenaId})
-        .populate('questions')
-        .exec(function (err, questions) {
-            try{
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occured',
-                    error: err
-                });
-            }
-            return res.status(200).json({
-                message: 'Questions received',
-                questions: questions.questions,
+    let arenaId = req.body.arenaId
+    try {
+        Arenas.findOne({ _id: arenaId })
+            .exec(function (err, arena) {
+                try {
+                    console.log(arena);
+                    console.log(req.body.userId);
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+                    }
+                    if(req.body.userId==arena.user){
+                        if(arena.user_played==true){
+                            console.log('you already played')
+                        }
+                    }
+                    if(req.body.userId==arena.invite){
+                        if(arena.invite_played==true){
+                            console.log('you already played')
+                        }else{
+                        console.log('its okay you can play')
+                    }
+
+                    }
+
+
+
+                } catch (err) {
+                    return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+
+                }
+
+
             });
-        }catch(err){
-             return res.status(500).json({
-                    title: 'Unable to load Questions',
-                    error: err
-                });
-        }
-        })
-    }catch(err){
+
+
+
+
+        Arenas.findOne({ _id: arenaId })
+            .populate('questions')
+            .exec(function (err, questions) {
+                try {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+                    }
+                    return res.status(200).json({
+                        message: 'Questions received',
+                        questions: questions.questions,
+                    });
+                } catch (err) {
+                    return res.status(500).json({
+                        title: 'Unable to load Questions',
+                        error: err
+                    });
+                }
+            })
+    } catch (err) {
         return res.status(500).json({
-                    title: 'An error occured',
-                    error: err
-                });
+            title: 'An error occured',
+            error: err
+        });
     }
 
 }
