@@ -29,14 +29,9 @@ exports.findUser=function (req,res,next) {
             inviteId:user._id
         });
     });
-/*    User.find(function(err, todos) {
 
-        if (err){
-            res.send(err);
-        }
-
-        res.json(todos);
-
-    });*/
 }
+exports.findOpponent=function (req,res,next) {
 
+    
+}

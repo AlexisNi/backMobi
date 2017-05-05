@@ -15,6 +15,10 @@ var router=express.Router();
 
 
 router.post('/', requireAuth,activeArenaController.saveAnsweredQuestion);
+router.post('/getCorrect', requireAuth,activeArenaController.getCorrectNumber);
+router.post('/getQuestions', requireAuth,activeArenaController.getQuestions);
+
+
 
 
 
