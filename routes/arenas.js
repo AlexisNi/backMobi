@@ -18,6 +18,8 @@ router.post('/ra',requireAuth,function (res,req) {
     console.log('Entered') ;
 });
 router.post('/', requireAuth,arenaController.createArena);
+router.post('/statusPlayed', requireAuth,arenaController.statusPlayed);
+
 
 // Set up routes
 

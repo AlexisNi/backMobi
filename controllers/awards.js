@@ -8,7 +8,9 @@ var User=require('../models/users');
 var level;
 var experience;
 
+
 exports.awards=function (req,res,next) {
+    console.log('get awezards!!!!!')
     var arenaId=req.body.arenaId;
     var userId=req.body.userId;
     Statistics.findOne({user:userId}).exec(function (err,result) {
@@ -59,7 +61,6 @@ exports.awards=function (req,res,next) {
                                 message:'Unexpected Error',
                             });
                         }
-                        console.log(user.arenas);
                         user.arenas.pull({_id:arenaId});
                         user.save();
 
@@ -132,7 +133,6 @@ exports.awards=function (req,res,next) {
                                 message:'Unexpected Error',
                             });
                         }
-                        console.log(user.arenas);
                         user.arenas.pull({_id:arenaId});
                         user.save();
                     });

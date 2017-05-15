@@ -8,8 +8,6 @@ var Arenas = require('../models/arena');
 
 
 exports.saveAnsweredQuestion = function (req, res, next) {
-    console.log('Post received! On ArenaQuestion');
-    console.log(req.body);
     ArenaQuestions.findOne({ $and: [{ arenaId: req.body.arenaId }, { userId: req.body.userId }] })
         .exec(function (err, arenaQuestion) {
             if (arenaQuestion) {
@@ -29,7 +27,6 @@ exports.saveAnsweredQuestion = function (req, res, next) {
                 });
 
             } else {
-                console.log('new question');
                 var arenaQuestion = new ArenaQuestions({
                     arenaId: req.body.arenaId,
                     userId: req.body.userId,
@@ -59,25 +56,71 @@ exports.getQuestions = function (req, res, next) {
         Arenas.findOne({ _id: arenaId })
             .exec(function (err, arena) {
                 try {
-                    console.log(arena);
-                    console.log(req.body.userId);
+
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occured',
                             error: err
                         });
                     }
-                    if(req.body.userId==arena.user){
-                        if(arena.user_played==true){
-                            console.log('you already played')
+                    if (req.body.userId == arena.user) {
+                        if (arena.user_played == true) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                            });
+                        } else {
+                            Arenas.findOne({ _id: arenaId })
+                                .populate('questions')
+                                .exec(function (err, questions) {
+                                    try {
+                                        if (err) {
+                                            return res.status(500).json({
+                                                title: 'An error occured',
+                                                error: err
+                                            });
+                                        }
+                                        return res.status(200).json({
+                                            message: 'Questions received',
+                                            questions: questions.questions,
+                                        });
+                                    } catch (err) {
+                                        return res.status(500).json({
+                                            title: 'Unable to load Questions',
+                                            error: err
+                                        });
+                                    }
+                                });
+
                         }
                     }
-                    if(req.body.userId==arena.invite){
-                        if(arena.invite_played==true){
-                            console.log('you already played')
-                        }else{
-                        console.log('its okay you can play')
-                    }
+                    if (req.body.userId == arena.invite) {
+                        if (arena.invite_played == true) {
+                            return res.status(500).json({
+                                title: 'You already played',
+                            });
+                        } else {
+                            Arenas.findOne({ _id: arenaId })
+                                .populate('questions')
+                                .exec(function (err, questions) {
+                                    try {
+                                        if (err) {
+                                            return res.status(500).json({
+                                                title: 'An error occured',
+                                                error: err
+                                            });
+                                        }
+                                        return res.status(200).json({
+                                            message: 'Questions received',
+                                            questions: questions.questions,
+                                        });
+                                    } catch (err) {
+                                        return res.status(500).json({
+                                            title: 'Unable to load Questions',
+                                            error: err
+                                        });
+                                    }
+                                });
+                        }
 
                     }
 
@@ -85,39 +128,14 @@ exports.getQuestions = function (req, res, next) {
 
                 } catch (err) {
                     return res.status(500).json({
-                            title: 'An error occured',
-                            error: err
-                        });
+                        title: 'An error occured',
+                        error: err
+                    });
 
                 }
 
 
             });
-
-
-
-
-        Arenas.findOne({ _id: arenaId })
-            .populate('questions')
-            .exec(function (err, questions) {
-                try {
-                    if (err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: err
-                        });
-                    }
-                    return res.status(200).json({
-                        message: 'Questions received',
-                        questions: questions.questions,
-                    });
-                } catch (err) {
-                    return res.status(500).json({
-                        title: 'Unable to load Questions',
-                        error: err
-                    });
-                }
-            })
     } catch (err) {
         return res.status(500).json({
             title: 'An error occured',
@@ -125,12 +143,38 @@ exports.getQuestions = function (req, res, next) {
         });
     }
 
+
+
+
+    /*        Arenas.findOne({ _id: arenaId })
+                .populate('questions')
+                .exec(function (err, questions) {
+                    try {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: err
+                            });
+                        }
+                        return res.status(200).json({
+                            message: 'Questions received',
+                            questions: questions.questions,
+                        });
+                    } catch (err) {
+                        return res.status(500).json({
+                            title: 'Unable to load Questions',
+                            error: err
+                        });
+                    }
+                });*/
+
+
 }
 exports.getCorrectNumber = function (req, res, next) {
     var arenaId = req.body.arenaId;
     var userId = req.body.userId;
     ArenaQuestions.findOne().where({ $and: [{ arenaId: arenaId }, { userId: userId }] })
-        .populate('userId', 'lastName')
+        .populate('userId', 'useName')
         .exec(function (err, answerCount) {
             if (err) {
                 return res.status(500).json({
@@ -139,10 +183,9 @@ exports.getCorrectNumber = function (req, res, next) {
                 });
             }
             if (answerCount != null) {
-                console.log(answerCount);
                 res.status(200).json({
                     message: 'Correct',
-                    correct: answerCount.questionAnswer.length,
+                    correct: answerCount.questionAnswer.length-1,
                 });
 
             } else {
@@ -157,13 +200,12 @@ exports.getCorrectNumber = function (req, res, next) {
         });
 }
 exports.getResults = function (req, res, next) {
-    console.log('Get Results works')
-    console.log(req.body.arenaId);
-    console.log(req.body.userId);
+    console.log('getResult');
+    console.log(req.body)
     var arenaId = req.body.arenaId;
     var userId = req.body.userId;
     ArenaQuestions.findOne().where({ $and: [{ arenaId: arenaId }, { userId: userId }] })
-        .populate('userId', 'lastName')
+        .populate('userId', 'userName')
         .exec(function (err, answerCount) {
             if (err) {
                 return res.status(500).json({
@@ -171,15 +213,24 @@ exports.getResults = function (req, res, next) {
                     error: err
                 });
             }
-            console.log('answer count')
+              if (answerCount == null) {
+                        console.log('nullllllll')
+                    }
+           
+            
             ArenaQuestions.findOne().where({ $and: [{ arenaId: arenaId }, { userId: { $ne: userId } }] })
-                .populate('userId', 'lastName')
+                .populate('userId', 'userName')
                 .exec(function (err, answerCountB) {
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occured',
                             error: err
                         });
+                    }
+                  
+
+                    if (answerCountB == null) {
+                        answerCountB.questionAnswer.length = 0;
                     }
                     if (answerCount.questionAnswer.length > answerCountB.questionAnswer.length) {
                         var awards = {
@@ -206,12 +257,10 @@ exports.getResults = function (req, res, next) {
                                 awards.save();
 
                             } else {
-                                console.log('awards intialized')
                                 awards = getAwards;
 
                             }
 
-                            console.log(awards)
 
                             res.status(200).json({
                                 message: 'success',
@@ -310,6 +359,7 @@ exports.getResults = function (req, res, next) {
 
                 });
         });
+
 
 
 
