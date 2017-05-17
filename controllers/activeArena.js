@@ -127,36 +127,44 @@ exports.getQuestions = function (req, res, next) {
                                 });
 
                         }
-                    }
-                    if (req.body.userId == arena.invite) {
-                        if (arena.invite_played == true) {
-                            return res.status(500).json({
-                                title: 'You already played',
-                            });
-                        } else {
-                            Arenas.findOne({ _id: arenaId })
-                                .populate('questions')
-                                .exec(function (err, questions) {
-                                    try {
-                                        if (err) {
+                    } try {
+                        if (req.body.userId == arena.invite) {
+                            if (arena.invite_played == true) {
+                                return res.status(500).json({
+                                    title: 'You already played',
+                                });
+                            } else {
+                                Arenas.findOne({ _id: arenaId })
+                                    .populate('questions')
+                                    .exec(function (err, questions) {
+                                        try {
+                                            if (err) {
+                                                return res.status(500).json({
+                                                    title: 'An error occured',
+                                                    error: err
+                                                });
+                                            }
+                                            return res.status(200).json({
+                                                message: 'Questions received',
+                                                questions: questions.questions,
+                                            });
+                                        } catch (err) {
                                             return res.status(500).json({
-                                                title: 'An error occured',
+                                                where: 'Receive questions',
+                                                title: 'Unable to load Questions',
                                                 error: err
                                             });
                                         }
-                                        return res.status(200).json({
-                                            message: 'Questions received',
-                                            questions: questions.questions,
-                                        });
-                                    } catch (err) {
-                                        return res.status(500).json({
-                                            where: 'Receive questions',
-                                            title: 'Unable to load Questions',
-                                            error: err
-                                        });
-                                    }
-                                });
+                                    });
+                            }
+
                         }
+                    } catch (err) {
+                        return res.status(500).json({
+                            where: 'Receive questions',
+                            title: 'Unable to get questions',
+                            error: err
+                        });
 
                     }
 
@@ -282,159 +290,169 @@ exports.getResults = function (req, res, next) {
                         }
 
 
-                        if (answerCountB == null) {
-                            answerCountB.questionAnswer.length = 0;
-                        }
-
-                        if (answerCount.questionAnswer.length > answerCountB.questionAnswer.length) {
-                            try {
-                                var awards = {
-                                    awards: {
-                                        arenaId: arenaId, winner: {
-                                            userId: '', arenaId: '', points: 3, experience: 140
-                                        }, loser: {
-                                            userId: '', arenaId: '', points: 0, experience: 40
-                                        }
-                                    }
-                                };
-
-                                Awards.findOne({ arenaId: arenaId }).exec(function (err, getAwards) {
-                                    if (!getAwards) {
-                                        awards = new Awards({
-                                            arenaId: arenaId, awards: {
-                                                arenaId: arenaId, winner: {
-                                                    userId: answerCount.userId._id, points: 3, experience: 140
-                                                }, loser: {
-                                                    userId: answerCountB.userId._id, points: 0, experience: 40
-                                                }
+                        /*  if (answerCountB == null) {
+                              answerCountB.questionAnswer.length = 0;
+                          }*/
+                        try {
+                            if (answerCount.questionAnswer.length > answerCountB.questionAnswer.length) {
+                                try {
+                                    var awards = {
+                                        awards: {
+                                            arenaId: arenaId, winner: {
+                                                userId: '', arenaId: '', points: 3, experience: 140
+                                            }, loser: {
+                                                userId: '', arenaId: '', points: 0, experience: 40
                                             }
+                                        }
+                                    };
+
+                                    Awards.findOne({ arenaId: arenaId }).exec(function (err, getAwards) {
+                                        if (!getAwards) {
+                                            awards = new Awards({
+                                                arenaId: arenaId, awards: {
+                                                    arenaId: arenaId, winner: {
+                                                        userId: answerCount.userId._id, points: 3, experience: 140
+                                                    }, loser: {
+                                                        userId: answerCountB.userId._id, points: 0, experience: 40
+                                                    }
+                                                }
+                                            });
+                                            awards.save();
+
+                                        } else {
+                                            awards = getAwards;
+
+                                        }
+
+
+                                        res.status(200).json({
+                                            message: 'success',
+                                            winner: answerCount.userId,
+                                            loser: answerCountB.userId,
+                                            awards: awards,
+                                            draw: false
+
+
                                         });
-                                        awards.save();
-
-                                    } else {
-                                        awards = getAwards;
-
-                                    }
-
-
-                                    res.status(200).json({
-                                        message: 'success',
-                                        winner: answerCount.userId,
-                                        loser: answerCountB.userId,
-                                        awards: awards,
-                                        draw: false
 
 
                                     });
+                                } catch (err) {
+                                    return res.status(500).json({
+                                        where: 'Result',
+                                        title: 'An error occured',
+                                        error: err
+                                    });
+                                }
 
-
-                                });
-                            } catch (err) {
-                                return res.status(500).json({
-                                    where: 'Result',
-                                    title: 'An error occured',
-                                    error: err
-                                });
-                            }
-
-                        } else if (answerCount.questionAnswer.length < answerCountB.questionAnswer.length) {
-                            try {
-                                var awards = {
-                                    awards: {
-                                        arenaId: arenaId, winner: {
-                                            userId: '', arenaId: '', points: 3, experience: 140
-                                        }, loser: {
-                                            userId: '', arenaId: '', points: 0, experience: 40
-                                        }
-                                    }
-                                };
-
-                                Awards.findOne({ arenaId: arenaId }).exec(function (err, getAwards) {
-                                    if (!getAwards) {
-                                        awards = new Awards({
-                                            arenaId: arenaId, awards: {
-                                                arenaId: arenaId, winner: {
-                                                    userId: answerCountB.userId._id, points: 3, experience: 140
-                                                }, loser: {
-                                                    userId: answerCount.userId._id, points: 0, experience: 40
-                                                }
+                            } else if (answerCount.questionAnswer.length < answerCountB.questionAnswer.length) {
+                                try {
+                                    var awards = {
+                                        awards: {
+                                            arenaId: arenaId, winner: {
+                                                userId: '', arenaId: '', points: 3, experience: 140
+                                            }, loser: {
+                                                userId: '', arenaId: '', points: 0, experience: 40
                                             }
+                                        }
+                                    };
+
+                                    Awards.findOne({ arenaId: arenaId }).exec(function (err, getAwards) {
+                                        if (!getAwards) {
+                                            awards = new Awards({
+                                                arenaId: arenaId, awards: {
+                                                    arenaId: arenaId, winner: {
+                                                        userId: answerCountB.userId._id, points: 3, experience: 140
+                                                    }, loser: {
+                                                        userId: answerCount.userId._id, points: 0, experience: 40
+                                                    }
+                                                }
+                                            });
+                                            awards.save();
+
+                                        } else {
+                                            awards = getAwards;
+
+                                        }
+                                        res.status(200).json({
+                                            message: 'success',
+                                            loser: answerCount.userId,
+                                            winner: answerCountB.userId,
+                                            awards: awards,
+                                            draw: false
+
                                         });
-                                        awards.save();
 
-                                    } else {
-                                        awards = getAwards;
-
-                                    }
-                                    res.status(200).json({
-                                        message: 'success',
-                                        loser: answerCount.userId,
-                                        winner: answerCountB.userId,
-                                        awards: awards,
-                                        draw: false
 
                                     });
+                                } catch (err) {
+                                    return res.status(500).json({
+                                        where: 'Result',
+                                        title: 'An error occured',
+                                        where: 'get results',
+                                        error: err
+                                    });
+                                }
 
 
-                                });
-                            } catch (err) {
-                                return res.status(500).json({
-                                    where: 'Result',
-                                    title: 'An error occured',
-                                    where: 'get results',
-                                    error: err
-                                });
+
                             }
-
-
-
-                        }
-                        else {
-                            try {
-                                var awards = {
-                                    awards: {
-                                        arenaId: arenaId, winner: {
-                                            userId: '', arenaId: '', points: 3, experience: 140
-                                        }, loser: {
-                                            userId: '', arenaId: '', points: 0, experience: 40
-                                        }
-                                    }
-                                };
-
-                                Awards.findOne({ arenaId: arenaId }).exec(function (err, getAwards) {
-                                    if (!getAwards) {
-                                        awards = new Awards({
-                                            arenaId: arenaId, awards: {
-                                                arenaId: arenaId, draw: {
-                                                    userId: answerCountB.userId._id, points: 1, experience: 70
-                                                }
+                            else {
+                                try {
+                                    var awards = {
+                                        awards: {
+                                            arenaId: arenaId, winner: {
+                                                userId: '', arenaId: '', points: 3, experience: 140
+                                            }, loser: {
+                                                userId: '', arenaId: '', points: 0, experience: 40
                                             }
+                                        }
+                                    };
+
+                                    Awards.findOne({ arenaId: arenaId }).exec(function (err, getAwards) {
+                                        if (!getAwards) {
+                                            awards = new Awards({
+                                                arenaId: arenaId, awards: {
+                                                    arenaId: arenaId, draw: {
+                                                        userId: answerCountB.userId._id, points: 1, experience: 70
+                                                    }
+                                                }
+                                            });
+                                            awards.save();
+
+                                        } else {
+                                            awards = getAwards;
+
+                                        }
+                                        res.status(200).json({
+                                            message: 'success',
+                                            winner: answerCount.userId,
+                                            loser: answerCountB.userId,
+                                            draw: true,
+                                            awards: awards
+
                                         });
-                                        awards.save();
 
-                                    } else {
-                                        awards = getAwards;
-
-                                    }
-                                    res.status(200).json({
-                                        message: 'success',
-                                        winner: answerCount.userId,
-                                        loser: answerCountB.userId,
-                                        draw: true,
-                                        awards: awards
 
                                     });
-
-
-                                });
-                            } catch (err) {
-                                return res.status(500).json({
-                                    where: 'Results',
-                                    title: 'An error occured',
-                                    error: err
-                                });
+                                } catch (err) {
+                                    return res.status(500).json({
+                                        where: 'Results',
+                                        title: 'An error occured',
+                                        error: err
+                                    });
+                                }
                             }
+                        } catch (err) {
+                            return res.status(500).json({
+                                where: 'Results',
+                                title: 'An error occured',
+                                error: err
+                            });
+
                         }
+
+                        //ca
 
                     });
             });

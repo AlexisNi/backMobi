@@ -13,30 +13,139 @@ exports.awards = function (req, res, next) {
     console.log('get awezards!!!!!')
     var arenaId = req.body.arenaId;
     var userId = req.body.userId;
-    Statistics.findOne({ user: userId }).exec(function (err, result) {
-        if (!result) {
-            var statistics = new Statistics({ user: userId });
-            statistics.save();
+    try {
+        Statistics.findOne({ user: userId }).exec(function (err, result) {
 
-            res.status(200).json({
-                message: 'success',
-            });
+            if (!result) {
+                var statistics = new Statistics({ user: userId });
+                statistics.save();
 
-        } if (err) {
-            return res.status(500).json({
-                message: 'Fail',
-            });
-        }
-    });
-    Awards.findOne().where({ arenaId: arenaId })
-        .exec(function (err, result) {
-            if (err) {
+                res.status(200).json({
+                    message: 'success',
+                });
+
+            } if (err) {
                 return res.status(500).json({
-                    message: 'Unexpected Error',
+                    message: 'Fail',
                 });
             }
-            if (result.awards.winner.userId == userId) {
-                try {
+        });
+        Awards.findOne().where({ arenaId: arenaId })
+            .exec(function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Unexpected Error',
+                    });
+                }
+                if (result.awards.winner.userId == userId) {
+                    if (result.awards.winner.received != false) {
+                        return res.status(500).json({
+                            where: 'At awards',
+                            title: 'Error',
+                            message: 'You already received that award....',
+                            status: '500'
+                        });
+
+                    }
+                    try {
+                        Statistics.findOne({ user: userId }).exec(function (err, statistics) {
+
+                            if (err) {
+                                return res.status(500).json({
+                                    message: 'Unexpected Error',
+                                });
+                            }
+                            statistics.currentExp = statistics.currentExp + result.awards.winner.experience;
+                            statistics.wins = statistics.wins + 1;
+                            console.log('here is level');
+                            var levelInfo = require('./checkLevelUp')(statistics.level, statistics.currentExp);
+                            statistics.currentExp = levelInfo.currentExperience;
+                            statistics.level = levelInfo.level;
+                            statistics.save();
+
+                        });
+                        User.findOne({ _id: userId })
+                            .populate({ path: 'arenas', match: { _id: arenaId } })
+                            .exec(function (err, user) {
+
+                                if (err) {
+                                    return res.status(500).json({
+                                        message: 'Unexpected Error',
+                                    });
+                                }
+                                result.awards.winner.received = true;
+                                result.save();
+                                user.arenas.pull({ _id: arenaId });
+                                user.save();
+
+
+
+                            });
+
+
+                    } catch (err) {
+                        return res.status(500).json({
+                            where: 'At awards',
+                            title: 'Error',
+                            message: 'An error has occured....',
+                            status: '500'
+                        });
+                    }
+                } else if (result.awards.loser.userId == userId) {
+                    try {
+                        if (result.awards.loser.received != false) {
+                            return res.status(500).json({
+                                where: 'At awards',
+                                title: 'Error',
+                                message: 'You already received that award....',
+                                status: '500'
+                            });
+
+                        }
+                        Statistics.findOne({ user: userId }).exec(function (err, statistics) {
+
+                            if (err) {
+                                return res.status(500).json({
+                                    message: 'Unexpected Error',
+                                });
+                            }
+
+                            statistics.currentExp = statistics.currentExp + result.awards.loser.experience;
+                            statistics.loses = statistics.loses + 1;
+                            console.log('here is level');
+                            var levelInfo = require('./LevelUp')(statistics.level, statistics.currentExp);
+                            statistics.currentExp = levelInfo.currentExperience;
+                            statistics.level = levelInfo.level;
+
+                            statistics.save();
+
+                        });
+                        User.findOne({ _id: userId })
+                            .populate({ path: 'arenas', match: { _id: arenaId } })
+                            .exec(function (err, user) {
+
+                                if (err) {
+                                    return res.status(500).json({
+                                        message: 'Unexpected Error',
+                                    });
+                                }
+                                result.awards.loser.received = true;
+                                result.save();
+                                user.arenas.pull({ _id: arenaId });
+                                user.save();
+                            });
+                    } catch (err) {
+                        return res.status(500).json({
+                            where: 'At awards',
+                            title: 'Error',
+                            message: 'An error has occured....',
+                            status: '500'
+                        });
+
+                    }
+
+                } else {
+
                     Statistics.findOne({ user: userId }).exec(function (err, statistics) {
 
                         if (err) {
@@ -44,12 +153,14 @@ exports.awards = function (req, res, next) {
                                 message: 'Unexpected Error',
                             });
                         }
-                        statistics.currentExp = statistics.currentExp + result.awards.winner.experience;
-                        statistics.wins = statistics.wins + 1;
+                        statistics.currentExp = statistics.currentExp + result.awards.draw.experience;
+                        statistics.points = statistics.points + 1;
+                        statistics.draws = statistics.draws + 1;
                         console.log('here is level');
                         var levelInfo = require('./checkLevelUp')(statistics.level, statistics.currentExp);
                         statistics.currentExp = levelInfo.currentExperience;
                         statistics.level = levelInfo.level;
+
                         statistics.save();
 
                     });
@@ -64,111 +175,63 @@ exports.awards = function (req, res, next) {
                             }
                             user.arenas.pull({ _id: arenaId });
                             user.save();
-
-
-
                         });
-
-
-                } catch (err) {
-                    return res.status(500).json({
-                        where: 'At awards',
-                        title: 'Error',
-                        message: 'An error has occured....',
-                        status: '500'
-                    });
                 }
-            } else if (result.awards.loser.userId == userId) {
-
-                Statistics.findOne({ user: userId }).exec(function (err, statistics) {
-
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'Unexpected Error',
-                        });
-                    }
-                    statistics.currentExp = statistics.currentExp + result.awards.loser.experience;
-                    statistics.loses = statistics.loses + 1;
-                    console.log('here is level');
-                    var levelInfo = require('./LevelUp')(statistics.level, statistics.currentExp);
-                    statistics.currentExp = levelInfo.currentExperience;
-                    statistics.level = levelInfo.level;
-
-                    statistics.save();
-
-                });
-                User.findOne({ _id: userId })
-                    .populate({ path: 'arenas', match: { _id: arenaId } })
-                    .exec(function (err, user) {
+                ArenaUser.findOne({ _id: arenaId })
+                    .exec(function (err, arena) {
 
                         if (err) {
                             return res.status(500).json({
                                 message: 'Unexpected Error',
                             });
                         }
-                        console.log(user.arenas);
-                        user.arenas.pull({ _id: arenaId });
-                        result.winner.pull();
-                        user.save();
-                    });
+                        try {
+                            if (arena.awardPlayerOne == false && arena.awardPlayerTwo == false) {
+                                try {
+                                    arena.awardPlayerOne = true;
+                                    arena.save();
+                                } catch (err) {
+                                    return res.status(500).json({
+                                        message: 'Unexpected Error',
+                                    });
+                                }
+                            } else {
+                                try {
+                                    arena.remove();
+                                    result.remove();
 
-            } else {
+                                } catch (err) {
+                                    return res.status(500).json({
+                                        message: 'Unexpected Error',
+                                    });
 
-                Statistics.findOne({ user: userId }).exec(function (err, statistics) {
+                                }
 
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'Unexpected Error',
-                        });
-                    }
-                    statistics.currentExp = statistics.currentExp + result.awards.draw.experience;
-                    statistics.points = statistics.points + 1;
-                    statistics.draws = statistics.draws + 1;
-                    console.log('here is level');
-                    var levelInfo = require('./checkLevelUp')(statistics.level, statistics.currentExp);
-                    statistics.currentExp = levelInfo.currentExperience;
-                    statistics.level = levelInfo.level;
 
-                    statistics.save();
-
-                });
-                User.findOne({ _id: userId })
-                    .populate({ path: 'arenas', match: { _id: arenaId } })
-                    .exec(function (err, user) {
-
-                        if (err) {
+                            }
+                        } catch (err) {
                             return res.status(500).json({
                                 message: 'Unexpected Error',
                             });
+
                         }
-                        user.arenas.pull({ _id: arenaId });
-                        user.save();
+
                     });
-            }
-            ArenaUser.findOne({ _id: arenaId })
-                .exec(function (err, arena) {
 
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'Unexpected Error',
-                        });
-                    }
-                    if (arena.awardPlayerOne == false && arena.awardPlayerTwo == false) {
-                        arena.awardPlayerOne = true;
-                        arena.save();
-                    } else {
-                        arena.remove();
-                        result.remove();
+            });
 
-                    }
-
-                });
-
+        res.status(200).json({
+            message: 'succecss',
+        });
+    } catch (err) {
+        return res.status(500).json({
+            where: 'At awards',
+            title: 'Error',
+            message: 'An error has occured....',
+            status: '500'
         });
 
-    res.status(200).json({
-        message: 'succecss',
-    });
+    }
 
 
 
