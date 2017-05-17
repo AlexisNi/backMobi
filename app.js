@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 var mongoose=require('mongoose');
 var app = express();
 var cors=require('cors');
-
+var config= require('./config/config.js');
+    
 ///////////////////routes config////////////////////
 var todosRoutes=require('./routes/todos')
 var authethenticationRoute=require('./routes/authentication');
@@ -59,6 +60,7 @@ app.use('/api/users',userRoutes);
 app.use('/api/arenas',arenaRoutes);
 app.use('/api/activeArena',activeArena);
 app.use('/api/awards',awards);
+
 app.use(function (req, res, next) {
     return res.render('index');
 });

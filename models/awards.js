@@ -9,10 +9,10 @@ var schema = new Schema({
     arenaId:String,
     awards:{
         winner:{
-                 userId:String,points:Number,experience:Number
+                 userId:String,points:Number,experience:Number,received:Boolean
          },
         loser:{
-                 userId:String,points:Number,experience:Number
+                 userId:String,points:Number,experience:Number,received:Boolean
         },
         draw:
               {
