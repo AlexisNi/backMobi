@@ -10,7 +10,7 @@ var User=require('../models/users');
 
 module.exports=function (req,connectedUserList) {
 
-
+    try{
     if(req.userId!=null) {
         var arenasArray = [];
         User.findOne({_id: req.userId})//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE USER ROW AND SHOW THE LAST NAME OF INVITE
@@ -50,6 +50,10 @@ module.exports=function (req,connectedUserList) {
                             });
                     });
             });
+    }
+}catch(err){
+    throw err;
+
     }
 
 

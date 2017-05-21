@@ -20,7 +20,7 @@ exports.awards = function (req, res, next) {
                 var statistics = new Statistics({ user: userId });
                 statistics.save();
 
-                res.status(200).json({
+                return res.status(200).json({
                     message: 'success',
                 });
 
@@ -154,61 +154,53 @@ exports.awards = function (req, res, next) {
                                 });
                             }
                             try {
-                                if (result.awards.draw.receivedP1 != userId || result.awards.draw.receivedP2 != userId) {
-                                    try {
-
-                                        statistics.currentExp = statistics.currentExp + result.awards.draw.experience;
-                                        statistics.points = statistics.points + 1;
-                                        statistics.draws = statistics.draws + 1;
-                                        console.log('here is level');
-                                        var levelInfo = require('./checkLevelUp')(statistics.level, statistics.currentExp);
-                                        statistics.currentExp = levelInfo.currentExperience;
-                                        statistics.level = levelInfo.level;
-                                        statistics.save();
-                                        if (result.awards.draw.receivedP1 == '123') {
-                                            result.awards.draw.receivedP2 = userId;
-                                            result.save();
-                                        }
-                                        else if (result.awards.draw.receivedP2 == '123') {
-                                            result.awards.draw.receivedP2 = userId;
-                                            result.save();
-                                        } else {
-                                            return res.status(500).json({
-                                                where: 'Awards',
-                                                message: 'Unexpected error',
-                                            });
-
-                                        }
-                                    } catch (err) {
-                                        return res.status(500).json({
-                                            where: 'Awards',
-                                            message: 'Unable to receive award',
-                                        });
-
-                                    }
-                                } else {
+                                if (result.awards.draw.receivedP2 == userId || result.awards.draw.receivedP1 == userId) {
                                     return res.status(500).json({
                                         where: 'Awards',
                                         message: 'Award already received',
                                     });
 
+                                } else {
+                                    statistics.currentExp = statistics.currentExp + result.awards.draw.experience;
+                                    statistics.points = statistics.points + 1;
+                                    statistics.draws = statistics.draws + 1;
+                                    console.log('here is level');
+                                    var levelInfo = require('./checkLevelUp')(statistics.level, statistics.currentExp);
+                                    statistics.currentExp = levelInfo.currentExperience;
+                                    statistics.level = levelInfo.level;
+                                    statistics.save();
+                                    if (result.awards.draw.receivedP1 == '123') {
+                                        result.awards.draw.receivedP1 = userId;
+                                        result.save();
+                                        return res.status(200).json({
+                                            message: 'success'
+                                        })
+                                    }
+                                    else if (result.awards.draw.receivedP2 == '123') {
+                                        result.awards.draw.receivedP2 = userId;
+                                        result.save();
+                                        return res.status(200).json({
+                                            message: 'success'
+                                        })
+                                    } else {
+                                        return res.status(500).json({
+                                            where: 'Awards',
+                                            message: 'Unexpected error',
+                                        });
+                                    }
                                 }
-
                             } catch (err) {
                                 return res.status(500).json({
                                     where: 'Awards',
                                     message: 'Unexpected Error',
                                 });
-
                             }
-
                         });
                     } catch (err) {
                         return res.status(500).json({
                             where: 'Awards',
                             message: 'Unexpected Error',
                         });
-
                     }
                     User.findOne({ _id: userId })
                         .populate({ path: 'arenas', match: { _id: arenaId } })
@@ -219,12 +211,19 @@ exports.awards = function (req, res, next) {
                                     message: 'Unexpected Error',
                                 });
                             }
-                            user.arenas.pull({ _id: arenaId });
-                            user.save();
+                            if (user) {
+                                user.arenas.pull({ _id: arenaId });
+                                user.save();
+
+                            }
+
                         });
                 }
+
+
                 ArenaUser.findOne({ _id: arenaId })
                     .exec(function (err, arena) {
+                        console.log('Arenas delete')
 
                         if (err) {
                             return res.status(500).json({
@@ -232,29 +231,36 @@ exports.awards = function (req, res, next) {
                             });
                         }
                         try {
-                            if (arena.awardPlayerOne == false && arena.awardPlayerTwo == false) {
-                                try {
-                                    arena.awardPlayerOne = true;
-                                    arena.save();
-                                } catch (err) {
-                                    return res.status(500).json({
-                                        message: 'Unexpected Error',
-                                    });
-                                }
-                            } else {
-                                try {
-                                    arena.remove();
-                                    result.remove();
 
-                                } catch (err) {
-                                    return res.status(500).json({
-                                        message: 'Unexpected Error',
-                                    });
-
-                                }
-
+                            if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
+                                || result.awards.winner.received == true && result.awards.loser.received == true) {
+                                arena.remove();
+                                result.remove();
 
                             }
+                            /*               if (arena.awardPlayerOne == false && arena.awardPlayerTwo == false) {
+                                               try {
+                                                   arena.awardPlayerOne = true;
+                                                   arena.save();
+                                               } catch (err) {
+                                                   return res.status(500).json({
+                                                       message: 'Unexpected Error',
+                                                   });
+                                               }
+                                           } else {
+                                               try {
+                                                   arena.remove();
+                                                   result.remove();
+               
+                                               } catch (err) {
+                                                   return res.status(500).json({
+                                                       message: 'Unexpected Error',
+                                                   });
+               
+                                               }
+               
+               
+                                           }*/
                         } catch (err) {
                             return res.status(500).json({
                                 message: 'Unexpected Error',
@@ -266,9 +272,7 @@ exports.awards = function (req, res, next) {
 
             });
 
-        res.status(200).json({
-            message: 'succecss',
-        });
+
     } catch (err) {
         return res.status(500).json({
             where: 'At awards',

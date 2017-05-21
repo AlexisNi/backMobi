@@ -325,7 +325,7 @@ exports.getResults = function (req, res, next) {
                                         }
 
 
-                                        res.status(200).json({
+                                      return  res.status(200).json({
                                             message: 'success',
                                             winner: answerCount.userId,
                                             loser: answerCountB.userId,
@@ -374,7 +374,7 @@ exports.getResults = function (req, res, next) {
                                             awards = getAwards;
 
                                         }
-                                        res.status(200).json({
+                                    return    res.status(200).json({
                                             message: 'success',
                                             loser: answerCount.userId,
                                             winner: answerCountB.userId,
@@ -424,10 +424,10 @@ exports.getResults = function (req, res, next) {
                                             awards = getAwards;
 
                                         }
-                                        res.status(200).json({
+                                     return   res.status(200).json({
                                             message: 'success',
-                                            winner: answerCount.userId,
-                                            loser: answerCountB.userId,
+                                            winner: '',
+                                            loser:'',
                                             draw: true,
                                             awards: awards
 
