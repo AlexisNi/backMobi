@@ -39,7 +39,8 @@ exports.createArena = function (req, res, next) {
                         questions: questions
                     });
                     arenaUser.save(function (err, result) {
-                        try {
+                       /* try {*/
+                            console.log(err);
                             if (err) {
                                 return res.status(500).json({
                                     title: 'Error',
@@ -52,26 +53,27 @@ exports.createArena = function (req, res, next) {
                             userInvite.arenas.push(result);
                             userInvite.save();
 
-                            res.status(201).json({
+                          return  res.status(201).json({
                                 message: 'Saved Message',
                                 obj: result
                             });
-                        } catch (err) {
+                     /*   } catch (err) {
                             return res.status(500).json({
                                 where: 'Create arenas',
-                                title: 'Error',
+                                title: 'Arena already exist',
                                 message: 'An error occured',
                                 status: '500'
                             });
-                        }
+                        }*/
                     });
                 });
             });
         });
     } catch (err) {
+        console.log(err);
         return res.status(500).json({
             where: 'Create arenas',
-            title: 'Error',
+            title: 'Arena already exist or Unknow error',
             message: 'An error occured',
             status: '500'
         });

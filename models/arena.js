@@ -23,5 +23,5 @@ var schema = new Schema({
 schema.index({invite:1, user:1},{unique:true});
 schema.plugin(deepPopulate );
 
-schema.plugin(uniqueValidator,{message:'Error,You already have an open arena with that user!!'});
+schema.plugin(uniqueValidator,{message:'You already have an open arena with that user!'});
 module.exports = mongoose.model('Arena', schema);

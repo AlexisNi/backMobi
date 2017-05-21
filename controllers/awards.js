@@ -1,6 +1,7 @@
 /**
  * Created by alex on 02/03/2017.
  */
+var ArenaQuestions = require('../models/activeArena');
 var ArenaUser = require('../models/arena');
 var Awards = require('../models/awards');
 var Statistics = require('../models/statistics');
@@ -36,6 +37,14 @@ exports.awards = function (req, res, next) {
                     return res.status(500).json({
                         message: 'Unexpected Error',
                     });
+                }
+                if(result==null){
+                      if (err) {
+                    return res.status(500).json({
+                        message: 'Award Already received',
+                    });
+                }
+
                 }
                 if (result.awards.winner.userId == userId) {
                     if (result.awards.winner.received != false) {
@@ -236,6 +245,20 @@ exports.awards = function (req, res, next) {
                                 || result.awards.winner.received == true && result.awards.loser.received == true) {
                                 arena.remove();
                                 result.remove();
+                                ArenaQuestions.find({ arenaId: arenaId })
+                                    .exec(function (err, arenaQuestion) {
+                                        if (err) {
+                                            return res.status(500).json({
+                                                message: 'Unexpected Error',
+                                            });
+                                        }
+                                       console.log(arenaQuestion);
+                                       for(var question in arenaQuestion ){
+                                           console.log(question);
+                                          
+
+                                       }
+                                    })
 
                             }
                             /*               if (arena.awardPlayerOne == false && arena.awardPlayerTwo == false) {
