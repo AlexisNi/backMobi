@@ -40,7 +40,7 @@ exports.createArena = function (req, res, next) {
                     });
                     arenaUser.save(function (err, result) {
                        /* try {*/
-                            console.log(err);
+                            
                             if (err) {
                                 return res.status(500).json({
                                     title: 'Error',
