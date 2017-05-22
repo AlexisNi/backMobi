@@ -45,7 +45,7 @@ exports.createArena = function (req, res, next) {
                                 console.log(err);
                                 return res.status(500).json({
                                     title: 'Error',
-                                    message: err.errors.invite.message,
+                                    message: err,
                                     status: '500'
                                 });
                             }
