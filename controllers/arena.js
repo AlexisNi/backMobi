@@ -39,7 +39,7 @@ exports.createArena = function (req, res, next) {
                         questions: questions
                     });
                     arenaUser.save(function (err, result) {
-                       /* try {*/
+                        try {
                             
                             if (err) {
                                 return res.status(500).json({
@@ -57,14 +57,14 @@ exports.createArena = function (req, res, next) {
                                 message: 'Saved Message',
                                 obj: result
                             });
-                     /*   } catch (err) {
+                        } catch (err) {
                             return res.status(500).json({
                                 where: 'Create arenas',
                                 title: 'Arena already exist',
                                 message: 'An error occured',
                                 status: '500'
                             });
-                        }*/
+                        }
                     });
                 });
             });
