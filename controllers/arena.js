@@ -42,10 +42,9 @@ exports.createArena = function (req, res, next) {
                         try {
                             
                             if (err) {
-                                console.log(err);
                                 return res.status(500).json({
                                     title: 'Error',
-                                    message: err,
+                                    message: 'You already playing with that user ',
                                     status: '500'
                                 });
                             }
@@ -61,8 +60,8 @@ exports.createArena = function (req, res, next) {
                         } catch (err) {
                             return res.status(500).json({
                                 where: 'Create arenas',
-                                title: 'Arena already exist',
-                                message: 'An error occured',
+                                title: 'An error occured ',
+                                message: 'Arena already exist',
                                 status: '500'
                             });
                         }
