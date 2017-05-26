@@ -9,6 +9,8 @@ var User=require('../models/users');
 
 
 module.exports=function (req,connectedUserList) {
+    console.log('GET ARENAS ');
+    console.log(connectedUserList);
 
     try{
     if(req.userId!=null) {
@@ -16,9 +18,12 @@ module.exports=function (req,connectedUserList) {
         User.findOne({_id: req.userId})//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE USER ROW AND SHOW THE LAST NAME OF INVITE
             .populate('arenas', '_id')
             .exec(function (err, arenasArr) {
+                    console.log('INSIDE GET ARENAS ');
+
 
 
                 if (err) {
+                    console.log(err);
                     throw err;
                 }
                 for (var i = 0; i < arenasArr.arenas.length; i++) {
