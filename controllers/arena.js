@@ -40,7 +40,6 @@ exports.createArena = function (req, res, next) {
                     });
                     arenaUser.save(function (err, result) {
                         try {
-                            
                             if (err) {
                                 return res.status(500).json({
                                     title: 'Error',
@@ -53,7 +52,7 @@ exports.createArena = function (req, res, next) {
                             userInvite.arenas.push(result);
                             userInvite.save();
 
-                          return  res.status(201).json({
+                            return res.status(201).json({
                                 message: 'Saved Message',
                                 obj: result
                             });
@@ -99,7 +98,7 @@ exports.statusPlayed = function (req, res, next) {
                                     error: err
                                 });
                             }
-                            res.status(200).json({
+                            return res.status(200).json({
                                 message: 'success',
                             });
                         });
@@ -112,18 +111,26 @@ exports.statusPlayed = function (req, res, next) {
                         });
                     }
                 } else {
-                    ArenaUser.update({ _id: arenaId }, { $set: { invite_played: true } }, function (err, result) {
-                        if (err) {
-                            return res.status(500).json({
-                                title: 'Error',
-                                message: 'An error has occured....',
-                                status: '500'
+                    try {
+                        ArenaUser.update({ _id: arenaId }, { $set: { invite_played: true } }, function (err, result) {
+                            if (err) {
+                                return res.status(500).json({
+                                    title: 'Error',
+                                    message: 'An error has occured....',
+                                    status: '500'
+                                });
+                            }
+                            return res.status(200).json({
+                                message: 'success',
                             });
-                        }
-                        res.status(200).json({
-                            message: 'success',
                         });
-                    });
+                    } catch (err) {
+                        return res.status(500).json({
+                            title: 'Error',
+                            message: 'An error has occured....',
+                            status: '500'
+                        });
+                    }
                 }
 
 

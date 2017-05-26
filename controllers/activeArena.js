@@ -192,29 +192,6 @@ exports.getQuestions = function (req, res, next) {
 
 
 
-    /*        Arenas.findOne({ _id: arenaId })
-                .populate('questions')
-                .exec(function (err, questions) {
-                    try {
-                        if (err) {
-                            return res.status(500).json({
-                                title: 'An error occured',
-                                error: err
-                            });
-                        }
-                        return res.status(200).json({
-                            message: 'Questions received',
-                            questions: questions.questions,
-                        });
-                    } catch (err) {
-                        return res.status(500).json({
-                            title: 'Unable to load Questions',
-                            error: err
-                        });
-                    }
-                });*/
-
-
 }
 exports.getCorrectNumber = function (req, res, next) {
     var arenaId = req.body.arenaId;
