@@ -10,7 +10,7 @@ var User = require('../models/users');
 
 module.exports = function (req, connectedUserList) {
     console.log('GET ARENAS ');
-    console.log(connectedUserList);
+    console.log(`${connectedUserList} + maybe undefined`);
 
     try {
         if (req.userId != null) {

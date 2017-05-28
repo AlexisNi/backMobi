@@ -85,7 +85,7 @@ exports.saveAnsweredQuestion = function (req, res, next) {
     }
 }
 exports.getQuestions = function (req, res, next) {
-    let arenaId = req.body.arenaId
+    var arenaId = req.body.arenaId
     try {
         Arenas.findOne({ _id: arenaId })
             .exec(function (err, arena) {

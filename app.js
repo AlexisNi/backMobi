@@ -8,7 +8,18 @@ var mongoose=require('mongoose');
 var app = express();
 var cors=require('cors');
 var config= require('./config/config.js');
-    
+
+////////////////Node js fireBase////////////////////
+var admin = require("firebase-admin");
+var serviceAccount = require("./config/football-quiz-a9e1e-firebase-adminsdk-huyqg-1f82e47ba0.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://football-quiz-a9e1e.firebaseio.com"
+});
+var adminControl= require("./config/firebaseMiddleware");
+
+
 ///////////////////routes config////////////////////
 var todosRoutes=require('./routes/todos')
 var authethenticationRoute=require('./routes/authentication');
@@ -16,6 +27,7 @@ var userRoutes=require('./routes/user');
 var arenaRoutes=require('./routes/arenas');
 var activeArena=require('./routes/activeArena');
 var awards=require('./routes/awards');
+var firebaseRoutes=require('./routes/firebaseAuth');
 
 ///////////////socket config//////////////////
 var socket_io=require("socket.io");
@@ -60,7 +72,7 @@ app.use('/api/users',userRoutes);
 app.use('/api/arenas',arenaRoutes);
 app.use('/api/activeArena',activeArena);
 app.use('/api/awards',awards);
-
+app.use('/api/firebase',firebaseRoutes);
 app.use(function (req, res, next) {
     return res.render('index');
 });

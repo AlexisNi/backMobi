@@ -31,6 +31,7 @@ module.exports = function (io) {
         });*/
     io.on('connection',function (socket) {
         console.log('user connected');
+        console.log(socket.handshake.query.userId)
         connectedUserList[socket.handshake.query.userId]=socket;
         require('./updateStats')(socket,connectedUserList[socket.handshake.query.userId]);
 
