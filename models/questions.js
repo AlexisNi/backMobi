@@ -13,7 +13,8 @@ var schema = new Schema({
     optionB: {type: String},
     optionC: {type: String},
     optionD: {type: String},
-    answer: {type: String}
+    answer: {type: String},
+    level:{type:Number ,default:0}
 });
 
 

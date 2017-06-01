@@ -5,7 +5,7 @@
  * Created by alex on 11/01/2017.
  */
 var ArenaUser = require('../models/arena');
-var User = require('../models/users');
+var User = require('../models/user');
 
 
 module.exports = function (req, connectedUserList) {
@@ -15,7 +15,7 @@ module.exports = function (req, connectedUserList) {
     try {
         if (req.userId != null) {
             var arenasArray = [];
-            User.findOne({ _id: req.userId })//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE USER ROW AND SHOW THE LAST NAME OF INVITE
+            User.findOne({ firebase_id: req.userId })//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE USER ROW AND SHOW THE LAST NAME OF INVITE
                 .populate('arenas', '_id')
                 .exec(function (err, arenasArr) {
                     console.log('INSIDE GET ARENAS ');
