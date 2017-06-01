@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 
 
 var schema = new Schema({
-    user:{type: Schema.Types.ObjectId, ref: 'User'},
+    user:{type: Schema.Types.ObjectId, ref: 'Users'},
+    firebase_id:{type:String,unique:true},
     level:{type:Number,default:1},
     currentExp:{type:Number,default:0},
     wins:{type:Number,default:0},

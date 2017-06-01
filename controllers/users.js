@@ -1,7 +1,7 @@
 /**
  * Created by alex on 19/02/2017.
  */
-var User = require('../models/users');
+var User = require('../models/user');
 
 
 

@@ -36,6 +36,7 @@ module.exports = function (io) {
         require('./updateStats')(socket,connectedUserList[socket.handshake.query.userId]);
 
 
+
         socket.on('enterArena',function (req) {
             userInfo[socket.id]=req;
             socket.join(req.arenaId);

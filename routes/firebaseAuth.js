@@ -2,19 +2,24 @@
  * Created by alexn on 28/05/2017.
  */
 var express = require('express'),
-  router = express.Router();
+  router = express.Router()
 
-var firebaseController=require('../controllers/firebase');
-var middleware =require('../config/firebaseMiddleware');
+var firebaseController = require('../controllers/firebase')
+var userController = require('../controllers/user')
+var middleware = require('../config/firebaseMiddleware')
 
+router.post('/', middleware, firebaseController.checkAuth)
+router.post('/checkuser', middleware, userController.userCheck)
+router.post('/createUser', middleware, userController.userCreate)
 
+router.get('/protected', middleware, function (req, res) {
+  return res.status(200).json(
+    {
+      content: 'Success',
+      user_id:req.body.uid
+    }
+  )
 
-router.post('/',middleware,firebaseController.checkAuth);
-router.get('/protected',middleware, function(req, res){
-  res.send({ content: 'Success'});
+})
 
-});
-
-
-
-module.exports = router;
+module.exports = router

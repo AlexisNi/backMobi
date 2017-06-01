@@ -6,7 +6,7 @@ exports.checkAuth=function (req,res,next) {
 /*
   var token=req.get('authorization');
 */
-  console.log(req.body.uid)
+  return res.status(200);
 
 
 
