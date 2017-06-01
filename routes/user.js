@@ -1,16 +1,8 @@
-
-var AuthenticationController = require('../controllers/authentication'),
-    UserController = require('../controllers/users'),
-    express = require('express'),
-    passportService = require('../config/passport'),
-    passport = require('passport');
-
-var requireAuth = passport.authenticate('jwt', {session: false});
+var express = require('express');
 var router=express.Router();
-
-
-
-
+var firebaseController = require('../controllers/firebase')
+var middleware = require('../config/firebaseMiddleware')
+var UserController = require('../controllers/user')
 
 router.post('/ra',function (res,req) {
     console.log('Entered') ;
@@ -19,7 +11,7 @@ router.post('/ra',function (res,req) {
 /*router.get('/find', requireAuth, function(req, res){
     res.send({ content: 'Success'});
 });*/
-router.post('/find',requireAuth , UserController.findUser);
+router.post('/find',middleware , UserController.findUser);
 
 
 

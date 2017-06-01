@@ -8,7 +8,6 @@ exports.userCheck = function (req, res, next) {
   var userId = req.body.uid;
 
   try {
-    console.log('inside')
     User.findOne({firebaseId: userId})
       .exec(function (error, user) {
         if (error) {
@@ -35,7 +34,6 @@ exports.userCheck = function (req, res, next) {
     })
   }
 }
-
 exports.userCreate = function (req, res, next) {
   console.log(req.body)
   var userId = req.body.firebase_id;
@@ -99,5 +97,52 @@ exports.userCreate = function (req, res, next) {
       message: 'Unexpected error please login again...'
     })
   }
+}
+
+exports.findUser=function (req,res,next) {
+  var userName=req.body.username;
+  try {
+    User.findOne({username: userName}, function (err, user) {
+      if (err) {
+        return res.status(500).json({
+          title: 'Error',
+          message: 'An error has occured....',
+          status: '500'
+        });
+      }
+      if(user){
+     if(user.firebaseId===req.body.uid) {
+       return res.status(400).json({
+         title: 'Self error',
+         message: 'Sorry you cant play with your self',
+         status: '400'
+       })
+     }else {
+       return res.status(200).json({
+         message: 'User Found',
+         userName: user.userName,
+         inviteId: user._id
+       });
+     }
+      }
+      if (!user) {
+        return res.status(400).json({
+          title: 'No results',
+          message: 'User Not Found',
+          status: '400'
+        });
+      }
+
+    });
+  }catch (err){
+    return res.status(500).json({
+      title: 'Error',
+      message: 'An error has occured....',
+      status: '500'
+    });
+
+  }
+
 
 }
+
