@@ -5,7 +5,7 @@ var uniqueValidator=require('mongoose-unique-validator');
 
 var schema = new Schema({
     arenaId:{ type: Schema.Types.ObjectId, ref: 'Arena' },
-    userId:{ type: Schema.Types.ObjectId, ref: 'User' },
+    userId:{ type: Schema.Types.ObjectId, ref: 'Users' },
     questionAnswer:[{questionId:String,answer:Boolean }],
     awardWinner:{userId:String,points:Number,experience:Number},
     awardLoser:{userId:String,points:Number,experience:Number}

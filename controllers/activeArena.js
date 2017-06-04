@@ -3,7 +3,7 @@
  */
 var ArenaQuestions = require('../models/activeArena');
 var Awards = require('../models/awards');
-var User = require('../models/users');
+var User = require('../models/user');
 var Arenas = require('../models/arena');
 
 

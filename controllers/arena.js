@@ -14,6 +14,7 @@ exports.createArena = function (req, res, next) {
         })
       }
       User.findById(req.body.inviteId, function (err, userInvite) {
+        console.log(userInvite);
         if (err) {
           return res.status(500).json({
             title: 'Error',
@@ -21,12 +22,12 @@ exports.createArena = function (req, res, next) {
             status: '500'
           })
         }
-          Questions.syncRandom(function (err, result) {
+     /*     Questions.syncRandom(function (err, result) {
          if(err){
          console.log(err);
          }
          console.log(result);
-         });
+         });*/
         var level1 = {level: 1}
         var level2 = {level: 2}
         var level3 = {level: 3}
@@ -86,17 +87,18 @@ exports.createArena = function (req, res, next) {
                   for (var i = 0; i < level5.length; i++) {
                     questionsArray.push(level5[i])
                   }
-                  console.log(questionsArray)
 
                   ArenaUser.schema.eachPath(function (path) {
-                  })
+                  });
                   var arenaUser = new ArenaUser({
                     user: user,
                     invite: userInvite,
                     status_accept: false,
                     questions: questionsArray
                   })
+
                   arenaUser.save(function (err, result) {
+                    console.log(result);
                     try {
                       if (err) {
                         return res.status(500).json({
@@ -106,13 +108,15 @@ exports.createArena = function (req, res, next) {
                         })
                       }
                       user.arenas.push(result)
-                      user.save()
+                      user.save();
                       userInvite.arenas.push(result)
                       userInvite.save()
 
                       return res.status(201).json({
                         message: 'Saved Message',
-                        obj: result
+                        obj: result,
+
+
                       })
                     } catch (err) {
                       return res.status(500).json({
@@ -183,7 +187,7 @@ exports.statusPlayed = function (req, res, next) {
                 })
               }
               return res.status(200).json({
-                message: 'success',
+                message: 'success'
               })
             })
           } catch (err) {

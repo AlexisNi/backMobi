@@ -4,8 +4,8 @@ var uniqueValidator=require('mongoose-unique-validator');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var schema = new Schema({
-    user:{type: Schema.Types.ObjectId, ref: 'User'},
-    invite:{type: Schema.Types.ObjectId, ref: 'User'},
+    user:{type: Schema.Types.ObjectId, ref: 'Users'},
+    invite:{type: Schema.Types.ObjectId, ref: 'Users'},
     status_accept: {type: Boolean},
     questions: [{type: Schema.Types.ObjectId, ref: 'Question'}],
     user_played:{type:Boolean,default:false},

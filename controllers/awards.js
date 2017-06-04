@@ -2,7 +2,7 @@ var ArenaQuestions = require('../models/activeArena');
 var ArenaUser = require('../models/arena');
 var Awards = require('../models/awards');
 var Statistics = require('../models/statistics');
-var User = require('../models/users');
+var User = require('../models/user');
 var level;
 var experience;
 
@@ -49,7 +49,7 @@ exports.awards = function (req, res, next) {
                             Statistics.findOne({ user: userId }).exec(function (err, statistics) {
                                 if (err) {
                                     res.status(500).json({
-                                        message: 'Unexpected Error',
+                                        message: 'Unexpected Error'
                                     });
                                 }
                                 try {
@@ -63,7 +63,7 @@ exports.awards = function (req, res, next) {
                                 } catch (err) {
                                     return res.status(500).json({
                                         where: 'Awards',
-                                        message: 'Unexpected error',
+                                        message: 'Unexpected error'
                                     });
                                 }
 
@@ -74,7 +74,7 @@ exports.awards = function (req, res, next) {
 
                                         if (err) {
                                             res.status(500).json({
-                                                message: 'Unexpected Error',
+                                                message: 'Unexpected Error'
                                             });
                                         }
                                         try {
@@ -83,12 +83,65 @@ exports.awards = function (req, res, next) {
                                             user.arenas.pull({ _id: arenaId });
                                             user.save(function (err,saveres) {
                                               if(err){
+                                                console.log(err);
                                                 return res.status(500).json({
+
                                                   where: 'Awards',
-                                                  message: 'Unexpected error',
+                                                  message: 'Unexpected error'
                                                 });
                                               }
+                                              ArenaUser.findOne({ _id: arenaId })
+                                                .exec(function (err, arena) {
+                                                  if (err) {
+                                                    console.log(err);
+                                                    return res.status(500).json({
+                                                      message: 'Unexpected Error'
+                                                    });
+                                                  }
+                                                  try {
+                                                    if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
+                                                      || result.awards.winner.received == true && result.awards.loser.received == true) {
 
+                                                      arena.remove(function (err,result) {
+                                                        if(err){
+                                                          return res.status(500).json({
+                                                            where: 'Awards',
+                                                            message: 'Unexpected error'
+                                                          });
+                                                        }
+                                                        if (result){
+                                                          result.remove(function (err,res) {
+                                                            if(err){
+                                                              return res.status(500).json({
+                                                                where: 'Awards',
+                                                                message: 'Unexpected error'
+                                                              });
+                                                            }
+                                                            return res.status(200).json({
+                                                              message: 'All delete'
+                                                            });
+
+                                                          });
+
+                                                        }
+
+                                                      });
+
+
+                                                    }
+                                                    else{
+                                                      return res.status(200).json({
+                                                        message: 'All updated'
+                                                      });
+
+                                                    }
+                                                  } catch (err) {
+                                                    return res.status(500).json({
+                                                      where: 'Awards',
+                                                      message: 'Unexpected error',
+                                                    });
+                                                  }
+                                                });
 
                                             });
                                         } catch (err) {
@@ -97,7 +150,7 @@ exports.awards = function (req, res, next) {
                                                 message: 'Unexpected error',
                                             });
                                         }
-                                        ArenaUser.findOne({ _id: arenaId })
+                                       /* ArenaUser.findOne({ _id: arenaId })
                                             .exec(function (err, arena) {
                                                 if (err) {
                                                     return res.status(500).json({
@@ -141,7 +194,7 @@ exports.awards = function (req, res, next) {
                                                         message: 'Unexpected error',
                                                     });
                                                 }
-                                            });
+                                            });*/
 
 
 

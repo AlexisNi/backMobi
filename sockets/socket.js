@@ -1,7 +1,7 @@
 /**
  * Created by alex on 17/02/2017.
  */
-var User = require('../models/users');
+var User = require('../models/user');
 var jwt=require('jsonwebtoken');
 var config = require('../config/auth');
 var passport = require('passport');
