@@ -21,7 +21,8 @@ exports.userCheck = function (req, res, next) {
           })
         } else {
           return res.status(404).json({
-            message: 'User has no profile'
+            message: 'User has no profile',
+            error:100
           })
         }
       })
