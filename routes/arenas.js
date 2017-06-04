@@ -9,6 +9,7 @@ var AuthenticationController = require('../controllers/authentication'),
 
 var requireAuth = passport.authenticate('jwt', {session: false});
 var router=express.Router();
+var middleware = require('../config/firebaseMiddleware')
 
 
 
@@ -17,8 +18,8 @@ var router=express.Router();
 router.post('/ra',requireAuth,function (res,req) {
     console.log('Entered') ;
 });
-router.post('/', requireAuth,arenaController.createArena);
-router.post('/statusPlayed', requireAuth,arenaController.statusPlayed);
+router.post('/', middleware,arenaController.createArena);
+router.post('/statusPlayed', middleware,arenaController.statusPlayed);
 
 
 // Set up routes

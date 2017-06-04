@@ -10,28 +10,9 @@ var userInfo=[];
 
 
 module.exports = function (io) {
-/*      require('socketio-auth')(io, {
-            authenticate: function (socket, data, callback) {
-                socket.removeAllListeners('authentication');
-                console.log('auth')
-
-                    try {
-                        var token=data.token.substring(4);
-                        var decode=jwt.verify(token,config.secret);
-                    } catch (e){console.log(e)}
-
-                       User.findById(decode._id, function(err, user){
-                           if (err || !user) return callback(new Error("User not found"));
-                           return callback(null,true);
-
-                        });
-
-            }
-
-        });*/
     io.on('connection',function (socket) {
         console.log('user connected');
-        console.log(socket.handshake.query.userId)
+        console.log(socket.handshake.query.userId);
         connectedUserList[socket.handshake.query.userId]=socket;
         require('./updateStats')(socket,connectedUserList[socket.handshake.query.userId]);
 
@@ -52,6 +33,7 @@ module.exports = function (io) {
         });
 
         socket.on('getArenas',function (req) {
+
             console.log('getArenas')
             require('./getArenas')(req,connectedUserList[req.userId]);
 

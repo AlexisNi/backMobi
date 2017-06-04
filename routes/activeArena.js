@@ -6,6 +6,7 @@ var AuthenticationController = require('../controllers/authentication'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
+var middleware = require('../config/firebaseMiddleware')
 
 var requireAuth = passport.authenticate('jwt', {session: false});
 var router=express.Router();
@@ -14,10 +15,10 @@ var router=express.Router();
 
 
 
-router.post('/', requireAuth,activeArenaController.saveAnsweredQuestion);
-router.post('/getCorrect', requireAuth,activeArenaController.getCorrectNumber);
-router.post('/getQuestions', requireAuth,activeArenaController.getQuestions);
-router.post('/getResults', requireAuth,activeArenaController.getResults);
+router.post('/', middleware,activeArenaController.saveAnsweredQuestion);
+router.post('/getCorrect', middleware,activeArenaController.getCorrectNumber);
+router.post('/getQuestions', middleware,activeArenaController.getQuestions);
+router.post('/getResults', middleware,activeArenaController.getResults);
 
 
 

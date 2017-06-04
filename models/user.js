@@ -6,12 +6,6 @@ var Schema = mongoose.Schema;
 
 
 var UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    lowercase: true,
-    trim:true,
-    unique: true,
-  },
   firebaseId:{
     type: String,
     required:true,

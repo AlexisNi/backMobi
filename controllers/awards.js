@@ -81,7 +81,16 @@ exports.awards = function (req, res, next) {
                                             result.awards.winner.received = true;
                                             result.save();
                                             user.arenas.pull({ _id: arenaId });
-                                            user.save();
+                                            user.save(function (err,saveres) {
+                                              if(err){
+                                                return res.status(500).json({
+                                                  where: 'Awards',
+                                                  message: 'Unexpected error',
+                                                });
+                                              }
+
+
+                                            });
                                         } catch (err) {
                                             return res.status(500).json({
                                                 where: 'Awards',
@@ -99,8 +108,31 @@ exports.awards = function (req, res, next) {
                                                     if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
                                                         || result.awards.winner.received == true && result.awards.loser.received == true) {
 
-                                                        arena.remove();
-                                                        result.remove();
+                                                        arena.remove(function (err,result) {
+                                                          if(err){
+                                                            return res.status(500).json({
+                                                              where: 'Awards',
+                                                              message: 'Unexpected error',
+                                                            });
+                                                          }
+                                                          if (result){
+                                                            result.remove(function (err,res) {
+                                                              if(err){
+                                                                return res.status(500).json({
+                                                                  where: 'Awards',
+                                                                  message: 'Unexpected error',
+                                                                });
+                                                              }
+                                                              return res.status(200).json({
+                                                                message: 'All delete'
+                                                              });
+
+                                                            });
+
+                                                          }
+
+                                                        });
+
 
                                                     }
                                                 } catch (err) {
@@ -117,10 +149,10 @@ exports.awards = function (req, res, next) {
 
 
 
-                                return res.status(200).json({
+                      /*          return res.status(200).json({
                                     message: 'success'
                                 });
-
+*/
                             });
                         }
                     } catch (err) {
@@ -294,8 +326,9 @@ exports.awards = function (req, res, next) {
                                                 if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
                                                     || result.awards.winner.received == true && result.awards.loser.received == true) {
 
-                                                    arena.remove();
+
                                                     result.remove();
+                                                    arena.remove();
 
                                                 }
                                             });

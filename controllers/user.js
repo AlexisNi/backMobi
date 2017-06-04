@@ -1,6 +1,3 @@
-/**
- * Created by alexn on 31/05/2017.
- */
 var User = require('../models/user');
 var Statistics=require('../models/statistics');
 
@@ -20,7 +17,7 @@ exports.userCheck = function (req, res, next) {
           return res.status(200).json({
             message: 'User exist',
             user_id: user._id,
-            username: user.userName
+            username: user.username
           })
         } else {
           return res.status(404).json({
@@ -111,19 +108,19 @@ exports.findUser=function (req,res,next) {
         });
       }
       if(user){
-     if(user.firebaseId===req.body.uid) {
-       return res.status(400).json({
-         title: 'Self error',
-         message: 'Sorry you cant play with your self',
-         status: '400'
-       })
-     }else {
-       return res.status(200).json({
-         message: 'User Found',
-         userName: user.userName,
-         inviteId: user._id
-       });
-     }
+        if(user.firebaseId===req.body.uid) {
+          return res.status(400).json({
+            title: 'Self error',
+            message: 'Sorry you cant play with your self',
+            status: '400'
+          })
+        }else {
+          return res.status(200).json({
+            message: 'User Found',
+            userName: user.userName,
+            inviteId: user._id
+          });
+        }
       }
       if (!user) {
         return res.status(400).json({
@@ -145,4 +142,3 @@ exports.findUser=function (req,res,next) {
 
 
 }
-

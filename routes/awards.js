@@ -4,6 +4,7 @@ var AuthenticationController = require('../controllers/authentication'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
+var middleware = require('../config/firebaseMiddleware')
 
 var requireAuth = passport.authenticate('jwt', {session: false});
 var router=express.Router();
@@ -12,7 +13,7 @@ var router=express.Router();
 
 
 
-router.post('/', requireAuth,awardsController.awards);
+router.post('/', middleware,awardsController.awards);
 
 
 
