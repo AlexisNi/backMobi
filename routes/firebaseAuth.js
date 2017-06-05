@@ -10,7 +10,7 @@ var middleware = require('../config/firebaseMiddleware')
 
 router.post('/', middleware, firebaseController.checkAuth)
 router.post('/checkuser', middleware, userController.userCheck)
-router.post('/createUser', middleware, userController.userCreate)
+router.post('/createUser', userController.userCreate)
 
 router.get('/protected', middleware, function (req, res) {
   return res.status(200).json(
