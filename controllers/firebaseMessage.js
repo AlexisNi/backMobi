@@ -15,7 +15,7 @@ exports.saveTokenDevice = function (req, res, next) {
     }
   };
 
-  admin.messaging().sendToDevice(registrationToken, payload)
+  admin.messaging().sendToDevice(registrationToken.additionalData.score, payload)
     .then(function(response) {
       console.log("Successfully sent message:", response);
       return res.status(200).json({
