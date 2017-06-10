@@ -13,7 +13,10 @@ var config= require('./config/config.js');
 var admin = require("firebase-admin");
 var serviceAccount = require("./config/football-quiz-a9e1e-firebase-adminsdk-huyqg-1f82e47ba0.json");
 
-
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://football-quiz-a9e1e.firebaseio.com"
+});
 var adminControl= require("./config/firebaseMiddleware");
 
 
