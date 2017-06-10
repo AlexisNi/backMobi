@@ -58,7 +58,7 @@ exports.userCreate = function (req, res, next) {
               if (err) {
                 console.log(err);
                 return res.status(400).json({
-                  message: 'UserName already exists please try another one'
+                  message: 'UserName couldn save'
                 })
               }
               var statistics = new Statistics({ user: result,firebase_id:userId });
