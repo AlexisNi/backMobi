@@ -10,7 +10,7 @@ var userController = require('../controllers/user')
 var middleware = require('../config/firebaseMiddleware')
 
 router.post('/', middleware, firebaseController.checkAuth)
-router.post('/devToken',middleware, firebaseDevice.saveTokenDevice)
+router.post('/devToken', firebaseDevice.saveTokenDevice)
 router.post('/checkuser', middleware, userController.userCheck)
 router.post('/createUser', userController.userCreate)
 

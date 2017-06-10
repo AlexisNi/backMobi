@@ -26,21 +26,31 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="firebaseDevice.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="firebaseDevice.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/firebaseDevice.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+            <state relative-caret-position="72">
+              <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="arena.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arena.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/arena.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="121" column="19" lean-forward="false" selection-start-line="121" selection-start-column="19" selection-end-line="126" selection-end-column="24" />
+            <state relative-caret-position="149">
+              <caret line="107" column="26" lean-forward="true" selection-start-line="103" selection-start-column="24" selection-end-line="107" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -49,8 +59,8 @@
       <file leaf-file-name="getArenas.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sockets/getArenas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="34" column="74" lean-forward="false" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="74" />
+            <state relative-caret-position="227">
+              <caret line="42" column="140" lean-forward="false" selection-start-line="42" selection-start-column="127" selection-end-line="42" selection-end-column="140" />
               <folding />
             </state>
           </provider>
@@ -137,7 +147,6 @@
         <option value="$PROJECT_DIR$/config/firebaseMiddleware.js" />
         <option value="$PROJECT_DIR$/models/questions.js" />
         <option value="$PROJECT_DIR$/sockets/updateStats.js" />
-        <option value="$PROJECT_DIR$/sockets/getArenas.js" />
         <option value="$PROJECT_DIR$/routes/activeArena.js" />
         <option value="$PROJECT_DIR$/routes/awards.js" />
         <option value="$PROJECT_DIR$/controllers/activeArena.js" />
@@ -152,6 +161,7 @@
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/controllers/firebaseMessage.js" />
         <option value="$PROJECT_DIR$/routes/firebaseAuth.js" />
+        <option value="$PROJECT_DIR$/sockets/getArenas.js" />
         <option value="$PROJECT_DIR$/controllers/firebaseDevice.js" />
       </list>
     </option>
@@ -408,16 +418,15 @@
       <workItem from="1496759569852" duration="49000" />
       <workItem from="1496842512257" duration="1232000" />
       <workItem from="1497087905703" duration="1000" />
-      <workItem from="1497087916088" duration="10450000" />
+      <workItem from="1497087916088" duration="11319000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="232432000" />
+    <option name="totallyTimeSpent" value="233301000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17398202" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -426,7 +435,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -746,14 +755,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="12" lean-forward="false" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/awards.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="618">
@@ -786,30 +787,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/firebaseDevice.js">
+    <entry file="file://$PROJECT_DIR$/sockets/getArenas.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
-          <folding>
-            <marker date="1497112203731" expanded="true" signature="314:908" ph="{...}" />
-            <marker date="1497112203731" expanded="true" signature="706:900" ph="{...}" />
-            <marker date="1497112203731" expanded="true" signature="725:891" ph="{...}" />
-          </folding>
+        <state relative-caret-position="227">
+          <caret line="42" column="140" lean-forward="false" selection-start-line="42" selection-start-column="127" selection-end-line="42" selection-end-column="140" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sockets/getArenas.js">
+    <entry file="file://$PROJECT_DIR$/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="34" column="74" lean-forward="false" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="74" />
+        <state relative-caret-position="273">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/arena.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="121" column="19" lean-forward="false" selection-start-line="121" selection-start-column="19" selection-end-line="126" selection-end-column="24" />
+        <state relative-caret-position="149">
+          <caret line="107" column="26" lean-forward="true" selection-start-line="103" selection-start-column="24" selection-end-line="107" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/firebaseDevice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
           <folding />
         </state>
       </provider>

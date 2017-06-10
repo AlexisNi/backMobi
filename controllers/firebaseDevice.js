@@ -7,7 +7,7 @@ var admin = require("firebase-admin");
 exports.saveTokenDevice = function (req, res, next) {
   var registrationToken=req.body.devToken;
   var userId = req.body.uid;
-  User.findOne({ $and: [{ firebaseId: userId }, { deviceToken: registrationToken }]})
+/*  User.findOne({ $and: [{ firebaseId: userId }, { deviceToken: registrationToken }]})
     .exec(function (err,user) {
       if(err){
         return res.status(500).json({
@@ -44,9 +44,8 @@ exports.saveTokenDevice = function (req, res, next) {
         })
       }
 
-    })
-
-  /*var payload = {
+    })*/
+  var payload = {
     notification: {
       title: "$GOOG up 1.43% on the day",
       body: "$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day."
@@ -62,5 +61,5 @@ exports.saveTokenDevice = function (req, res, next) {
     })
     .catch(function(error) {
       console.log("Error sending message:", error);
-    });*/
+    });
 }
