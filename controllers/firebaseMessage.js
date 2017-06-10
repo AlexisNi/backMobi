@@ -9,13 +9,13 @@ exports.saveTokenDevice = function (req, res, next) {
   7q0:APA91bEuNiTgilcC2B6c0zuYudEGnYqRVb8cBXtlVI5KnFb9SM7Cf9uGXapIT1XtSuwUAmzsicnOdlA4cfjH9YjPi7OUpwPlB8SJc7YWXkKJD5sSGLCbM2X8HizWCOP8tHIF1r7INILf`
 
   var payload = {
-    data: {
-      score: "850",
-      time: "2:45"
+    notification: {
+      title: "$GOOG up 1.43% on the day",
+      body: "$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day."
     }
   };
 
-  admin.messaging().sendToDevice(registrationToken, payload,payload.score)
+  admin.messaging().sendToDevice(registrationToken, payload)
     .then(function(response) {
       console.log("Successfully sent message:", response);
       return res.status(200).json({
