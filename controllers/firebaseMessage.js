@@ -1,6 +1,8 @@
 /**
  * Created by alexn on 10/06/2017.
  */
+
+var admin = require("firebase-admin");
 exports.saveTokenDevice = function (req, res, next) {
   var registrationToken=req.body.devToken;
 
