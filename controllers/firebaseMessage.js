@@ -16,9 +16,6 @@ exports.saveTokenDevice = function (req, res, next) {
   admin.messaging().sendToDevice(registrationToken, payload)
     .then(function(response) {
       console.log("Successfully sent message:", response);
-      return res.status(200).json({
-        message:'Success Message send'
-      })
     })
     .catch(function(error) {
       console.log("Error sending message:", error);
