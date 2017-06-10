@@ -31,7 +31,11 @@ var UserSchema = new mongoose.Schema({
   ],
   lastLogin:{
     typed:Date
-  }
+  },
+  deviceToken:[{
+    type:String,
+    default:'12345'
+  }]
 })
 
 UserSchema.pre('save',function (next) {

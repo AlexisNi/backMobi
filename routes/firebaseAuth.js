@@ -5,12 +5,12 @@ var express = require('express'),
   router = express.Router()
 
 var firebaseController = require('../controllers/firebase')
-var firebasemessageController=require('../controllers/firebaseMessage')
+var firebaseDevice=require('../controllers/firebaseDevice')
 var userController = require('../controllers/user')
 var middleware = require('../config/firebaseMiddleware')
 
 router.post('/', middleware, firebaseController.checkAuth)
-router.post('/devToken', firebasemessageController.saveTokenDevice)
+router.post('/devToken',middleware, firebaseDevice.saveTokenDevice)
 router.post('/checkuser', middleware, userController.userCheck)
 router.post('/createUser', userController.userCreate)
 
