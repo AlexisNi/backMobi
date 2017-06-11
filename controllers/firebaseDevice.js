@@ -44,7 +44,7 @@ exports.saveTokenDevice = function (req, res, next) {
 
       } else {
         var devToken = new DeviceToken({
-          userId: userId,
+          userId: user,
           token: registrationToken
         })
 
