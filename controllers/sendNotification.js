@@ -24,7 +24,8 @@ module.exports=function (userId) {
           var payload = {
             notification: {
               title: "You have a new Notification",
-              body: "You have a new Arena/Reward"
+              body: "You have a new Arena/Reward",
+              sound: "default"
             }
           };
           admin.messaging().sendToDevice(registrationToken, payload)
