@@ -43,7 +43,11 @@ exports.saveTokenDevice = function (req, res, next) {
               err: err
             })
           }
-          User.findOne({_id: userId})
+          return res.status(201).json({
+            message: 'Device Token saved',
+            obj: userSaved
+          })
+  /*        User.findOne({_id: userId})
             .exec(function (err, user) {
               if (err) {
                 return res.status(500).json({
@@ -64,12 +68,9 @@ exports.saveTokenDevice = function (req, res, next) {
                     err: err
                   })
                 }
-                return res.status(201).json({
-                  message: 'Device Token saved',
-                  obj: userSaved
-                })
+
               })
-            })
+            })*/
         })
       }
     })
