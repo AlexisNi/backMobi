@@ -5,6 +5,7 @@ var admin = require('firebase-admin');
 var DeviceToken = require('../models/deviceTokens');
 
 module.exports=function (userId) {
+  console.log('inside')
 
   DeviceToken.findOne({userId: userId})
     .exec(function (err,result) {
