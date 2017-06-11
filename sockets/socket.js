@@ -45,6 +45,9 @@ module.exports = function (io) {
             require('./getQuestion')(req,connectedUserList[req.userId]);
 
         });
+        socket.on('sendNotication',function (req) {
+          require('../controllers/sendNotification')(req.userId);
+        })
 
         socket.on('disconnect',function () {
             console.log('User Disconcted');

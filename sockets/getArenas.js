@@ -45,7 +45,6 @@ module.exports = function (req, connectedUserList) {
                                             objUser: arenasUser
                                         });
                                     }
-                                  require('../controllers/sendNotification')(req.userId)
 
 
                                 });
