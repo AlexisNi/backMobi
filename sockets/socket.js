@@ -58,10 +58,8 @@ module.exports = function (io) {
                 socket.leave(userData.arenaId);
                 var otherUser=userInfo[socket.id].inviteId;
                 console.log('player disconected invite id is :');
-                console.log(otherUser);
-
+                require('../controllers/sendNotification')(otherUser);
                 require('./updateUserStatus')(userInfo[socket.id].userId,userData.arenaId);
-
                 if (connectedUserList[otherUser]!=null){
                     if(otherUser!=null) {
                         console.log('other user');
