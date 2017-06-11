@@ -6,8 +6,9 @@ var DeviceToken = require('../models/deviceTokens');
 
 module.exports=function (userId) {
   console.log('inside');
+  console.log(userId);
 
-  DeviceToken.findOne({userId: userId})
+  DeviceToken.findOne({userId:userId})
     .exec(function (err,result) {
       if(err){
         return res.status(500).json({
