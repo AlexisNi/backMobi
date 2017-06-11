@@ -107,10 +107,10 @@ exports.createArena = function (req, res, next) {
                           status: '500'
                         })
                       }
-                      user.arenas.push(result)
+                      user.arenas.push(result);
                       user.save();
-                      userInvite.arenas.push(result)
-                      userInvite.save()
+                      userInvite.arenas.push(result);
+                      userInvite.save();
 
                       return res.status(201).json({
                         message: 'Saved Message',

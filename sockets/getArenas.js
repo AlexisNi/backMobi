@@ -10,21 +10,12 @@ var User = require('../models/user');
 
 module.exports = function (req, connectedUserList) {
 
-    console.log('GET ARENAS ');
-
    try {
         if (req.userId != null) {
             var arenasArray = [];
             User.findOne({_id: req.userId })//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE USER ROW AND SHOW THE LAST NAME OF INVITE
                 .populate('arenas', '_id')
                 .exec(function (err, arenasArr) {
-                    console.log('INSIDE GET ARENAS ');
-
-
-                    console.log(arenasArr);
-
-
-
                     if (err) {
                         console.log(err);
                         throw err;
@@ -53,8 +44,9 @@ module.exports = function (req, connectedUserList) {
                                             obj: arenas,
                                             objUser: arenasUser
                                         });
-
                                     }
+                                    require('../controllers/sendNotification')(req.userId)
+
                                 });
                         });
                 });

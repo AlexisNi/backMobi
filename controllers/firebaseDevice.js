@@ -3,12 +3,18 @@
  */
 var DeviceToken = require('../models/deviceTokens')
 var User = require('../models/user')
-var admin = require('firebase-admin')
 exports.saveTokenDevice = function (req, res, next) {
   var registrationToken = req.body.devToken
   var userId = req.body.userId
   DeviceToken.findOne({token: registrationToken})
     .exec(function (err, result) {
+      if(err){
+        return res.status(500).json({
+          where: 'firebaseDevice',
+          title: 'An error occured ',
+          err:err
+        })
+      }
       if (result) {
         DeviceToken.update({_id: result._id}, {$set: {userId: userId}})
           .exec(function (err, result) {
@@ -46,7 +52,7 @@ exports.saveTokenDevice = function (req, res, next) {
           return res.status(201).json({
             message: 'Device Token saved',
             obj: userSaved
-          })
+          });
   /*        User.findOne({_id: userId})
             .exec(function (err, user) {
               if (err) {
@@ -75,21 +81,5 @@ exports.saveTokenDevice = function (req, res, next) {
       }
     })
 
-  /*  var payload = {
-   notification: {
-   title: "$GOOG up 1.43% on the day",
-   body: "$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day."
-   }
-   };
 
-   admin.messaging().sendToDevice(registrationToken, payload)
-   .then(function(response) {
-   console.log("Successfully sent message:", response);
-   return res.status(200).json({
-   message:'Success Message send'
-   })
-   })
-   .catch(function(error) {
-   console.log("Error sending message:", error);
-   });*/
 }
