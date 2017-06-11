@@ -6,6 +6,14 @@ var User = require('../models/user')
 exports.saveTokenDevice = function (req, res, next) {
   var registrationToken = req.body.devToken
   var userId = req.body.userId
+  User.findById(userId, function (err, user) {
+    if (err) {
+      return res.status(500).json({
+        title: 'Error',
+        message: 'An error has occured....',
+        status: '500'
+      })
+    }
   DeviceToken.findOne({token: registrationToken})
     .exec(function (err, result) {
       if(err){
@@ -53,33 +61,12 @@ exports.saveTokenDevice = function (req, res, next) {
             message: 'Device Token saved',
             obj: userSaved
           });
-  /*        User.findOne({_id: userId})
-            .exec(function (err, user) {
-              if (err) {
-                return res.status(500).json({
-                  title: 'Error',
-                  message: 'An error has occured....',
-                  status: '500',
-                  err: err
-                })
-              }
 
-              user.deviceToken.push(result)
-              user.save(function (err, userSaved) {
-                if (err) {
-                  return res.status(500).json({
-                    title: 'Error',
-                    message: 'An error has occured....',
-                    status: '500',
-                    err: err
-                  })
-                }
-
-              })
-            })*/
         })
       }
-    })
+    });
+  });
+
 
 
 }

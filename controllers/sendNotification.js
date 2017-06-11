@@ -3,7 +3,7 @@
  */
 var admin = require('firebase-admin');
 var DeviceToken = require('../models/deviceTokens');
-
+var User = require('../models/user');
 module.exports=function (userId) {
   console.log('inside');
   console.log(userId);
