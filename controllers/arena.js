@@ -115,8 +115,6 @@ exports.createArena = function (req, res, next) {
                       return res.status(201).json({
                         message: 'Saved Message',
                         obj: result,
-
-
                       })
                     } catch (err) {
                       return res.status(500).json({

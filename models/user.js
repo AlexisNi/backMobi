@@ -33,8 +33,8 @@ var UserSchema = new mongoose.Schema({
     typed:Date
   },
   deviceToken:[{
-    type:String,
-    default:'12345'
+    type: Schema.Types.ObjectId,
+    ref: 'DeviceTokens'
   }]
 })
 
