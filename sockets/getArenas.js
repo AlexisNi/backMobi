@@ -44,13 +44,14 @@ module.exports = function (req, connectedUserList) {
                                             obj: arenas,
                                             objUser: arenasUser
                                         });
-                                      require('../controllers/sendNotification')(req.userId)
                                     }
+                                  require('../controllers/sendNotification')(req.userId)
 
 
                                 });
                         });
                 });
+
         }
     } catch (err) {
         throw err;
