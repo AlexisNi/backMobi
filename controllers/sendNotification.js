@@ -49,19 +49,15 @@ module.exports = function (otherUserId, user, arenaId) {
 
         }
         if (result.userTwoSendNotification != null) {
-          console.log('inside null');
-          console.log(user);
-          console.log(result.userTwoSendNotification.userId )
         if (result.userTwoSendNotification.userId == user && result.userTwoSendNotification.send == false) {
-    console.log(user);
-    console.log('inside');
-
           DeviceToken.findOne({userId: otherUserId})
-            .exec(function (err, devive) {
+            .exec(function (err, device) {
+              console.log(device);
               if (err) {
+                console.log(err)
                 throw err
               }
-              if (devive) {
+              if (device) {
                 try {
                   var registrationToken = result.token
                   var payload = {
