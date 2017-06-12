@@ -47,8 +47,7 @@ module.exports = function (io) {
         });
         socket.on('sendNotication',function (req) {
           console.log('NOTIFICATIONS')
-          console.log(req);
-          require('../controllers/sendNotification')(req.userId);
+          require('../controllers/sendNotification')(req.userId,userInfo[socket.id].userId,userInfo[socket.id].arenaId);
         })
 
         socket.on('disconnect',function () {
