@@ -48,7 +48,9 @@ module.exports = function (io) {
         socket.on('sendNotication',function (req) {
           console.log('NOTIFICATIONS');
           console.log(userInfo[socket.id]);
+/*
           require('../controllers/sendNotification')(req.userId,userInfo[socket.id].userId,userInfo[socket.id].arenaId);
+*/
         })
 
         socket.on('disconnect',function () {
@@ -56,6 +58,7 @@ module.exports = function (io) {
             delete connectedUserList[socket.handshake.query.userId];
 
             var userData=userInfo[socket.id];
+            console.log(userData);
             if(typeof userData!=='undefined'){
                 socket.leave(userData.arenaId);
                 var otherUser=userInfo[socket.id].inviteId;
