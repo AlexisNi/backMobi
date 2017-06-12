@@ -22,6 +22,8 @@ module.exports = function (io) {
             userInfo[socket.id]=req;
             socket.join(req.arenaId);
             console.log('player entered arena with detals :'+ userInfo[socket.id].arenaId+' '+userInfo[socket.id].userId);
+          console.log(socket.id);
+
         });
         socket.on('leaveArena',function () {
             console.log('leaver Arena Caught');
@@ -48,7 +50,7 @@ module.exports = function (io) {
         socket.on('sendNotication',function (req) {
           console.log('NOTIFICATIONS');
           var userData=userInfo[socket.id];
-          console.log(userData);
+          console.log(socket.id);
 /*
           require('../controllers/sendNotification')(req.userId,userInfo[socket.id].userId,userInfo[socket.id].arenaId);
 */
