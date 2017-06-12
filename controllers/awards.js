@@ -41,7 +41,8 @@ exports.awards = function (req, res, next) {
                 where: 'At awards',
                 title: 'Error',
                 message: 'You already received that award....',
-                status: '500'
+                status: '500',
+                error:err
               })
 
             } else {
@@ -62,7 +63,10 @@ exports.awards = function (req, res, next) {
                 } catch (err) {
                   return res.status(500).json({
                     where: 'Awards',
-                    message: 'Unexpected error'
+                    message: 'Unexpected error',
+                    error:err
+
+
                   })
                 }
 
@@ -73,7 +77,9 @@ exports.awards = function (req, res, next) {
 
                     if (err) {
                       res.status(500).json({
-                        message: 'Unexpected Error'
+                        message: 'Unexpected Error',
+                        error:err
+
                       })
                     }
                     try {
@@ -86,15 +92,16 @@ exports.awards = function (req, res, next) {
 
                             where: 'Awards',
                             message: 'Unexpected error',
-                            err: err
+                            error: err
                           })
                         }
                         ArenaUser.findOne({_id: arenaId})
                           .exec(function (err, arena) {
                             if (err) {
-                              console.log(err)
                               return res.status(500).json({
-                                message: 'Unexpected Error'
+                                message: 'Unexpected Error',
+                                error: err
+
                               })
                             }
                             try {
@@ -105,7 +112,9 @@ exports.awards = function (req, res, next) {
                                   if (err) {
                                     return res.status(500).json({
                                       where: 'Awards',
-                                      message: 'Unexpected error'
+                                      message: 'Unexpected error',
+                                      error: err
+
                                     })
                                   }
                                   if (result) {
@@ -113,7 +122,9 @@ exports.awards = function (req, res, next) {
                                       if (err) {
                                         return res.status(500).json({
                                           where: 'Awards',
-                                          message: 'Unexpected error'
+                                          message: 'Unexpected error',
+                                          error: err
+
                                         })
                                       }
                                       return res.status(200).json({
@@ -137,7 +148,9 @@ exports.awards = function (req, res, next) {
                               return res.status(500).json({
                                 where: 'Awards',
                                 message: 'Unexpected error',
-                              })
+                                error: err
+
+                            })
                             }
                           })
 
@@ -146,6 +159,8 @@ exports.awards = function (req, res, next) {
                       return res.status(500).json({
                         where: 'Awards',
                         message: 'Unexpected error',
+                        error: err
+
                       })
                     }
                   })
@@ -155,6 +170,8 @@ exports.awards = function (req, res, next) {
             return res.status(500).json({
               where: 'Awards',
               message: 'Unexpected error',
+              error: err
+
             })
           }
         } else if (result.awards.loser.userId == userId) {
@@ -164,13 +181,17 @@ exports.awards = function (req, res, next) {
               where: 'At awards',
               title: 'Error',
               message: 'You already received that award....',
-              status: '500'
+              status: '500',
+              error: err
+
             })
           } else {
             Statistics.findOne({user: userId}).exec(function (err, statistics) {
               if (err) {
                 return res.status(500).json({
                   message: 'Unexpected Error',
+                  error: err
+
                 })
               }
               statistics.currentExp = statistics.currentExp + result.awards.loser.experience
@@ -187,6 +208,8 @@ exports.awards = function (req, res, next) {
                 if (err) {
                   return res.status(500).json({
                     message: 'Unexpected Error',
+                    error: err
+
                   })
                 }
                 result.awards.loser.received = true
@@ -198,7 +221,8 @@ exports.awards = function (req, res, next) {
 
                       where: 'Awards',
                       message: 'Unexpected error',
-                      err: err
+                      error: err
+
                     })
                   }
                   ArenaUser.findOne({_id: arenaId})
@@ -208,7 +232,8 @@ exports.awards = function (req, res, next) {
                       if (err) {
                         return res.status(500).json({
                           message: 'Unexpected Error',
-                          err: err
+                          error: err
+
                         })
                       }
                       if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
@@ -218,7 +243,9 @@ exports.awards = function (req, res, next) {
                           if (err) {
                             return res.status(500).json({
                               where: 'Awards',
-                              message: 'Unexpected error'
+                              message: 'Unexpected error',
+                              error: err
+
                             })
                           }
                           if (result) {
@@ -226,7 +253,9 @@ exports.awards = function (req, res, next) {
                               if (err) {
                                 return res.status(500).json({
                                   where: 'Awards',
-                                  message: 'Unexpected error'
+                                  message: 'Unexpected error',
+                                  error: err
+
                                 })
                               }
                               return res.status(200).json({
@@ -257,12 +286,16 @@ exports.awards = function (req, res, next) {
             if (result.awards.draw.receivedP2 == userId) {
               return res.status(500).json({
                 where: 'Awards',
-                message: 'Award already received'
+                message: 'Award already received',
+                error: err
+
               })
             } else if (result.awards.draw.receivedP1 == userId) {
               return res.status(500).json({
                 where: 'Awards',
-                message: 'Award already received'
+                message: 'Award already received',
+                error: err
+
               })
             } else {
               statistics.currentExp = statistics.currentExp + result.awards.draw.experience
@@ -282,7 +315,9 @@ exports.awards = function (req, res, next) {
                   .exec(function (err, user) {
                     if (err) {
                       return res.status(500).json({
-                        message: 'Unexpected Error'
+                        message: 'Unexpected Error',
+                        error: err
+
                       })
                     }
                     user.arenas.pull({_id: arenaId})
@@ -299,6 +334,8 @@ exports.awards = function (req, res, next) {
                           if (err) {
                             return res.status(500).json({
                               message: 'Unexpected Error',
+                              error: err
+
                             })
                           }
                           if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
@@ -308,7 +345,9 @@ exports.awards = function (req, res, next) {
                               if (err) {
                                 return res.status(500).json({
                                   where: 'Awards',
-                                  message: 'Unexpected error'
+                                  message: 'Unexpected error',
+                                  error: err
+
                                 })
                               }
                               if (result) {
@@ -316,7 +355,9 @@ exports.awards = function (req, res, next) {
                                   if (err) {
                                     return res.status(500).json({
                                       where: 'Awards',
-                                      message: 'Unexpected error'
+                                      message: 'Unexpected error',
+                                      error: err
+
                                     })
                                   }
                                   return res.status(200).json({
@@ -347,7 +388,9 @@ exports.awards = function (req, res, next) {
                   .exec(function (err, user) {
                     if (err) {
                       return res.status(500).json({
-                        message: 'Unexpected Error'
+                        message: 'Unexpected Error',
+                        error: err
+
                       })
                     }
                     user.arenas.pull({_id: arenaId})
@@ -364,6 +407,8 @@ exports.awards = function (req, res, next) {
                           if (err) {
                             return res.status(500).json({
                               message: 'Unexpected Error',
+                              error: err
+
                             })
                           }
                           if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
@@ -373,7 +418,9 @@ exports.awards = function (req, res, next) {
                               if (err) {
                                 return res.status(500).json({
                                   where: 'Awards',
-                                  message: 'Unexpected error'
+                                  message: 'Unexpected error',
+                                  error: err
+
                                 })
                               }
                               if (arenaresult) {
@@ -381,7 +428,9 @@ exports.awards = function (req, res, next) {
                                   if (err) {
                                     return res.status(500).json({
                                       where: 'Awards',
-                                      message: 'Unexpected error'
+                                      message: 'Unexpected error',
+                                      error: err
+
                                     })
                                   }
                                   return res.status(200).json({
@@ -406,6 +455,8 @@ exports.awards = function (req, res, next) {
                 return res.status(500).json({
                   where: 'Awards',
                   message: 'Unexpected error',
+                  error: err
+
                 });
               }
 
@@ -418,6 +469,8 @@ exports.awards = function (req, res, next) {
         return res.status(500).json({
           where: 'Awards',
           message: 'Unexpected error',
+          error: err
+
         });
 
       }
