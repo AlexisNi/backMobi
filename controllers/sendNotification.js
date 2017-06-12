@@ -6,12 +6,16 @@ var DeviceToken = require('../models/deviceTokens');
 var Arenas = require('../models/arena')
 
 module.exports=function (otherUserId,user,arenaId) {
+  console.log(otherUserId);
+  console.log(user);
+  console.log(arenaId);
 
   Arenas.findOne({_id:arenaId})
     .exec(function (err,result) {
       if(err){
         throw err;
       }
+      console.log(result);
       if(result){
         if(result.userOneSendNotification!=null){
           if(result.userOneSendNotification.userId==user&&result.userOneSendNotification.send==false){
