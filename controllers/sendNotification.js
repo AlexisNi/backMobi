@@ -49,45 +49,48 @@ module.exports = function (otherUserId, user, arenaId) {
                 }
 
               })
-          } else if (result.userTwoSendNotification.userId == user && result.userTwoSendNotification.send == false) {
-
-            DeviceToken.findOne({userId: otherUserId})
-              .exec(function (err, devive) {
-                if (err) {
-                  throw err
-                }
-                console.log(result)
-                if (devive) {
-                  try {
-                    var registrationToken = result.token
-                    var payload = {
-                      notification: {
-                        title: 'You have a new Notification',
-                        body: 'A player has just finished playing ,login to receive you reward!',
-                        sound: 'default'
-                      }
-                    }
-                    admin.messaging().sendToDevice(registrationToken, payload)
-                      .then(function (response) {
-                        result.userTwoSendNotification.send = true
-                        result.save()
-                        console.log('Successfully sent message:', response)
-                      })
-                      .catch(function (error) {
-                        console.log('Error sending message:', error)
-                      })
-                  } catch (err) {
-
-                  }
-                }
-
-              })
-
-          } else {
-            console.log('Notification has been sent')
           }
 
         }
+        if (result.userTwoSendNotification != null) {
+        if (result.userTwoSendNotification.userId == user && result.userTwoSendNotification.send == false) {
+
+          DeviceToken.findOne({userId: otherUserId})
+            .exec(function (err, devive) {
+              if (err) {
+                throw err
+              }
+              console.log(result)
+              if (devive) {
+                try {
+                  var registrationToken = result.token
+                  var payload = {
+                    notification: {
+                      title: 'You have a new Notification',
+                      body: 'A player has just finished playing ,login to receive you reward!',
+                      sound: 'default'
+                    }
+                  }
+                  admin.messaging().sendToDevice(registrationToken, payload)
+                    .then(function (response) {
+                      result.userTwoSendNotification.send = true
+                      result.save()
+                      console.log('Successfully sent message:', response)
+                    })
+                    .catch(function (error) {
+                      console.log('Error sending message:', error)
+                    })
+                } catch (err) {
+
+                }
+              }
+
+            })
+
+        } else {
+          console.log('Notification has been sent')
+        }
+      }
       }
 
     })
