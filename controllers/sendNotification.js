@@ -15,19 +15,18 @@ module.exports=function (otherUserId,user,arenaId) {
       if(err){
         throw err;
       }
-      console.log(result);
       if(result){
         if(result.userOneSendNotification!=null){
           if(result.userOneSendNotification.userId==user&&result.userOneSendNotification.send==false){
             DeviceToken.findOne({userId:otherUserId})
-              .exec(function (err,result) {
+              .exec(function (err,devive) {
                 if(err){
                 throw err;
                 }
                 console.log(result);
-                if(result){
+                if(devive){
                   try {
-                    var registrationToken = result.token;
+                    var registrationToken = devive.token;
                     var payload = {
                       notification: {
                         title: "You have a new Notification",
@@ -57,12 +56,12 @@ module.exports=function (otherUserId,user,arenaId) {
         }else if(result.userTwoSendNotification.userId==user&&result.userTwoSendNotification.send==false){
 
           DeviceToken.findOne({userId:otherUserId})
-            .exec(function (err,result) {
+            .exec(function (err,devive) {
               if(err){
               throw err;
               }
               console.log(result);
-              if(result){
+              if(devive){
                 try {
                   var registrationToken = result.token;
                   var payload = {
