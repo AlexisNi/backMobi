@@ -30,7 +30,8 @@ exports.awards = function (req, res, next) {
     .exec(function (err, result) {
       if (err) {
         return res.status(500).json({
-          message: 'Unexpected Error',
+          message: 'Unexpected Error'
+
         })
       }
       try {
