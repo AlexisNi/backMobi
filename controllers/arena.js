@@ -94,7 +94,9 @@ exports.createArena = function (req, res, next) {
                     user: user,
                     invite: userInvite,
                     status_accept: false,
-                    questions: questionsArray
+                    questions: questionsArray,
+                    userOneSendNotification:{userId:user},
+                    userTwoSendNotification:{userId:userInvite}
                   })
 
                   arenaUser.save(function (err, result) {

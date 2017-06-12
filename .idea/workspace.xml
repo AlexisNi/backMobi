@@ -6,9 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/activeArena.js" afterPath="$PROJECT_DIR$/controllers/activeArena.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/awards.js" afterPath="$PROJECT_DIR$/controllers/awards.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/arena.js" afterPath="$PROJECT_DIR$/controllers/arena.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/arena.js" afterPath="$PROJECT_DIR$/models/arena.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,11 +25,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="awards.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/controllers/awards.js">
+      <file leaf-file-name="arena.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/arena.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="173" column="0" lean-forward="true" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+            <state relative-caret-position="588">
+              <caret line="97" column="58" lean-forward="false" selection-start-line="97" selection-start-column="58" selection-end-line="97" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -39,8 +38,18 @@
       <file leaf-file-name="activeArena.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/activeArena.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1783">
-              <caret line="316" column="62" lean-forward="true" selection-start-line="316" selection-start-column="62" selection-end-line="316" selection-end-column="62" />
+            <state relative-caret-position="612">
+              <caret line="324" column="29" lean-forward="true" selection-start-line="324" selection-start-column="29" selection-end-line="324" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arena.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/arena.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="15" column="10" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -131,7 +140,6 @@
         <option value="$PROJECT_DIR$/routes/activeArena.js" />
         <option value="$PROJECT_DIR$/routes/awards.js" />
         <option value="$PROJECT_DIR$/sockets/getArenasOnDisconnect.js" />
-        <option value="$PROJECT_DIR$/models/arena.js" />
         <option value="$PROJECT_DIR$/models/activeArena.js" />
         <option value="$PROJECT_DIR$/controllers/user.js" />
         <option value="$PROJECT_DIR$/app.js" />
@@ -139,7 +147,6 @@
         <option value="$PROJECT_DIR$/routes/firebaseAuth.js" />
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/models/deviceTokens.js" />
-        <option value="$PROJECT_DIR$/controllers/arena.js" />
         <option value="$PROJECT_DIR$/controllers/firebaseDevice.js" />
         <option value="$PROJECT_DIR$/sockets/sendOpponentArenas.js" />
         <option value="$PROJECT_DIR$/sockets/getNotification.js" />
@@ -148,6 +155,8 @@
         <option value="$PROJECT_DIR$/controllers/sendNotification.js" />
         <option value="$PROJECT_DIR$/controllers/activeArena.js" />
         <option value="$PROJECT_DIR$/controllers/awards.js" />
+        <option value="$PROJECT_DIR$/models/arena.js" />
+        <option value="$PROJECT_DIR$/controllers/arena.js" />
       </list>
     </option>
   </component>
@@ -405,12 +414,12 @@
       <workItem from="1497087905703" duration="1000" />
       <workItem from="1497087916088" duration="12955000" />
       <workItem from="1497173338293" duration="15893000" />
-      <workItem from="1497263044845" duration="1724000" />
+      <workItem from="1497263044845" duration="2794000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252554000" />
+    <option name="totallyTimeSpent" value="253624000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1929" y="-9" width="1938" height="1098" extended-state="6" />
@@ -695,13 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/arena.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="32" lean-forward="true" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/firebase.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -780,34 +782,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/awards.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="471" column="20" lean-forward="false" selection-start-line="471" selection-start-column="17" selection-end-line="471" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/arena.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="18" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="18" />
+        <state relative-caret-position="315">
+          <caret line="15" column="10" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/awards.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        <state relative-caret-position="294">
+          <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/activeArena.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1783">
-          <caret line="316" column="62" lean-forward="true" selection-start-line="316" selection-start-column="62" selection-end-line="316" selection-end-column="62" />
+        <state relative-caret-position="612">
+          <caret line="324" column="29" lean-forward="true" selection-start-line="324" selection-start-column="29" selection-end-line="324" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/awards.js">
+    <entry file="file://$PROJECT_DIR$/controllers/arena.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="173" column="0" lean-forward="true" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+        <state relative-caret-position="588">
+          <caret line="97" column="58" lean-forward="false" selection-start-line="97" selection-start-column="58" selection-end-line="97" selection-end-column="58" />
           <folding />
         </state>
       </provider>
