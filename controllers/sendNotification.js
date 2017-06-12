@@ -31,7 +31,7 @@ module.exports=function (otherUserId,user,arenaId) {
                     var payload = {
                       notification: {
                         title: "You have a new Notification",
-                        body: "You have a new Arena/Reward",
+                        body: "A player has just inivte you, challenge him!!",
                         sound: "default"
                       }
                     };
@@ -68,7 +68,7 @@ module.exports=function (otherUserId,user,arenaId) {
                   var payload = {
                     notification: {
                       title: "You have a new Notification",
-                      body: "You have a new Arena/Reward",
+                      body: "A player has just finished playing ,login to receive you reward!",
                       sound: "default"
                     }
                   };
