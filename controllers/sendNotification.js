@@ -59,7 +59,7 @@ module.exports = function (otherUserId, user, arenaId) {
               }
               if (device) {
                 try {
-                  var registrationToken = result.token
+                  var registrationToken = device.token
                   var payload = {
                     notification: {
                       title: 'You have a new Notification',
