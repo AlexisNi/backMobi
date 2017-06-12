@@ -6,10 +6,7 @@ var DeviceToken = require('../models/deviceTokens')
 var Arenas = require('../models/arena')
 
 module.exports = function (otherUserId, user, arenaId) {
-  console.log(otherUserId)
-  console.log(user)
-  console.log(arenaId)
-
+  console.log(user);
   Arenas.findOne({_id: arenaId})
     .exec(function (err, result) {
       if (err) {
@@ -53,14 +50,15 @@ module.exports = function (otherUserId, user, arenaId) {
 
         }
         if (result.userTwoSendNotification != null) {
+          console.log('insuide');
         if (result.userTwoSendNotification.userId == user && result.userTwoSendNotification.send == false) {
+
 
           DeviceToken.findOne({userId: otherUserId})
             .exec(function (err, devive) {
               if (err) {
                 throw err
               }
-              console.log(result)
               if (devive) {
                 try {
                   var registrationToken = result.token
@@ -87,8 +85,6 @@ module.exports = function (otherUserId, user, arenaId) {
 
             })
 
-        } else {
-          console.log('Notification has been sent')
         }
       }
       }
