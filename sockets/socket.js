@@ -51,9 +51,9 @@ module.exports = function (io) {
           console.log('NOTIFICATIONS');
           var userData=userInfo[socket.id];
           console.log(socket.id);
-/*
+
           require('../controllers/sendNotification')(req.userId,userInfo[socket.id].userId,userInfo[socket.id].arenaId);
-*/
+
         })
 
         socket.on('disconnect',function () {
