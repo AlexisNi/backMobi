@@ -47,7 +47,8 @@ module.exports = function (io) {
         });
         socket.on('sendNotication',function (req) {
           console.log('NOTIFICATIONS');
-          console.log(userInfo[socket.id]);
+          var userData=userInfo[socket.id];
+          console.log(userData);
 /*
           require('../controllers/sendNotification')(req.userId,userInfo[socket.id].userId,userInfo[socket.id].arenaId);
 */
@@ -62,7 +63,6 @@ module.exports = function (io) {
             if(typeof userData!=='undefined'){
                 socket.leave(userData.arenaId);
                 var otherUser=userInfo[socket.id].inviteId;
-                console.log('player disconected invite id is :');
                 require('../controllers/sendNotification')(otherUser,userInfo[socket.id].userId,userInfo[socket.id].arenaId);
                 require('./updateUserStatus')(userInfo[socket.id].userId,userData.arenaId);
                 if (connectedUserList[otherUser]!=null){
