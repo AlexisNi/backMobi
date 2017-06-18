@@ -15,14 +15,14 @@ module.exports = function (otherUserId, user, arenaId) {
         if (result.userOneSendNotification != null) {
           if (result.userOneSendNotification.userId == user && result.userOneSendNotification.send == false) {
             DeviceToken.findOne({userId: otherUserId})
-              .exec(function (err, devive) {
+              .exec(function (err, device) {
                 if (err) {
                   throw err
                 }
                 console.log(result)
-                if (devive) {
+                if (device) {
                   try {
-                    var registrationToken = devive.token
+                    var registrationToken = device.token
                     var payload = {
                       notification: {
                         title: 'You have a new Notification',

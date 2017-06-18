@@ -62,12 +62,13 @@ exports.userCreate = function (req, res, next) {
                 })
               }
               var statistics = new Statistics({ user: result,firebase_id:userId });
-              statistics.save(function (err,result) {
+              statistics.save(function (err,stats) {
                 if(err){
                   return res.status(500).json({
                     message: 'Unexpected error please login again...'
                   })
                 }
+                result.statistics.push(stats);
 
 
               });
