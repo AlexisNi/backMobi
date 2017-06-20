@@ -68,9 +68,8 @@ exports.userCreate = function (req, res, next) {
                     message: 'Unexpected error please login again...'
                   })
                 }
-                result.statistics.push(stats);
-
-
+                result.statistics=stats;
+                result.save();
               });
 
 
@@ -101,7 +100,9 @@ exports.userCreate = function (req, res, next) {
 exports.findUser=function (req,res,next) {
   var userName=req.body.username;
   try {
-    User.findOne({username: userName}, function (err, user) {
+    User.findOne({username: userName})
+      .populate('statistics')
+      .exec(function (err, user) {
       if (err) {
         return res.status(500).json({
           title: 'Error',
@@ -109,8 +110,23 @@ exports.findUser=function (req,res,next) {
           status: '500'
         });
       }
-      if(user){
-        if(user.firebaseId===req.body.uid) {
+
+        if(user){
+        if(!user.statistics){
+          console.log(user);
+          Statistics.findOne({user:user._id})
+            .exec(function (err,result) {
+              console.log(result);
+              user.statistics=result;
+              user.save();
+            });
+
+
+
+        }
+
+
+       if(user.firebaseId===req.body.uid) {
           return res.status(400).json({
             title: 'Self error',
             message: 'Sorry you cant play with your self',
@@ -119,8 +135,9 @@ exports.findUser=function (req,res,next) {
         }else {
           return res.status(200).json({
             message: 'User Found',
-            userName: user.userName,
-            inviteId: user._id
+            username: user.username,
+            inviteId: user._id,
+            statistics:user.statistics
           });
         }
       }

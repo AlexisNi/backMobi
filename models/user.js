@@ -23,12 +23,12 @@ var UserSchema = new mongoose.Schema({
       ref: 'Arena'
     }
   ],
-  statistics:[
+  statistics:
     {
       type: Schema.Types.ObjectId,
-      ref: 'Stats'
+      ref: 'Stats',
     }
-  ],
+  ,
   lastLogin:{
     typed:Date
   },
