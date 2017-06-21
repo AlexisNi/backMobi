@@ -18,7 +18,7 @@ module.exports=function (otherUser,connectedUserList) {
             }
             console.log(arenasArr);
             ArenaUser.find({$and: [{user: otherUser}, {_id: {$in: arenasArray}}]})//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
-                .populate('invite', 'userName')
+                .populate('invite', 'username')
                 .deepPopulate('questions')
                 .exec(function (err, arenas) {
 
@@ -27,7 +27,7 @@ module.exports=function (otherUser,connectedUserList) {
                     }
 
                     ArenaUser.find({$and: [{invite: otherUser}, {_id: {$in: arenasArray}}]})//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
-                        .populate('user', 'userName')
+                        .populate('user', 'username')
                         .deepPopulate('questions')
                         .exec(function (err, arenasUser) {
                             if (err) {
