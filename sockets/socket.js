@@ -61,7 +61,6 @@ module.exports = function (io) {
             delete connectedUserList[socket.handshake.query.userId];
 
             var userData=userInfo[socket.id];
-            console.log(userData);
             if(typeof userData!=='undefined'){
                 socket.leave(userData.arenaId);
                 var otherUser=userInfo[socket.id].inviteId;

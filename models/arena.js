@@ -23,6 +23,18 @@ var schema = new Schema({
       type: Schema.Types.ObjectId, ref: 'Users'
     },
     send:{type: Boolean, default: false}
+  },
+  userOneSeeNotification: {
+    userId: {
+      type: Schema.Types.ObjectId, ref: 'Users'
+    },
+    seenArena:{type: Boolean, default: false}
+  },
+  userTwoSeeNotification: {
+    userId: {
+      type: Schema.Types.ObjectId, ref: 'Users'
+    },
+    seenArena:{type: Boolean, default: false}
   }
 
 })
