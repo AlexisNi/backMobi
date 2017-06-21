@@ -4,7 +4,7 @@ var Awards = require('../models/awards')
 var Statistics = require('../models/statistics')
 var User = require('../models/user')
 var level
-var experience
+var experience;
 
 exports.awards = function (req, res, next) {
   console.log('awards')
@@ -66,8 +66,6 @@ exports.awards = function (req, res, next) {
                     where: 'Awards',
                     message: 'Unexpected error',
                     error:err
-
-
                   })
                 }
 
@@ -262,13 +260,9 @@ exports.awards = function (req, res, next) {
                               return res.status(200).json({
                                 message: 'All delete'
                               })
-
                             })
-
                           }
-
                         })
-
                       }
                       else {
                         return res.status(200).json({
@@ -276,10 +270,7 @@ exports.awards = function (req, res, next) {
                         })
                       }
                     })
-
                 })
-
-
               })
           }
         } else {
@@ -289,14 +280,12 @@ exports.awards = function (req, res, next) {
                 where: 'Awards',
                 message: 'Award already received',
                 error: err
-
               })
             } else if (result.awards.draw.receivedP1 == userId) {
               return res.status(500).json({
                 where: 'Awards',
                 message: 'Award already received',
                 error: err
-
               })
             } else {
               statistics.currentExp = statistics.currentExp + result.awards.draw.experience
@@ -336,7 +325,6 @@ exports.awards = function (req, res, next) {
                             return res.status(500).json({
                               message: 'Unexpected Error',
                               error: err
-
                             })
                           }
                           if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
@@ -366,9 +354,7 @@ exports.awards = function (req, res, next) {
                                   })
 
                                 })
-
                               }
-
                             })
                           }else{
                             return res.status(200).json({
@@ -380,7 +366,6 @@ exports.awards = function (req, res, next) {
                     })
                   })
               }
-
               else if (result.awards.draw.receivedP2 == '123') {
                 result.awards.draw.receivedP2 = userId
                 result.save()
@@ -409,19 +394,16 @@ exports.awards = function (req, res, next) {
                             return res.status(500).json({
                               message: 'Unexpected Error',
                               error: err
-
                             })
                           }
                           if (result.awards.draw.receivedP2 != '123' && result.awards.draw.receivedP1 != '123'
                             || result.awards.winner.received == true && result.awards.loser.received == true) {
-
                             arena.remove(function (err, arenaresult) {
                               if (err) {
                                 return res.status(500).json({
                                   where: 'Awards',
                                   message: 'Unexpected error',
                                   error: err
-
                                 })
                               }
                               if (arenaresult) {
@@ -431,17 +413,13 @@ exports.awards = function (req, res, next) {
                                       where: 'Awards',
                                       message: 'Unexpected error',
                                       error: err
-
                                     })
                                   }
                                   return res.status(200).json({
                                     message: 'All delete'
                                   })
-
                                 })
-
                               }
-
                             })
                           }else{
                             return res.status(200).json({
@@ -449,7 +427,6 @@ exports.awards = function (req, res, next) {
                             })
                           }
                         })
-
                     })
                   })
               } else {
@@ -460,9 +437,6 @@ exports.awards = function (req, res, next) {
 
                 });
               }
-
-
-
             }
           });
         }
