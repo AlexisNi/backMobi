@@ -14,7 +14,7 @@ exports.createArena = function (req, res, next) {
         })
       }
       User.findById(req.body.inviteId, function (err, userInvite) {
-        console.log(userInvite);
+        console.log(userInvite)
         if (err) {
           return res.status(500).json({
             title: 'Error',
@@ -22,7 +22,7 @@ exports.createArena = function (req, res, next) {
             status: '500'
           })
         }
-     /*     Questions.syncRandom(function (err, result) {
+        /*     Questions.syncRandom(function (err, result) {
          if(err){
          console.log(err);
          }
@@ -89,18 +89,18 @@ exports.createArena = function (req, res, next) {
                   }
 
                   ArenaUser.schema.eachPath(function (path) {
-                  });
+                  })
                   var arenaUser = new ArenaUser({
                     user: user,
                     invite: userInvite,
                     status_accept: false,
                     questions: questionsArray,
-                    userOneSendNotification:{userId:user},
-                    userTwoSendNotification:{userId:userInvite}
+                    userOneSendNotification: {userId: user},
+                    userTwoSendNotification: {userId: userInvite}
                   })
 
                   arenaUser.save(function (err, result) {
-                    console.log(result);
+                    console.log(result)
                     try {
                       if (err) {
                         return res.status(500).json({
@@ -109,10 +109,10 @@ exports.createArena = function (req, res, next) {
                           status: '500'
                         })
                       }
-                      user.arenas.push(result);
-                      user.save();
-                      userInvite.arenas.push(result);
-                      userInvite.save();
+                      user.arenas.push(result)
+                      user.save()
+                      userInvite.arenas.push(result)
+                      userInvite.save()
 
                       return res.status(201).json({
                         message: 'Saved Message',
@@ -164,8 +164,13 @@ exports.statusPlayed = function (req, res, next) {
                   error: err
                 })
               }
+              if (result) {
+                console.log('inside update status')
+                require('../sockets/updateUserStatus')(userId, arenaId)
+
+              }
               return res.status(200).json({
-                message: 'success',
+                message: 'success'
               })
             })
           } catch (err) {
@@ -185,6 +190,9 @@ exports.statusPlayed = function (req, res, next) {
                   message: 'An error has occured....',
                   status: '500'
                 })
+              }
+              if (result) {
+                require('../sockets/updateUserStatus')(userId, arenaId)
               }
               return res.status(200).json({
                 message: 'success'

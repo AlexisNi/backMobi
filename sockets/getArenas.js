@@ -12,6 +12,8 @@ module.exports = function (req, connectedUserList) {
 
    try {
         if (req.userId != null) {
+            console.log(req);
+            console.log(connectedUserList);
             var arenasArray = [];
             User.findOne({_id: req.userId })//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE USER ROW AND SHOW THE LAST NAME OF INVITE
                 .populate('arenas', '_id')
