@@ -162,7 +162,3 @@ exports.findUser=function (req,res,next) {
 
 
 }
-
-exports.findRandom(function (req,res,next) {
-
-});
