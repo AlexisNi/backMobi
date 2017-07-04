@@ -20,6 +20,8 @@ router.post('/ra',requireAuth,function (res,req) {
 });
 router.post('/', middleware,arenaController.createArena);
 router.post('/statusPlayed', middleware,arenaController.statusPlayed);
+router.post('/getArenas', middleware,arenaController.getArenas);
+
 
 
 // Set up routes
