@@ -163,7 +163,8 @@ exports.findUser=function (req,res,next) {
 
 }
 exports.findRandomUser=function (req,res,next) {
-  User.findRandom().limit(1).exec(function (err, user) {
+  console.log('inside find random')
+  User.findRandom().populate('statistics').limit(1).exec(function (err, user) {
     if(err){
       return res.status(500).json({
         title: 'Error',
@@ -172,9 +173,12 @@ exports.findRandomUser=function (req,res,next) {
       });
     }
     if (user){
+      console.log(user)
       return res.status(200).json({
         message: 'User Found',
-        user: user
+        username: user[0].username,
+        inviteId: user[0]._id,
+        statistics:user[0].statistics
       })
     }else{
       return res.status(500).json({
