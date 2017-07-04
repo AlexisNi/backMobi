@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var random = require('mongoose-random');
 
 
 var UserSchema = new mongoose.Schema({
@@ -41,8 +42,6 @@ var UserSchema = new mongoose.Schema({
 UserSchema.pre('save',function (next) {
   this.username=this.username.toLowerCase();
   next();
-
-
-})
-
+});
+UserSchema.plugin(random, { path: 'r' });
 module.exports = mongoose.model('Users', UserSchema);

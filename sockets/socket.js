@@ -36,12 +36,9 @@ module.exports = function (io) {
     })
 
     socket.on('getArenas', function (req) {
-      if (typeof req.userId === 'undefined') {
 
-
-      } else {
         require('./getArenas')(req, connectedUserList[req.userId])
-      }
+
 
     })
 
@@ -54,11 +51,9 @@ module.exports = function (io) {
     socket.on('sendNotication', function (req) {
       console.log('NOTIFICATIONS')
       var userData = userInfo[socket.id]
-      console.log(socket.id)
-
       require('../controllers/sendNotification')(req.userId, userInfo[socket.id].userId, userInfo[socket.id].arenaId)
 
-    })
+    });
 
     socket.on('disconnect', function () {
       console.log('User Disconcted')
