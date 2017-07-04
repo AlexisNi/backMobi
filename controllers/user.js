@@ -162,7 +162,29 @@ exports.findUser=function (req,res,next) {
 
 
 }
-exports.findRandomUser=function () {
+exports.findRandomUser=function (req,res,next) {
+  User.findRandom().limit(1).exec(function (err, user) {
+    if(err){
+      return res.status(500).json({
+        title: 'Error',
+        message: 'An error has occured....',
+        status: '500'
+      });
+    }
+    if (user){
+      return res.status(200).json({
+        message: 'User Found',
+        user: user
+      })
+    }else{
+      return res.status(500).json({
+        title: 'Error',
+        message: 'An error has occured....',
+        status: '500'
+      });
+    }
+  });
+
 
 
 }

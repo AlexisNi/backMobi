@@ -12,6 +12,8 @@ router.post('/ra',function (res,req) {
     res.send({ content: 'Success'});
 });*/
 router.post('/find',middleware , UserController.findUser);
+router.post('/findRandom',middleware , UserController.findRandomUser);
+
 
 
 
