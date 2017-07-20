@@ -1,51 +1,49 @@
 /**
  * Created by alexn on 31/05/2017.
  */
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var random = require('mongoose-random');
-
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
+var random = require('mongoose-random')
 
 var UserSchema = new mongoose.Schema({
-  firebaseId:{
+  firebaseId: {
     type: String,
-    required:true,
-    unique:true
+    required: true,
+    unique: true
   },
   username: {
     type: String,
-    required:true,
-    trim:true,
+    required: true,
+    trim: true,
     unique: true
   },
-  arenas:[
+  arenas: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Arena'
     }
   ],
-  statistics:
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Stats',
-    },
-   history:{
-    type:Schema.Types.ObjectId,
-     ref:'Stats'
-   }
-  ,
-  lastLogin:{
-    typed:Date
+  statistics: {
+    type: Schema.Types.ObjectId,
+    ref: 'Stats',
   },
-  deviceToken:[{
+  history: [{
+    type: Schema.Types.ObjectId,
+    ref: 'History'
+  }]
+  ,
+  lastLogin: {
+    typed: Date
+  },
+  deviceToken: [{
     type: Schema.Types.ObjectId,
     ref: 'DeviceTokens'
   }]
 })
 
-UserSchema.pre('save',function (next) {
-  this.username=this.username.toLowerCase();
-  next();
-});
-UserSchema.plugin(random, { path: 'r' });
-module.exports = mongoose.model('Users', UserSchema);
+UserSchema.pre('save', function (next) {
+  this.username = this.username.toLowerCase()
+  next()
+})
+UserSchema.plugin(random, {path: 'r'})
+module.exports = mongoose.model('Users', UserSchema)

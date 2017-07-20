@@ -62,42 +62,8 @@ exports.awards = function (req, res, next) {
                   statistics.level = levelInfo.level
                   statistics.save(function (err, statsResult) {
                     var loserΙd = result.awards.loser.userId
-                    require('./historicData').historicWinner(userId,loserΙd);
-/*                    User.findOne({_id: userId}).exec(function (err, winnerUser) {
-                      if (err) {
-                        return res.status(500).json({
-                          message: 'Unexpected Error'
-                        })
-                      }
-                      if (winnerUser) {
-                        HistoryLogs.findOne({userId: userId}).exec(function (err, history) {
-                          var loserΙd = result.awards.loser.userId
-                          if (err) {
-                            return res.status(500).json({
-                              message: 'Unexpected Error'
-                            })
-                          }
-                          if (history == undefined || history == null) {
-                            var newHistory = new HistoryLogs({
-                              user: winnerUser,
-                              history: [{
-                                user:
-                                  {
-                                    userId: loserΙd,
-                                    loses:0,
-                                    draws:0,
-                                    wins:1
-                                  }
+                    require('./historicData').historicWinner(req,res,next,userId,loserΙd);
 
-                              }]
-                            })
-                            console.log(newHistory);
-                            newHistory.save();
-                          }
-                        })
-                      }
-
-                    })*/
 
                   })
                 } catch (err) {
@@ -238,7 +204,11 @@ exports.awards = function (req, res, next) {
               var levelInfo = require('./LevelUp')(statistics.level, statistics.currentExp)
               statistics.currentExp = levelInfo.currentExperience
               statistics.level = levelInfo.level
-              statistics.save()
+              statistics.save(function (err,loserUser) {
+                var winnerdId=result.awards.winner.userId;
+                require('./historicData').historicLoser(req,res,next,userId,winnerdId);
+
+              })
             })
             User.findOne({_id: userId})
               .populate({path: 'arenas', match: {_id: arenaId}})
