@@ -8,6 +8,8 @@ var mongoose=require('mongoose');
 var app = express();
 var cors=require('cors');
 var config= require('./config/config.js');
+var compression = require('compression');
+var helmet = require('helmet')
 
 ////////////////Node js fireBase////////////////////
 var admin = require("firebase-admin");
@@ -38,12 +40,15 @@ var sockets=require('./sockets/socket')(io);
 ///////////////database//////////////////
 mongoose.connect(  'Alexis:315551@ds153689.mlab.com:53689/footballquizarena');
 // view engine setup
+app.use(compression());
+app.use(helmet());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');

@@ -237,8 +237,7 @@ exports.getCorrectNumber = function (req, res, next) {
   }
 }
 exports.getResults = function (req, res, next) {
-  console.log('getResult')
-  console.log(req.body)
+
   var arenaId = req.body.arenaId
   var userId = req.body.userId
   try {

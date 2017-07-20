@@ -16,7 +16,6 @@ module.exports=function (otherUser,connectedUserList) {
             for (var i = 0; i < arenasArr.arenas.length; i++) {
                 arenasArray.push(arenasArr.arenas[i]._id);
             }
-            console.log(arenasArr);
             ArenaUser.find({$and: [{user: otherUser}, {_id: {$in: arenasArray}}]})//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
                 .populate('invite', 'username')
                 .deepPopulate('questions')

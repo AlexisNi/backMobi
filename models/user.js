@@ -28,7 +28,11 @@ var UserSchema = new mongoose.Schema({
     {
       type: Schema.Types.ObjectId,
       ref: 'Stats',
-    }
+    },
+   history:{
+    type:Schema.Types.ObjectId,
+     ref:'Stats'
+   }
   ,
   lastLogin:{
     typed:Date

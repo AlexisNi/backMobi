@@ -8,7 +8,6 @@ exports.userCheck = function (req, res, next) {
     User.findOne({firebaseId: userId})
       .exec(function (error, user) {
         if (error) {
-          console.log(error);
           return res.status(500).json({
             message: 'Unexpected error please login again...'
           })
@@ -33,7 +32,6 @@ exports.userCheck = function (req, res, next) {
   }
 }
 exports.userCreate = function (req, res, next) {
-  console.log(req.body)
   var userId = req.body.firebase_id;
   var userName = req.body.username
   try {
@@ -113,10 +111,8 @@ exports.findUser=function (req,res,next) {
 
         if(user){
         if(!user.statistics){
-          console.log(user);
           Statistics.findOne({user:user._id})
             .exec(function (err,result) {
-              console.log(result);
               user.statistics=result;
               user.save();
             });
@@ -173,7 +169,6 @@ exports.findRandomUser=function (req,res,next) {
       });
     }
     if (user){
-      console.log(user)
       return res.status(200).json({
         message: 'User Found',
         username: user[0].username,

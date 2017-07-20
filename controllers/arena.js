@@ -14,7 +14,7 @@ exports.createArena = function (req, res, next) {
         })
       }
       User.findById(req.body.inviteId, function (err, userInvite) {
-        console.log(userInvite)
+
         if (err) {
           return res.status(500).json({
             title: 'Error',
@@ -100,7 +100,6 @@ exports.createArena = function (req, res, next) {
                   })
 
                   arenaUser.save(function (err, result) {
-                    console.log(result)
                     try {
                       if (err) {
                         return res.status(500).json({
@@ -135,7 +134,6 @@ exports.createArena = function (req, res, next) {
       })
     })
   } catch (err) {
-    console.log(err)
     return res.status(500).json({
       where: 'Create arenas',
       title: 'Arena already exist or Unknow error',
@@ -146,8 +144,7 @@ exports.createArena = function (req, res, next) {
   }
 }
 exports.statusPlayed = function (req, res, next) {
-  console.log('Post Received played status')
-  console.log(req.body)
+
   var userId = req.body.userId
   var arenaId = req.body.arenaId
   ArenaUser.findOne({_id: arenaId})
@@ -165,7 +162,7 @@ exports.statusPlayed = function (req, res, next) {
                 })
               }
               if (result) {
-                console.log('inside update status')
+
                 require('../sockets/updateUserStatus')(userId, arenaId)
 
               }

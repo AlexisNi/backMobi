@@ -4,8 +4,8 @@ var Awards = require('../models/awards')
 var Statistics = require('../models/statistics')
 var User = require('../models/user')
 var level
-var experience;
-
+var experience
+var HistoryLogs = require('../models/history')
 exports.awards = function (req, res, next) {
   console.log('awards')
   var arenaId = req.body.arenaId
@@ -43,7 +43,7 @@ exports.awards = function (req, res, next) {
                 title: 'Error',
                 message: 'You already received that award....',
                 status: '500',
-                error:err
+                error: err
               })
 
             } else {
@@ -53,19 +53,58 @@ exports.awards = function (req, res, next) {
                     message: 'Unexpected Error'
                   })
                 }
+
                 try {
                   statistics.currentExp = statistics.currentExp + result.awards.winner.experience
                   statistics.wins = statistics.wins + 1
-                  console.log('here is level')
                   var levelInfo = require('./checkLevelUp')(statistics.level, statistics.currentExp)
                   statistics.currentExp = levelInfo.currentExperience
                   statistics.level = levelInfo.level
-                  statistics.save()
+                  statistics.save(function (err, statsResult) {
+                    var loserΙd = result.awards.loser.userId
+                    require('./historicData').historicWinner(userId,loserΙd);
+/*                    User.findOne({_id: userId}).exec(function (err, winnerUser) {
+                      if (err) {
+                        return res.status(500).json({
+                          message: 'Unexpected Error'
+                        })
+                      }
+                      if (winnerUser) {
+                        HistoryLogs.findOne({userId: userId}).exec(function (err, history) {
+                          var loserΙd = result.awards.loser.userId
+                          if (err) {
+                            return res.status(500).json({
+                              message: 'Unexpected Error'
+                            })
+                          }
+                          if (history == undefined || history == null) {
+                            var newHistory = new HistoryLogs({
+                              user: winnerUser,
+                              history: [{
+                                user:
+                                  {
+                                    userId: loserΙd,
+                                    loses:0,
+                                    draws:0,
+                                    wins:1
+                                  }
+
+                              }]
+                            })
+                            console.log(newHistory);
+                            newHistory.save();
+                          }
+                        })
+                      }
+
+                    })*/
+
+                  })
                 } catch (err) {
                   return res.status(500).json({
                     where: 'Awards',
                     message: 'Unexpected error',
-                    error:err
+                    error: err
                   })
                 }
 
@@ -77,7 +116,7 @@ exports.awards = function (req, res, next) {
                     if (err) {
                       res.status(500).json({
                         message: 'Unexpected Error',
-                        error:err
+                        error: err
 
                       })
                     }
@@ -149,7 +188,7 @@ exports.awards = function (req, res, next) {
                                 message: 'Unexpected error',
                                 error: err
 
-                            })
+                              })
                             }
                           })
 
@@ -311,8 +350,8 @@ exports.awards = function (req, res, next) {
                       })
                     }
                     user.arenas.pull({_id: arenaId})
-                    user.save(function (err,saveres) {
-                      if(err){
+                    user.save(function (err, saveres) {
+                      if (err) {
                         return res.status(500).json({
                           where: 'Awards',
                           message: 'Unexpected error',
@@ -356,7 +395,7 @@ exports.awards = function (req, res, next) {
                                 })
                               }
                             })
-                          }else{
+                          } else {
                             return res.status(200).json({
                               message: 'All updated'
                             })
@@ -380,8 +419,8 @@ exports.awards = function (req, res, next) {
                       })
                     }
                     user.arenas.pull({_id: arenaId})
-                    user.save(function (err,saveres) {
-                      if(err){
+                    user.save(function (err, saveres) {
+                      if (err) {
                         return res.status(500).json({
                           where: 'Awards',
                           message: 'Unexpected error',
@@ -421,7 +460,7 @@ exports.awards = function (req, res, next) {
                                 })
                               }
                             })
-                          }else{
+                          } else {
                             return res.status(200).json({
                               message: 'All updated'
                             })
@@ -435,10 +474,10 @@ exports.awards = function (req, res, next) {
                   message: 'Unexpected error',
                   error: err
 
-                });
+                })
               }
             }
-          });
+          })
         }
       } catch (err) {
         return res.status(500).json({
@@ -446,9 +485,9 @@ exports.awards = function (req, res, next) {
           message: 'Unexpected error',
           error: err
 
-        });
+        })
 
       }
-    });
+    })
 }
 
