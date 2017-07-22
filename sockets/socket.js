@@ -10,7 +10,26 @@ var userInfo = []
 
 module.exports = function (io) {
   io.on('connection', function (socket) {
-    console.log('user connected')
+    console.log('user connected');
+/*    User.find({}).exec(function (err,result) {
+      if(err){
+
+      }
+      for(var i=0;i<result.length;i++){
+          for(var j=0; j<result[i].arenas.length;j++){
+           result[i].arenas[j]=[];
+           console.log()
+
+
+          }
+        result[i].arenas=[]
+        result[i].save();
+
+
+      }
+
+
+    })*/
     connectedUserList[socket.handshake.query.userId] = socket
     require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId])
 

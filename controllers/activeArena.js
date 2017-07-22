@@ -237,7 +237,6 @@ exports.getCorrectNumber = function (req, res, next) {
   }
 }
 exports.getResults = function (req, res, next) {
-
   var arenaId = req.body.arenaId
   var userId = req.body.userId
   try {
@@ -248,7 +247,7 @@ exports.getResults = function (req, res, next) {
           return res.status(500).json({
             title: 'An error occured',
             error: err,
-            message:"Error in getting correct answers" ,
+            message: 'Error in getting correct answers',
           })
         }
 
@@ -259,7 +258,7 @@ exports.getResults = function (req, res, next) {
               return res.status(500).json({
                 title: 'An error occured',
                 error: err,
-                message:"Error in getting correct answers"
+                message: 'Error in getting correct answers'
 
               })
             }
@@ -313,7 +312,7 @@ exports.getResults = function (req, res, next) {
                     where: 'Result',
                     title: 'An error occured',
                     error: err,
-                    message:"Error in getting correct answers"
+                    message: 'Error in getting correct answers'
 
                   })
                 }
@@ -384,11 +383,28 @@ exports.getResults = function (req, res, next) {
                       awards = new Awards({
                         arenaId: arenaId, awards: {
                           arenaId: arenaId, draw: {
-                            userId: answerCountB.userId._id, points: 1, experience: 70
+                            userId: answerCountB.userId._id, points: 1, experience: 70,
+                            receivedP1: {
+                              userId: answerCount.userId._id,
+                              points:1,
+                              experience:70
+
+                            },
+                            receivedP2: {
+                              userId:answerCountB.userId._id,
+                              points:1,
+                              experience:70
+
+                            }
                           }
                         }
                       })
-                      awards.save()
+                      awards.save(function (err,result) {
+                        if(err){
+                          console.log(err)
+                        }
+
+                      })
 
                     } else {
                       awards = getAwards
