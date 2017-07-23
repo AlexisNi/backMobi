@@ -47,6 +47,9 @@ module.exports = function (io) {
         console.log('player left arena with id  ' + userData.userId)
       }
 
+    });
+    socket.on('logout',function () {
+     socket.disconnect();
     })
 
     socket.on('sendArena', function (req) {

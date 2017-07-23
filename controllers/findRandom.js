@@ -33,6 +33,7 @@ exports.findRandomPlayer=function (req,res,next,userId) {
           var random = Math.floor(Math.random() * count);
           User.findOne({_id:{$nin:arrayId}})
             .populate('statistics')
+            .populate('history')
             .skip(random)
             .exec(function (err,randomUser) {
 
@@ -47,7 +48,7 @@ exports.findRandomPlayer=function (req,res,next,userId) {
               else {
                 return res.status(500).json({
                   title: 'Error',
-                  message: 'Sorry couldnt find user please try again....',
+                  message: 'Sorry could not find user please try again....',
                   status: '500'
                 })
               }

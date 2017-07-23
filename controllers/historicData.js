@@ -1,14 +1,6 @@
-/**
- * Created by alexn on 20/07/2017.
- */
-var ArenaQuestions = require('../models/activeArena')
-var ArenaUser = require('../models/arena')
-var Awards = require('../models/awards')
-var Statistics = require('../models/statistics')
+
 var User = require('../models/user')
-var level
-var experience
-var HistoryLogs = require('../models/history')
+var HistoryLogs = require('../models/history');
 
 exports.historicWinner = function (req, res, next, userId, loserId) {
   User.findOne({_id: userId}).exec(function (err, winnerUser) {
@@ -34,13 +26,11 @@ exports.historicWinner = function (req, res, next, userId, loserId) {
             wins: 1
 
           })
-          newHistory.save(function (err, res) {
+          newHistory.save(function (err, historyRes) {
             if (err) {
-              return res.status(500).json({
-                message: 'Unexpected Error'
-              })
+            console.log(err);
             }
-            winnerUser.history.push(res)
+            winnerUser.history.push(historyRes)
             winnerUser.save()
           })
 
@@ -78,14 +68,13 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
             draws: 0,
             wins: 0
           })
-          newHistory.save(function (err, res) {
-            console.log(res)
+          newHistory.save(function (err, historyRes) {
+            console.log(res);
             if (err) {
-              return res.status(500).json({
-                message: 'Unexpected Error'
-              })
+              console.log(err);
+
             }
-            loserUser.history.push(res)
+            loserUser.history.push(historyRes)
             loserUser.save()
           })
 
@@ -100,14 +89,14 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
 
 }
 exports.historicDraw=function (req,res,next,userId, otherId) {
-  User.findOne({_id: userId}).exec(function (err, loserUser) {
+  User.findOne({_id: userId}).exec(function (err, user) {
     if (err) {
       return res.status(500).json({
         message: 'Unexpected Error'
       })
     }
-    if (loserUser) {
-      HistoryLogs.findOne({$and: [{userId: userId, opponentId: winnerId}]}).exec(function (err, history) {
+    if (user) {
+      HistoryLogs.findOne({$and: [{userId: userId, opponentId: otherId}]}).exec(function (err, history) {
         if (err) {
           return res.status(500).json({
             message: 'Unexpected Error'
@@ -117,25 +106,25 @@ exports.historicDraw=function (req,res,next,userId, otherId) {
           console.log('New History')
           var newHistory = new HistoryLogs({
             userId: userId,
-            opponentId: winnerId,
-            loses: 1,
-            draws: 0,
+            opponentId: otherId,
+            loses: 0,
+            draws: 1,
             wins: 0
           })
-          newHistory.save(function (err, res) {
+          newHistory.save(function (err, historyRes) {
             console.log(res)
             if (err) {
-              return res.status(500).json({
-                message: 'Unexpected Error'
-              })
+         console.log(err);
             }
-            loserUser.history.push(res)
-            loserUser.save()
+            user.history.push(historyRes)
+            user.save()
           })
 
         } else {
-          history.loses = history.loses + 1
-          history.save();
+          history.draws = history.draws + 1
+          history.save(function (err,result) {
+
+          });
         }
       })
     }

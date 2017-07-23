@@ -5,8 +5,8 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var schema = new Schema({
-  userId: {type: Schema.Types.ObjectId, ref: 'Users', unique: true},
-  opponentId:{type: Schema.Types.ObjectId, ref: 'Users', unique: true},
+  userId: {type: Schema.Types.ObjectId, ref: 'Users'},
+  opponentId:{type: Schema.Types.ObjectId, ref: 'Users'},
   wins: {type: Number, default: 0},
   loses: {type: Number, default: 0},
   draws: {type: Number, default: 0}

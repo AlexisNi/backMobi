@@ -95,9 +95,12 @@ exports.userCreate = function (req, res, next) {
 
 exports.findUser = function (req, res, next) {
   var userName = req.body.username
+  var userId= req.body.userId;
+
   try {
     User.findOne({username: userName})
       .populate('statistics')
+      .populate({path:'history',match:{opponentId:userId}, options: { limit: 1 }} )
       .exec(function (err, user) {
         if (err) {
           return res.status(500).json({
@@ -106,6 +109,7 @@ exports.findUser = function (req, res, next) {
             status: '500'
           })
         }
+
 
         if (user) {
           if (!user.statistics) {
@@ -128,7 +132,8 @@ exports.findUser = function (req, res, next) {
               message: 'User Found',
               username: user.username,
               inviteId: user._id,
-              statistics: user.statistics
+              statistics: user.statistics,
+              history:user.history[0]
             })
           }
         }
