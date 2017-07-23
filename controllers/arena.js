@@ -4,6 +4,13 @@ var User = require('../models/user')
 var Questions = require('../models/questions')
 
 exports.createArena = function (req, res, next) {
+  if(req.body.userId==req.body.inviteId){
+    return res.status(500).json({
+      title: 'Error',
+      message: 'Error you cant play with your self',
+      status: '500'
+    })
+  }
   try {
     User.findById(req.body.userId, function (err, user) {
       if (err) {
@@ -213,6 +220,8 @@ exports.statusPlayed = function (req, res, next) {
         })
 
       }
+
+
     })
 
 }

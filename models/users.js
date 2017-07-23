@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
+var random = require('mongoose-simple-random');
 
 var UserSchema = new mongoose.Schema({
 
@@ -81,5 +82,5 @@ UserSchema.methods.comparePassword = function(passwordAttempt, cb){
     });
 
 }
-
+UserSchema.plugin(random);
 module.exports = mongoose.model('User', UserSchema);

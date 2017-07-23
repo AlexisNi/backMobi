@@ -413,7 +413,7 @@ exports.getResults = function (req, res, next) {
                     return res.status(200).json({
                       message: 'success',
                       winner: '',
-                      loser: '',
+                      loser: ' ',
                       draw: true,
                       awards: awards
 
