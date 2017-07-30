@@ -20,12 +20,15 @@ module.exports = function (otherUserId, user, arenaId) {
                   throw err
                 }
                 if (device) {
+                  console.log(device);
                   try {
-                    var tokenArray=[];
+                    var registrationToken=[];
                     for(var i=0; i<device.length; i++){
-                      tokenArray.push(device[i].token);
+                      registrationToken.push(device[i].token);
                     }
+/*
                     var registrationToken =tokenArray;
+*/
                     var payload = {
                       notification: {
                         title: 'You have a new Notification',
@@ -59,11 +62,13 @@ module.exports = function (otherUserId, user, arenaId) {
               }
               if (device) {
                 try {
-                  var tokenArray=[];
+                  var registrationToken=[];
                   for(var i=0; i<device.length; i++){
-                    tokenArray.push(device[i].token);
+                    registrationToken.push(device[i].token);
                   }
+/*
                   var registrationToken = tokenArray;
+*/
                   var payload = {
                     notification: {
                       title: 'You have a new Notification',
