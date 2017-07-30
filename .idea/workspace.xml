@@ -7,13 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/LevelUp.js" afterPath="$PROJECT_DIR$/controllers/LevelUp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/user.js" afterPath="$PROJECT_DIR$/controllers/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/users.js" afterPath="$PROJECT_DIR$/controllers/users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js" afterPath="$PROJECT_DIR$/models/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sockets/socket.js" afterPath="$PROJECT_DIR$/sockets/socket.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/sendNotification.js" afterPath="$PROJECT_DIR$/controllers/sendNotification.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,8 +38,8 @@
       <file leaf-file-name="sendNotification.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/sendNotification.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+            <state relative-caret-position="42">
+              <caret line="23" column="56" lean-forward="true" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -133,7 +127,6 @@
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/processes.json" />
-        <option value="$PROJECT_DIR$/controllers/sendNotification.js" />
         <option value="$PROJECT_DIR$/sockets/getArenas.js" />
         <option value="$PROJECT_DIR$/sockets/getArenasOnDisconnect.js" />
         <option value="$PROJECT_DIR$/sockets/updateUserStatus.js" />
@@ -153,6 +146,7 @@
         <option value="$PROJECT_DIR$/controllers/user.js" />
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/controllers/arena.js" />
+        <option value="$PROJECT_DIR$/controllers/sendNotification.js" />
       </list>
     </option>
   </component>
@@ -460,12 +454,12 @@
       <workItem from="1501061753750" duration="28000" />
       <workItem from="1501323356334" duration="9052000" />
       <workItem from="1501337731338" duration="6789000" />
-      <workItem from="1501403976669" duration="6059000" />
+      <workItem from="1501403976669" duration="6282000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="423537000" />
+    <option name="totallyTimeSpent" value="423760000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
@@ -905,8 +899,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/sendNotification.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+        <state relative-caret-position="42">
+          <caret line="23" column="56" lean-forward="true" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
           <folding />
         </state>
       </provider>

@@ -14,14 +14,18 @@ module.exports = function (otherUserId, user, arenaId) {
       if (result) {
         if (result.userOneSendNotification != null) {
           if (result.userOneSendNotification.userId == user && result.userOneSendNotification.send == false) {
-            DeviceToken.findOne({userId: otherUserId})
+            DeviceToken.find({userId: otherUserId})
               .exec(function (err, device) {
                 if (err) {
                   throw err
                 }
                 if (device) {
                   try {
-                    var registrationToken = device.token
+                    var tokenArray=[];
+                    for(var i=0; i<device.length; i++){
+                      tokenArray.push(device[i].token);
+                    }
+                    var registrationToken =tokenArray;
                     var payload = {
                       notification: {
                         title: 'You have a new Notification',
@@ -47,7 +51,7 @@ module.exports = function (otherUserId, user, arenaId) {
         }
         if (result.userTwoSendNotification != null) {
         if (result.userTwoSendNotification.userId == user && result.userTwoSendNotification.send == false) {
-          DeviceToken.findOne({userId: otherUserId})
+          DeviceToken.find({userId: otherUserId})
             .exec(function (err, device) {
               if (err) {
                 console.log(err)
@@ -55,7 +59,11 @@ module.exports = function (otherUserId, user, arenaId) {
               }
               if (device) {
                 try {
-                  var registrationToken = device.token
+                  var tokenArray=[];
+                  for(var i=0; i<device.length; i++){
+                    tokenArray.push(device[i].token);
+                  }
+                  var registrationToken = tokenArray;
                   var payload = {
                     notification: {
                       title: 'You have a new Notification',
