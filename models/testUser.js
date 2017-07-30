@@ -1,4 +1,7 @@
 /**
+ * Created by alexn on 29/07/2017.
+ */
+/**
  * Created by alexn on 31/05/2017.
  */
 var mongoose = require('mongoose')
@@ -7,43 +10,15 @@ var random = require('mongoose-random')
 var uniqueValidator = require('mongoose-unique-validator')
 
 var UserSchema = new mongoose.Schema({
-  firebaseId: {
-    type: String,
-    required: true,
-    unique: true
-  },
+
   username: {
     type: String,
     required: true,
     trim: true,
     index: true,
     unique: true,
-    uniqueCaseInsensitive: true,
-    maxlength: [10,'Username must be less than 10 characters']
-
-  },
-  arenas: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Arena'
-    }
-  ],
-  statistics: {
-    type: Schema.Types.ObjectId,
-    ref: 'Stats',
-  },
-  history: [{
-    type: Schema.Types.ObjectId,
-    ref: 'History'
-  }]
-  ,
-  lastLogin: {
-    typed: Date
-  },
-  deviceToken: [{
-    type: Schema.Types.ObjectId,
-    ref: 'DeviceTokens'
-  }]
+    uniqueCaseInsensitive: true
+  }
 })
 
 /*UserSchema.pre('save', function (next) {
@@ -51,10 +26,10 @@ var UserSchema = new mongoose.Schema({
  next()
  })*/
 UserSchema.plugin(uniqueValidator)
-/*
+
 UserSchema.index({username: 1}, {collation: {locale: 'en', strength: 2}})
-*/
+
 /*
  UserSchema.plugin(random, {path: 'r'})
  */
-module.exports = mongoose.model('Users', UserSchema)
+module.exports = mongoose.model('TU', UserSchema)

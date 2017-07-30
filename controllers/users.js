@@ -3,11 +3,10 @@
  */
 var User = require('../models/user');
 
-
-
 exports.findUser=function (req,res,next) {
     console.log('User Fin');
     var userName=req.body.username;
+
     User.findOne({userName:userName})
       .populate('statistics')
       .exec(function (err,user) {

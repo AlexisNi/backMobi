@@ -1,6 +1,6 @@
 var User = require('../models/user')
 var Statistics = require('../models/statistics')
-
+var TU = require('../models/testUser');
 exports.userCheck = function (req, res, next) {
   var userId = req.body.uid
 
@@ -54,10 +54,25 @@ exports.userCreate = function (req, res, next) {
           user.save(function (err, result) {
             try {
               if (err) {
-                console.log(err)
-                return res.status(400).json({
-                  message: 'UserName couldn save'
-                })
+               if(err.errors.username.kind=='minlength'){
+                  return res.status(400).json({
+                    message: 'UserName must have more than 3 characters'
+                  })
+                }
+               else if (err.errors.username.kind=='maxlength'){
+                  return res.status(400).json({
+                    message: 'UserName must have less than 10 characters'
+                  })
+                }
+               else  if(err.errors.username.kind=='unique'){
+                  return res.status(400).json({
+                    message: 'UserName already exists please try another one'
+                  })
+                }else{
+                  return res.status(400).json({
+                    message: 'UserName couldn save'
+                  })
+                }
               }
               var statistics = new Statistics({user: result, firebase_id: userId})
               statistics.save(function (err, stats) {
@@ -96,9 +111,16 @@ exports.userCreate = function (req, res, next) {
 exports.findUser = function (req, res, next) {
   var userName = req.body.username
   var userId= req.body.userId;
+/*  User.findOne({username: new RegExp('^'+userName+'$', "i")}).exec(function (err,res) {
+    if(err){
+      console.log(err);
+    }
+    console.log(res);
+
+  })*/
 
   try {
-    User.findOne({username: userName})
+    User.findOne({username: new RegExp('^'+userName+'$', "i")})
       .populate('statistics')
       .populate({path:'history',match:{opponentId:userId}, options: { limit: 1 }} )
       .exec(function (err, user) {

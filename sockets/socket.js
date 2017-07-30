@@ -30,6 +30,7 @@ module.exports = function (io) {
 
 
     })*/
+
     connectedUserList[socket.handshake.query.userId] = socket
     require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId])
 
@@ -53,6 +54,8 @@ module.exports = function (io) {
     })
 
     socket.on('sendArena', function (req) {
+      console.log('send arena')
+      console.log(connectedUserList[req.userId])
       require('./sendArena')(req, connectedUserList[req.userId])
     })
 
