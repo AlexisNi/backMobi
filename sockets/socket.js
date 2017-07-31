@@ -30,7 +30,7 @@ module.exports = function (io) {
 
 
     })*/
-
+  console.log(socket.handshake.query.userId);
     connectedUserList[socket.handshake.query.userId] = socket
     require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId])
 
@@ -49,9 +49,11 @@ module.exports = function (io) {
       }
 
     });
-    socket.on('logout',function () {
+
+/*    socket.on('logout',function () {
+      console.log('log out')
      socket.disconnect();
-    })
+    })*/
 
     socket.on('sendArena', function (req) {
       console.log('send arena')
@@ -88,7 +90,7 @@ module.exports = function (io) {
         socket.leave(userData.arenaId)
         var otherUser = userInfo[socket.id].inviteId
         require('../controllers/sendNotification')(otherUser, userInfo[socket.id].userId, userInfo[socket.id].arenaId)
-        require('./updateUserStatus')(userInfo[socket.id].userId, userData.arenaId)
+        require('./updateUserStatus')(userInfo[socket.id].userId, userData.arenaId);
         if (connectedUserList[otherUser] != null) {
           if (otherUser != null) {
             console.log('other user')
@@ -97,7 +99,8 @@ module.exports = function (io) {
 
         }
 
-        delete userInfo[socket.id]
+        delete userInfo[socket.id];
+        socket.disconnect(true)
       }
     })
 
