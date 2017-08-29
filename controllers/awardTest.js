@@ -2,7 +2,7 @@ var ArenaQuestions = require('../models/activeArena');
 var ArenaUser = require('../models/arena');
 var Awards = require('../models/awards');
 var Statistics = require('../models/statistics');
-var User = require('../models/users');
+var User = require('../models/userstest');
 var level;
 var experience;
 

@@ -5,12 +5,9 @@
  * Created by alexn on 31/05/2017.
  */
 var mongoose = require('mongoose')
-var Schema = mongoose.Schema
-var random = require('mongoose-random')
-var uniqueValidator = require('mongoose-unique-validator')
+var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new mongoose.Schema({
-
   username: {
     type: String,
     required: true,
@@ -21,15 +18,7 @@ var UserSchema = new mongoose.Schema({
   }
 })
 
-/*UserSchema.pre('save', function (next) {
- this.username = this.username.toLowerCase()
- next()
- })*/
+
 UserSchema.plugin(uniqueValidator)
 
-UserSchema.index({username: 1}, {collation: {locale: 'en', strength: 2}})
-
-/*
- UserSchema.plugin(random, {path: 'r'})
- */
 module.exports = mongoose.model('TU', UserSchema)

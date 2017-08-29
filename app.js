@@ -24,7 +24,6 @@ var adminControl= require("./config/firebaseMiddleware");
 
 
 ///////////////////routes config////////////////////
-var todosRoutes=require('./routes/todos')
 var authethenticationRoute=require('./routes/authentication');
 var userRoutes=require('./routes/user');
 var arenaRoutes=require('./routes/arenas');
@@ -73,7 +72,6 @@ app.set('view engine', 'hbs');
 
 
 app.use('/api/auth',authethenticationRoute);
-app.use('/api/todos',todosRoutes);
 app.use('/api/users',userRoutes);
 app.use('/api/arenas',arenaRoutes);
 app.use('/api/activeArena',activeArena);

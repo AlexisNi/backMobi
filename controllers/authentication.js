@@ -2,7 +2,7 @@
  * Created by alex on 16/02/2017.
  */
 var jwt = require('jsonwebtoken');
-var User = require('../models/users');
+var User = require('../models/userstest');
 var authConfig = require('../config/auth');
 var Statistics=require('../models/statistics');
 

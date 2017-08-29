@@ -2,7 +2,7 @@
  * Created by alex on 16/02/2017.
  */
 var passport = require('passport');
-var User = require('../models/users');
+var User = require('../models/userstest');
 var config = require('./auth');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;

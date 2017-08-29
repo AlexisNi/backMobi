@@ -10,11 +10,11 @@ module.exports=function (level,currentExperience) {
       {level:6,nextLevel:1800},
       {level:7,nextLevel:2100},
       {level:9,nextLevel:3000},
-      {level:8,nextLevel:4000},
-      {level:8,nextLevel:5000},
-      {level:8,nextLevel:6000},
-      {level:8,nextLevel:7000},
-      {level:8,nextLevel:8000}]
+      {level:10,nextLevel:4000},
+      {level:11,nextLevel:5000},
+      {level:12,nextLevel:6000},
+      {level:13,nextLevel:7000},
+      {level:14,nextLevel:8000}]
     var levelInfo={level:level,currentExperience:currentExperience};
     if (levelInfo.currentExperience>levelArray[level-1].nextLevel){
         levelInfo.level++;

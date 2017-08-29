@@ -34,7 +34,21 @@ exports.userCheck = function (req, res, next) {
 exports.userCreate = function (req, res, next) {
   var userId = req.body.firebase_id
   var userName = req.body.username
-  try {
+
+/*  var user=new TU({username:userName});
+  user.save(function (error,user) {
+    if(error){
+      console.log(error);
+      return res.status(500).json({
+        message: 'Unexpected error please login again...'
+      })
+    }
+    if(user){
+      console.log(user);
+    }
+
+  });*/
+ try {
 
     User.findOne({username: userName})
       .exec(function (error, user) {
@@ -56,7 +70,6 @@ exports.userCreate = function (req, res, next) {
           user.save(function (err, result) {
             try {
               if (err) {
-                console.log(err);
 
                 if(err.errors.username.kind=='minlength'){
                   return res.status(400).json({
@@ -81,7 +94,6 @@ exports.userCreate = function (req, res, next) {
               var statistics = new Statistics({user: result, firebase_id: userId})
               statistics.save(function (err, stats) {
                 if (err) {
-                  console.log(err);
 
                   return res.status(500).json({
                     message: 'Unexpected error please login again...'
