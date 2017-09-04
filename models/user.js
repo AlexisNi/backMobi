@@ -43,7 +43,8 @@ var UserSchema = new mongoose.Schema({
   deviceToken: [{
     type: Schema.Types.ObjectId,
     ref: 'DeviceTokens'
-  }]
+  }],
+  last5Matches:[{result:String,userName:String}]
 })
 
 /*UserSchema.pre('save', function (next) {

@@ -2,6 +2,39 @@
 var User = require('../models/user')
 var HistoryLogs = require('../models/history');
 
+
+exports.getHistoricDataVsOpponent=function (req,res,next) {
+  var userId=req.body.userId;
+  var opponentId=req.body.opponentId;
+  var historicData={};
+
+  User.findOne({_id:userId}).populate('history',null,{opponentId:opponentId}).exec(function (err,historyFound) {
+    if(err){
+        return res.status(500).json({
+          message: 'Unexpected Error'
+        })
+    }
+    if(historyFound){
+     if(historyFound.history.length<1){
+       historicData.wins=0;
+       historicData.loses=0;
+       historicData.draws=0;
+     }else{
+       historicData=historyFound.history[0];
+     }
+      return res.status(200).json({
+        message: 'History Found',
+        history:historicData
+      })
+    }
+
+    
+  })
+}
+exports.last5Matches=function (req,res,next) {
+
+
+}
 exports.historicWinner = function (req, res, next, userId, loserId) {
   User.findOne({_id: userId}).exec(function (err, winnerUser) {
     if (err) {
@@ -69,7 +102,6 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
             wins: 0
           })
           newHistory.save(function (err, historyRes) {
-            console.log(res);
             if (err) {
               console.log(err);
 
@@ -112,7 +144,6 @@ exports.historicDraw=function (req,res,next,userId, otherId) {
             wins: 0
           })
           newHistory.save(function (err, historyRes) {
-            console.log(res)
             if (err) {
          console.log(err);
             }

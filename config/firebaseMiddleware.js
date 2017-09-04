@@ -8,7 +8,6 @@ module.exports =function (req,res,next) {
   admin.auth().verifyIdToken(token)
     .then(function(decodedToken) {
       var uid = decodedToken.uid;
-      console.log(uid);
       req.body.uid=uid;
       next();
     }).catch(function(error) {

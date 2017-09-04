@@ -9,7 +9,6 @@ module.exports=function (userId,arenaId) {
         .populate('user')
         .populate('invite')
         .exec(function (err,arenas) {
-            console.log(arenas);
             if (arenas!==null){
                 if (arenas.user._id==userId){
                     Arenas.update({_id:arenaId},{$set:{user_played:true}},function (err, result) {

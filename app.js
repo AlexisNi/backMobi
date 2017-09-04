@@ -30,6 +30,7 @@ var arenaRoutes=require('./routes/arenas');
 var activeArena=require('./routes/activeArena');
 var awards=require('./routes/awards');
 var firebaseRoutes=require('./routes/firebaseAuth');
+var historicDataRoutes=require('./routes/historicData');
 
 ///////////////socket config//////////////////
 var socket_io=require("socket.io");
@@ -77,6 +78,7 @@ app.use('/api/arenas',arenaRoutes);
 app.use('/api/activeArena',activeArena);
 app.use('/api/awards',awards);
 app.use('/api/firebase',firebaseRoutes);
+app.use('/api/historicData',historicDataRoutes);
 app.use(function (req, res, next) {
     return res.render('index');
 });

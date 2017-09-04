@@ -30,22 +30,19 @@ module.exports = function (io) {
 
 
     })*/
-  console.log(socket.handshake.query.userId);
+
     connectedUserList[socket.handshake.query.userId] = socket
     require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId])
 
     socket.on('enterArena', function (req) {
       userInfo[socket.id] = req
       socket.join(req.arenaId)
-      console.log('player entered arena with detals :' + userInfo[socket.id].arenaId + ' ' + userInfo[socket.id].userId)
 
     })
     socket.on('leaveArena', function () {
-      console.log('leaver Arena Caught')
       var userData = userInfo[socket.id]
       if (typeof userData !== 'undefined') {
         socket.leave(userData.arenaId)
-        console.log('player left arena with id  ' + userData.userId)
       }
 
     });
@@ -57,7 +54,6 @@ module.exports = function (io) {
 
     socket.on('sendArena', function (req) {
       console.log('send arena')
-      console.log(connectedUserList[req.userId])
       require('./sendArena')(req, connectedUserList[req.userId])
     })
 
