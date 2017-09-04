@@ -64,117 +64,121 @@ exports.awards = function (req, res, next) {
                   statistics.level = levelInfo.level
                   statistics.save(function (err, statsResult) {
                     var loserId = result.awards.loser.userId
-                    require('./historicData').historicWinner(req, res, next, userId, loserId)
-                    require('./last5Matches').update5Matches(req, res, next, userId, loserId, 'W').then(function (matches) {
+                    require('./historicData').historicWinner(req, res, next, userId, loserId).then(function (history) {
 
+                      require('./last5Matches').update5Matches(req, res, next, userId, loserId, 'W').then(function (matches) {
 
-                      User.findOne({_id: userId})
-                        .populate({path: 'arenas', match: {_id: arenaId}})
-                        .exec(function (err, user) {
-                          console.log('inside users')
+                        User.findOne({_id: userId})
+                          .populate({path: 'arenas', match: {_id: arenaId}})
+                          .exec(function (err, user) {
+                            console.log('inside users')
 
-                          if (err) {
-                            res.status(500).json({
-                              message: 'Unexpected Error',
-                              error: err
+                            if (err) {
+                              res.status(500).json({
+                                message: 'Unexpected Error',
+                                error: err
 
-                            })
-                          }
-                          try {
-                            result.awards.winner.received = true;
-                            result.save();
-                            user.last5Matches = matches;
-                            user.arenas.pull({_id: arenaId})
-                            user.save(function (err, saveres) {
-                              if (err) {
-                                return res.status(500).json({
-
-                                  where: 'Awards',
-                                  message: 'Unexpected error',
-                                  error: err
-                                })
+                              })
+                            }
+                            try {
+                              if (history != '') {
+                                user.history = history
                               }
-                              ArenaUser.findOne({_id: arenaId})
-                                .exec(function (err, arena) {
-                                  if (err) {
-                                    return res.status(500).json({
-                                      message: 'Unexpected Error',
-                                      error: err
+                              result.awards.winner.received = true
+                              result.save()
+                              user.last5Matches = matches
+                              user.arenas.pull({_id: arenaId})
+                              user.save(function (err, saveres) {
+                                if (err) {
+                                  return res.status(500).json({
 
-                                    })
-                                  }
-                                  try {
-                                    if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
-                                      || result.awards.winner.received == true && result.awards.loser.received == true) {
-                                      ArenaQuestions.find({arenaId:arenaId})
-                                        .exec(function (err,ansResult) {
-                                          if(err) {
-                                          }
-                                          if(ansResult){
-                                            for(var i=0; i<ansResult.length;i++){
-                                              ansResult[i].remove();
-                                            }
-                                          }
-                                        });
+                                    where: 'Awards',
+                                    message: 'Unexpected error',
+                                    error: err
+                                  })
+                                }
+                                ArenaUser.findOne({_id: arenaId})
+                                  .exec(function (err, arena) {
+                                    if (err) {
+                                      return res.status(500).json({
+                                        message: 'Unexpected Error',
+                                        error: err
 
-                                      arena.remove(function (err, resultArena) {
-                                        if (err) {
-                                          return res.status(500).json({
-                                            where: 'Awards',
-                                            message: 'Unexpected error',
-                                            error: err
-
-                                          })
-                                        }
-                                        if (result) {
-                                          result.remove(function (err, resultArena) {
+                                      })
+                                    }
+                                    try {
+                                      if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
+                                        || result.awards.winner.received == true && result.awards.loser.received == true) {
+                                        ArenaQuestions.find({arenaId: arenaId})
+                                          .exec(function (err, ansResult) {
                                             if (err) {
-                                              return res.status(500).json({
-                                                where: 'Awards',
-                                                message: 'Unexpected error',
-                                                error: err
-
-                                              })
                                             }
-                                            return res.status(200).json({
-                                              message: 'All delete'
-                                            })
-
+                                            if (ansResult) {
+                                              for (var i = 0; i < ansResult.length; i++) {
+                                                ansResult[i].remove()
+                                              }
+                                            }
                                           })
-                                        }
+
+                                        arena.remove(function (err, resultArena) {
+                                          if (err) {
+                                            return res.status(500).json({
+                                              where: 'Awards',
+                                              message: 'Unexpected error',
+                                              error: err
+
+                                            })
+                                          }
+                                          if (result) {
+                                            result.remove(function (err, resultArena) {
+                                              if (err) {
+                                                return res.status(500).json({
+                                                  where: 'Awards',
+                                                  message: 'Unexpected error',
+                                                  error: err
+
+                                                })
+                                              }
+                                              return res.status(200).json({
+                                                message: 'All delete'
+                                              })
+
+                                            })
+                                          }
+
+                                        })
+
+                                      }
+                                      else {
+                                        return res.status(200).json({
+                                          message: 'All updated'
+                                        })
+
+                                      }
+                                    } catch (err) {
+                                      return res.status(500).json({
+                                        where: 'Awards',
+                                        message: 'Unexpected error',
+                                        error: err
 
                                       })
-
                                     }
-                                    else {
-                                      return res.status(200).json({
-                                        message: 'All updated'
-                                      })
+                                  })
 
-                                    }
-                                  } catch (err) {
-                                    return res.status(500).json({
-                                      where: 'Awards',
-                                      message: 'Unexpected error',
-                                      error: err
+                              })
+                            } catch (err) {
+                              return res.status(500).json({
+                                where: 'Awards',
+                                message: 'Unexpected error',
+                                error: err
 
-                                    })
-                                  }
-                                })
+                              })
+                            }
+                          })
 
-                            })
-                          } catch (err) {
-                            return res.status(500).json({
-                              where: 'Awards',
-                              message: 'Unexpected error',
-                              error: err
-
-                            })
-                          }
-                        })
+                      })
 
                     })
-
                   })
                 } catch (err) {
                   return res.status(500).json({
@@ -222,93 +226,99 @@ exports.awards = function (req, res, next) {
               statistics.level = levelInfo.level
               statistics.save(function (err, loserUser) {
                 var winnerdId = result.awards.winner.userId
-                require('./historicData').historicLoser(req, res, next, userId, winnerdId)
 
-                require('./last5Matches').update5Matches(req, res, next, userId, winnerdId, 'L').then(function (matches) {
+                require('./historicData').historicWinner(req, res, next, userId, winnerdId).then(function (history) {
+                  require('./last5Matches').update5Matches(req, res, next, userId, winnerdId, 'L').then(function (matches) {
 
-
-                  User.findOne({_id: userId})
-                    .populate({path: 'arenas', match: {_id: arenaId}})
-                    .exec(function (err, user) {
-                      if (err) {
-                        return res.status(500).json({
-                          message: 'Unexpected Error',
-                          error: err
-
-                        })
-                      }
-                      result.awards.loser.received = true
-                      result.save();
-                      user.last5Matches=matches;
-                      user.arenas.pull({_id: arenaId})
-                      user.save(function (err, saveres) {
+                    User.findOne({_id: userId})
+                      .populate({path: 'arenas', match: {_id: arenaId}})
+                      .exec(function (err, user) {
                         if (err) {
+                          console.log(err)
                           return res.status(500).json({
-
-                            where: 'Awards',
-                            message: 'Unexpected error',
+                            message: 'Unexpected Error',
                             error: err
 
                           })
                         }
-                        ArenaUser.findOne({_id: arenaId})
-                          .exec(function (err, arena) {
-                            console.log('Arenas delete')
+                        if (history != '') {
+                          user.history = history
+                        }
+                        result.awards.loser.received = true
+                        result.save()
+                        user.last5Matches = matches
+                        user.arenas.pull({_id: arenaId})
+                        user.save(function (err, saveres) {
+                          if (err) {
+                            console.log(err)
 
-                            if (err) {
-                              return res.status(500).json({
-                                message: 'Unexpected Error',
-                                error: err
+                            return res.status(500).json({
 
-                              })
-                            }
-                            if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
-                              || result.awards.winner.received == true && result.awards.loser.received == true) {
-                              ArenaQuestions.find({arenaId:arenaId})
-                                .exec(function (err,ansResult) {
-                                  if(err) {
-                                  }
-                                  if(ansResult){
-                                    for(var i=0; i<ansResult.length;i++){
-                                      ansResult[i].remove();
-                                    }
-                                  }
-                                });
+                              where: 'Awards',
+                              message: 'Unexpected error',
+                              error: err
 
-                              arena.remove(function (err, Arenaresult) {
-                                if (err) {
-                                  return res.status(500).json({
-                                    where: 'Awards',
-                                    message: 'Unexpected error',
-                                    error: err
+                            })
+                          }
+                          ArenaUser.findOne({_id: arenaId})
+                            .exec(function (err, arena) {
+                              console.log('Arenas delete')
 
-                                  })
-                                }
-                                if (Arenaresult) {
-                                  result.remove(function (err, resu) {
+                              if (err) {
+                                return res.status(500).json({
+                                  message: 'Unexpected Error',
+                                  error: err
+
+                                })
+                              }
+                              if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
+                                || result.awards.winner.received == true && result.awards.loser.received == true) {
+                                ArenaQuestions.find({arenaId: arenaId})
+                                  .exec(function (err, ansResult) {
                                     if (err) {
-                                      return res.status(500).json({
-                                        where: 'Awards',
-                                        message: 'Unexpected error',
-                                        error: err
-
-                                      })
                                     }
-                                    return res.status(200).json({
-                                      message: 'All delete'
-                                    })
+                                    if (ansResult) {
+                                      for (var i = 0; i < ansResult.length; i++) {
+                                        ansResult[i].remove()
+                                      }
+                                    }
                                   })
-                                }
-                              })
-                            }
-                            else {
-                              return res.status(200).json({
-                                message: 'All updated'
-                              })
-                            }
-                          })
+
+                                arena.remove(function (err, Arenaresult) {
+                                  if (err) {
+                                    return res.status(500).json({
+                                      where: 'Awards',
+                                      message: 'Unexpected error',
+                                      error: err
+
+                                    })
+                                  }
+                                  if (Arenaresult) {
+                                    result.remove(function (err, resu) {
+                                      if (err) {
+                                        return res.status(500).json({
+                                          where: 'Awards',
+                                          message: 'Unexpected error',
+                                          error: err
+
+                                        })
+                                      }
+                                      return res.status(200).json({
+                                        message: 'All delete'
+                                      })
+                                    })
+                                  }
+                                })
+                              }
+                              else {
+                                return res.status(200).json({
+                                  message: 'All updated'
+                                })
+                              }
+                            })
+                        })
                       })
-                    })
+                  })
                 })
 
               })
@@ -356,69 +366,58 @@ exports.awards = function (req, res, next) {
                         error: err
                       })
                     }
-                    if (resultSaveHistory) {
-
-                      require('./historicData').historicDraw(req, res, next, userId, otherId, result)
-
-                    }
 
                   })
 
-                  require('./last5Matches').update5Matches(req, res, next, userId, otherId, 'D').then(function (matches) {
+                  require('./historicData').historicDraw(req, res, next, userId, otherId, result).then(function (history) {
 
+                    require('./last5Matches').update5Matches(req, res, next, userId, otherId, 'D').then(function (matches) {
 
-                  User.findOne({_id: userId})
-                    .populate({path: 'arenas', match: {_id: arenaId}})
-                    .exec(function (err, user) {
-                      if (err) {
-                        return res.status(500).json({
-                          message: 'Unexpected Error',
-                          error: err
+                      User.findOne({_id: userId})
+                        .populate({path: 'arenas', match: {_id: arenaId}})
+                        .exec(function (err, user) {
+                          if (err) {
+                            return res.status(500).json({
+                              message: 'Unexpected Error',
+                              error: err
 
-                        })
-                      }
-                      user.last5Matches=matches;
-                      user.arenas.pull({_id: arenaId})
-                      user.save(function (err, saveres) {
-                        if (err) {
-                          return res.status(500).json({
-                            where: 'Awards',
-                            message: 'Unexpected error',
-                            err: err
-                          })
-                        }
-                        ArenaUser.findOne({_id: arenaId})
-                          .exec(function (err, arena) {
+                            })
+                          }
+                          if(history!=''){
+                            user.history=history;
+                          }
+                          user.last5Matches = matches
+                          user.arenas.pull({_id: arenaId})
+                          user.save(function (err, saveres) {
                             if (err) {
                               return res.status(500).json({
-                                message: 'Unexpected Error',
-                                error: err
+                                where: 'Awards',
+                                message: 'Unexpected error',
+                                err: err
                               })
                             }
-                            if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
-                              || result.awards.winner.received == true && result.awards.loser.received == true) {
-                              ArenaQuestions.find({arenaId:arenaId})
-                                .exec(function (err,ansResult) {
-                                  if(err) {
-                                  }
-                                  if(ansResult){
-                                    for(var i=0; i<ansResult.length;i++){
-                                      ansResult[i].remove();
-                                    }
-                                  }
-                                });
-
-                              arena.remove(function (err, arenaresult) {
+                            ArenaUser.findOne({_id: arenaId})
+                              .exec(function (err, arena) {
                                 if (err) {
                                   return res.status(500).json({
-                                    where: 'Awards',
-                                    message: 'Unexpected error',
+                                    message: 'Unexpected Error',
                                     error: err
-
                                   })
                                 }
-                                if (arenaresult) {
-                                  result.remove(function (err, resu) {
+                                if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
+                                  || result.awards.winner.received == true && result.awards.loser.received == true) {
+                                  ArenaQuestions.find({arenaId: arenaId})
+                                    .exec(function (err, ansResult) {
+                                      if (err) {
+                                      }
+                                      if (ansResult) {
+                                        for (var i = 0; i < ansResult.length; i++) {
+                                          ansResult[i].remove()
+                                        }
+                                      }
+                                    })
+
+                                  arena.remove(function (err, arenaresult) {
                                     if (err) {
                                       return res.status(500).json({
                                         where: 'Awards',
@@ -427,23 +426,35 @@ exports.awards = function (req, res, next) {
 
                                       })
                                     }
-                                    return res.status(200).json({
-                                      message: 'All delete'
-                                    })
+                                    if (arenaresult) {
+                                      result.remove(function (err, resu) {
+                                        if (err) {
+                                          return res.status(500).json({
+                                            where: 'Awards',
+                                            message: 'Unexpected error',
+                                            error: err
 
+                                          })
+                                        }
+                                        return res.status(200).json({
+                                          message: 'All delete'
+                                        })
+
+                                      })
+                                    }
+                                  })
+                                } else {
+                                  return res.status(200).json({
+                                    message: 'All updated'
                                   })
                                 }
                               })
-                            } else {
-                              return res.status(200).json({
-                                message: 'All updated'
-                              })
-                            }
-                          })
 
-                      })
+                          })
+                        })
                     })
-                })
+                  })
+
                 }
                 else if (result.awards.draw.receivedP2.received == false && result.awards.draw.receivedP2.userId == userId) {
                   var otherId = result.awards.draw.receivedP1.userId
@@ -456,69 +467,57 @@ exports.awards = function (req, res, next) {
                         error: err
                       })
                     }
-                    if (resultSaveHistory) {
 
-                      require('./historicData').historicDraw(req, res, next, userId, otherId)
-
-                    }
 
                   })
+                  require('./historicData').historicDraw(req, res, next, userId, otherId, result).then(function (history) {
 
-                   require('./last5Matches').update5Matches(req, res, next, userId, otherId, 'D').then(function (matches) {
+                    require('./last5Matches').update5Matches(req, res, next, userId, otherId, 'D').then(function (matches) {
 
+                      User.findOne({_id: userId})
+                        .populate({path: 'arenas', match: {_id: arenaId}})
+                        .exec(function (err, user) {
+                          if (err) {
+                            return res.status(500).json({
+                              message: 'Unexpected Error',
+                              error: err
 
-
-                  User.findOne({_id: userId})
-                    .populate({path: 'arenas', match: {_id: arenaId}})
-                    .exec(function (err, user) {
-                      if (err) {
-                        return res.status(500).json({
-                          message: 'Unexpected Error',
-                          error: err
-
-                        })
-                      }
-
-                      user.last5Matches=matches;
-                      user.arenas.pull({_id: arenaId})
-                      user.save(function (err, saveres) {
-                        if (err) {
-                          return res.status(500).json({
-                            where: 'Awards',
-                            message: 'Unexpected error',
-                            err: err
-                          })
-                        }
-                        ArenaUser.findOne({_id: arenaId})
-                          .exec(function (err, arena) {
+                            })
+                          }
+                          if(history!=''){
+                            user.history=history;
+                          }
+                          user.last5Matches = matches
+                          user.arenas.pull({_id: arenaId})
+                          user.save(function (err, saveres) {
                             if (err) {
                               return res.status(500).json({
-                                message: 'Unexpected Error',
-                                error: err
+                                where: 'Awards',
+                                message: 'Unexpected error',
+                                err: err
                               })
                             }
-                            if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
-                              || result.awards.winner.received == true && result.awards.loser.received == true) {
-                              ArenaQuestions.find({arenaId:arenaId})
-                                .exec(function (err,ansResult) {
-                                  if(err) {
-                                  }
-                                  if(ansResult){
-                                    for(var i=0; i<ansResult.length;i++){
-                                      ansResult[i].remove();
-                                    }
-                                  }
-                                });
-                              arena.remove(function (err, arenaresult) {
+                            ArenaUser.findOne({_id: arenaId})
+                              .exec(function (err, arena) {
                                 if (err) {
                                   return res.status(500).json({
-                                    where: 'Awards',
-                                    message: 'Unexpected error',
+                                    message: 'Unexpected Error',
                                     error: err
                                   })
                                 }
-                                if (arenaresult) {
-                                  result.remove(function (err, resu) {
+                                if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
+                                  || result.awards.winner.received == true && result.awards.loser.received == true) {
+                                  ArenaQuestions.find({arenaId: arenaId})
+                                    .exec(function (err, ansResult) {
+                                      if (err) {
+                                      }
+                                      if (ansResult) {
+                                        for (var i = 0; i < ansResult.length; i++) {
+                                          ansResult[i].remove()
+                                        }
+                                      }
+                                    })
+                                  arena.remove(function (err, arenaresult) {
                                     if (err) {
                                       return res.status(500).json({
                                         where: 'Awards',
@@ -526,21 +525,31 @@ exports.awards = function (req, res, next) {
                                         error: err
                                       })
                                     }
-                                    return res.status(200).json({
-                                      message: 'All delete'
-                                    })
+                                    if (arenaresult) {
+                                      result.remove(function (err, resu) {
+                                        if (err) {
+                                          return res.status(500).json({
+                                            where: 'Awards',
+                                            message: 'Unexpected error',
+                                            error: err
+                                          })
+                                        }
+                                        return res.status(200).json({
+                                          message: 'All delete'
+                                        })
+                                      })
+                                    }
+                                  })
+                                } else {
+                                  return res.status(200).json({
+                                    message: 'All updated'
                                   })
                                 }
                               })
-                            } else {
-                              return res.status(200).json({
-                                message: 'All updated'
-                              })
-                            }
                           })
-                      })
+                        })
                     })
-                })
+                  })
                 } else {
                   return res.status(500).json({
                     where: 'Awards',
