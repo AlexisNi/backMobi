@@ -5,7 +5,8 @@ var Statistics = require('../models/statistics')
 var User = require('../models/user')
 var level
 var experience
-var HistoryLogs = require('../models/history')
+var HistoryLogs = require('../models/history');
+var statisticAwardController=require('../controllers/awardsControllers/statisticsAwardController');
 
 exports.awards = function (req, res, next) {
   console.log('awards')
@@ -49,7 +50,21 @@ exports.awards = function (req, res, next) {
               })
 
             } else {
-              Statistics.findOne({user: userId}).exec(function (err, statistics) {
+              statisticAwardController.statisticsAddedWinner(req,res,next,userId,result,arenaId).then(function (message) {
+                return res.status(200).json({
+                  message: message.message
+                })
+                }
+              ).catch(function (err) {
+               return res.status(500).json({
+                  where: err.where,
+                  message: err.message,
+                  error: err.error
+                })
+                }
+              )
+
+        /*      Statistics.findOne({user: userId}).exec(function (err, statistics) {
                 if (err) {
                   res.status(500).json({
                     message: 'Unexpected Error'
@@ -188,7 +203,7 @@ exports.awards = function (req, res, next) {
                   })
                 }
 
-              })
+              })*/
             }
           } catch (err) {
             return res.status(500).json({
@@ -210,7 +225,20 @@ exports.awards = function (req, res, next) {
 
             })
           } else {
-            Statistics.findOne({user: userId}).exec(function (err, statistics) {
+            statisticAwardController.statisticsAddedLoser(req,res,next,userId,result,arenaId).then(function (message) {
+                return res.status(200).json({
+                  message: message.message
+                })
+              }
+            ).catch(function (err) {
+                return res.status(500).json({
+                  where: err.where,
+                  message: err.message,
+                  error: err.error
+                })
+              }
+            )
+         /*   Statistics.findOne({user: userId}).exec(function (err, statistics) {
               if (err) {
                 return res.status(500).json({
                   message: 'Unexpected Error',
@@ -227,7 +255,7 @@ exports.awards = function (req, res, next) {
               statistics.save(function (err, loserUser) {
                 var winnerdId = result.awards.winner.userId
 
-                require('./historicData').historicWinner(req, res, next, userId, winnerdId).then(function (history) {
+                require('./historicData').historicLoser(req, res, next, userId, winnerdId).then(function (history) {
                   require('./last5Matches').update5Matches(req, res, next, userId, winnerdId, 'L').then(function (matches) {
 
                     User.findOne({_id: userId})
@@ -322,11 +350,24 @@ exports.awards = function (req, res, next) {
                 })
 
               })
-            })
+            })*/
 
           }
         } else {
-          Statistics.findOne({user: userId}).exec(function (err, statistics) {
+          statisticAwardController.statisticsAddedDraw(req,res,next,userId,result,arenaId).then(function (message) {
+              return res.status(200).json({
+                message: message.message
+              })
+            }
+          ).catch(function (err) {
+              return res.status(500).json({
+                where: err.where,
+                message: err.message,
+                error: err
+              })
+            }
+          )
+         /* Statistics.findOne({user: userId}).exec(function (err, statistics) {
             if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP2.userId == userId) {
               return res.status(500).json({
                 where: 'Awards',
@@ -561,7 +602,7 @@ exports.awards = function (req, res, next) {
               })
 
             }
-          })
+          })*/
         }
       } catch (err) {
         return res.status(500).json({

@@ -4,8 +4,7 @@ exports.update5Matches = function (req, res, next, userId, otherPlayerId, result
   return new Promise(function (resolve, reject) {
 
     var username
-    console.log(otherPlayerId)
-    console.log('Insdie')
+
 
     User.findOne({_id: userId})
       .exec(function (err, matches) {
@@ -23,11 +22,13 @@ exports.update5Matches = function (req, res, next, userId, otherPlayerId, result
                 username = userName.username
                 if (matches.last5Matches.length < 5) {
                   matches.last5Matches.unshift({result: result, userName: username});
-                 resolve(matches.last5Matches);
+
+                  resolve(matches.last5Matches);
                 }
                 else {
                   matches.last5Matches.pop()
                   matches.last5Matches.unshift({result: result, userName: username})
+
                   resolve(matches.last5Matches);
                 }
               }
