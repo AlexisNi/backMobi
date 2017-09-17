@@ -26,6 +26,11 @@ module.exports=function (userId,arenaId) {
 
                     });
                 }
+
+                if(arenas.user_played==true && arenas.invite_played==true){
+                  require('../controllers/awardsControllers/awardCreate').awardCreate(arenas.user._id,arenas.invite._id,arenaId);
+
+                }
             }
 
         });

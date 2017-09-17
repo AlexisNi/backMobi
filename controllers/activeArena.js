@@ -238,215 +238,251 @@ exports.getCorrectNumber = function (req, res, next) {
 }
 exports.getResults = function (req, res, next) {
   var arenaId = req.body.arenaId
-  var userId = req.body.userId
-  try {
-    ArenaQuestions.findOne().where({$and: [{arenaId: arenaId}, {userId: userId}]})
-      .populate('userId', 'userName')
-      .exec(function (err, answerCount) {
-        if (err) {
-          return res.status(500).json({
-            title: 'An error occured',
-            error: err,
-            message: 'Error in getting correct answers',
-          })
+  console.log(arenaId)
+
+  Awards.findOne({arenaId: arenaId})
+    .exec(function (err, result) {
+      if (err) {
+        return res.status(500).json({
+          where: 'getResults',
+          message: 'Error in getting award',
+          error: err
+        })
+      } else {
+        if (result) {
+          console.log(result.awards.winner.userId);
+          if(result.draw==true) {
+            return res.status(200).json({
+              message: 'success',
+              winner: '',
+              loser: ' ',
+              draw: true,
+              awards: result
+            })
+          }else{
+            return res.status(200).json({
+              message: 'success',
+              winner: result.awards.winner.userId,
+              loser: result.awards.loser.userId,
+              draw: false,
+              awards: result
+            })
+
+          }
+
+
         }
+      }
 
-        ArenaQuestions.findOne().where({$and: [{arenaId: arenaId}, {userId: {$ne: userId}}]})
-          .populate('userId', 'userName')
-          .exec(function (err, answerCountB) {
-            if (err) {
-              return res.status(500).json({
-                title: 'An error occured',
-                error: err,
-                message: 'Error in getting correct answers'
-
-              })
-            }
-
-            /*  if (answerCountB == null) {
-             answerCountB.questionAnswer.length = 0;
-             }*/
-            try {
-              if (answerCount.questionAnswer.length > answerCountB.questionAnswer.length) {
-                try {
-                  var awards = {
-                    awards: {
-                      arenaId: arenaId, winner: {
-                        userId: '', arenaId: '', points: 3, experience: 140
-                      }, loser: {
-                        userId: '', arenaId: '', points: 0, experience: 40
-                      }
-                    }
-                  }
-
-                  Awards.findOne({arenaId: arenaId}).exec(function (err, getAwards) {
-                    if (!getAwards) {
-                      awards = new Awards({
-                        arenaId: arenaId, awards: {
-                          arenaId: arenaId, winner: {
-                            userId: answerCount.userId._id, points: 3, experience: 140
-                          }, loser: {
-                            userId: answerCountB.userId._id, points: 0, experience: 40
-                          }
-                        }
-                      })
-                      awards.save()
-
-                    } else {
-                      awards = getAwards
-
-                    }
-
-                    return res.status(200).json({
-                      message: 'success',
-                      winner: answerCount.userId,
-                      loser: answerCountB.userId,
-                      awards: awards,
-                      draw: false
-
-                    })
-
-                  })
-                } catch (err) {
-                  return res.status(500).json({
-                    where: 'Result',
-                    title: 'An error occured',
-                    error: err,
-                    message: 'Error in getting correct answers'
-
-                  })
-                }
-
-              } else if (answerCount.questionAnswer.length < answerCountB.questionAnswer.length) {
-                try {
-                  var awards = {
-                    awards: {
-                      arenaId: arenaId, winner: {
-                        userId: '', arenaId: '', points: 3, experience: 140
-                      }, loser: {
-                        userId: '', arenaId: '', points: 0, experience: 40
-                      }
-                    }
-                  }
-
-                  Awards.findOne({arenaId: arenaId}).exec(function (err, getAwards) {
-                    if (!getAwards) {
-                      awards = new Awards({
-                        arenaId: arenaId, awards: {
-                          arenaId: arenaId, winner: {
-                            userId: answerCountB.userId._id, points: 3, experience: 140
-                          }, loser: {
-                            userId: answerCount.userId._id, points: 0, experience: 40
-                          }
-                        }
-                      })
-                      awards.save()
-
-                    } else {
-                      awards = getAwards
-
-                    }
-                    return res.status(200).json({
-                      message: 'success',
-                      loser: answerCount.userId,
-                      winner: answerCountB.userId,
-                      awards: awards,
-                      draw: false
-
-                    })
-
-                  })
-                } catch (err) {
-                  return res.status(500).json({
-                    where: 'Result',
-                    title: 'An error occured',
-                    where: 'get results',
-                    error: err
-                  })
-                }
-
-              }
-              else {
-                try {
-                  var awards = {
-                    awards: {
-                      arenaId: arenaId, winner: {
-                        userId: '', arenaId: '', points: 3, experience: 140
-                      }, loser: {
-                        userId: '', arenaId: '', points: 0, experience: 40
-                      }
-                    }
-                  }
-
-                  Awards.findOne({arenaId: arenaId}).exec(function (err, getAwards) {
-                    if (!getAwards) {
-                      awards = new Awards({
-                        arenaId: arenaId, awards: {
-                          arenaId: arenaId, draw: {
-                            userId: answerCountB.userId._id, points: 1, experience: 70,
-                            receivedP1: {
-                              userId: answerCount.userId._id,
-                              points:1,
-                              experience:70
-
-                            },
-                            receivedP2: {
-                              userId:answerCountB.userId._id,
-                              points:1,
-                              experience:70
-
-                            }
-                          }
-                        }
-                      })
-                      awards.save(function (err,result) {
-                        if(err){
-                          console.log(err)
-                        }
-
-                      })
-
-                    } else {
-                      awards = getAwards
-
-                    }
-                    return res.status(200).json({
-                      message: 'success',
-                      winner: '',
-                      loser: ' ',
-                      draw: true,
-                      awards: awards
-
-                    })
-
-                  })
-                } catch (err) {
-                  return res.status(500).json({
-                    where: 'Results',
-                    title: 'An error occured',
-                    error: err
-                  })
-                }
-              }
-            } catch (err) {
-              return res.status(500).json({
-                where: 'Results',
-                title: 'An error occured',
-                error: err
-              })
-
-            }
-
-            //ca
-
-          })
-      })
-  } catch (err) {
-    return res.status(500).json({
-      where: 'Results',
-      title: 'Unable to get Results',
-      error: err
     })
-  }
+
+  /*  var arenaId = req.body.arenaId
+   var userId = req.body.userId;
+   try {
+   ArenaQuestions.findOne().where({$and: [{arenaId: arenaId}, {userId: userId}]})
+   .populate('userId', 'userName')
+   .exec(function (err, answerCount) {
+   if (err) {
+   return res.status(500).json({
+   title: 'An error occured',
+   error: err,
+   message: 'Error in getting correct answers'
+   })
+   }
+
+
+   ArenaQuestions.findOne().where({$and: [{arenaId: arenaId}, {userId: {$ne: userId}}]})
+   .populate('userId', 'userName')
+   .exec(function (err, answerCountB) {
+   if (err) {
+   return res.status(500).json({
+   title: 'An error occured',
+   error: err,
+   message: 'Error in getting correct answers'
+
+   })
+   }
+
+   try {
+   if (answerCount.questionAnswer.length > answerCountB.questionAnswer.length) {
+   try {
+   var awards = {
+   awards: {
+   arenaId: arenaId, winner: {
+   userId: '', arenaId: '', points: 3, experience: 140
+   }, loser: {
+   userId: '', arenaId: '', points: 0, experience: 40
+   }
+   }
+   }
+
+   Awards.findOne({arenaId: arenaId}).exec(function (err, getAwards) {
+   if (!getAwards) {
+   awards = new Awards({
+   arenaId: arenaId, awards: {
+   arenaId: arenaId, winner: {
+   userId: answerCount.userId._id, points: 3, experience: 140
+   }, loser: {
+   userId: answerCountB.userId._id, points: 0, experience: 40
+   }
+   }
+   })
+   awards.save()
+
+   } else {
+   awards = getAwards
+
+   }
+
+   return res.status(200).json({
+   message: 'success',
+   winner: answerCount.userId,
+   loser: answerCountB.userId,
+   awards: awards,
+   draw: false
+
+   })
+
+   })
+   } catch (err) {
+   return res.status(500).json({
+   where: 'Result',
+   title: 'An error occured',
+   error: err,
+   message: 'Error in getting correct answers'
+
+   })
+   }
+
+   } else if (answerCount.questionAnswer.length < answerCountB.questionAnswer.length) {
+   try {
+   var awards = {
+   awards: {
+   arenaId: arenaId, winner: {
+   userId: '', arenaId: '', points: 3, experience: 140
+   }, loser: {
+   userId: '', arenaId: '', points: 0, experience: 40
+   }
+   }
+   }
+
+   Awards.findOne({arenaId: arenaId}).exec(function (err, getAwards) {
+   if (!getAwards) {
+   awards = new Awards({
+   arenaId: arenaId, awards: {
+   arenaId: arenaId, winner: {
+   userId: answerCountB.userId._id, points: 3, experience: 140
+   }, loser: {
+   userId: answerCount.userId._id, points: 0, experience: 40
+   }
+   }
+   })
+   awards.save()
+
+   } else {
+   awards = getAwards
+
+   }
+   return res.status(200).json({
+   message: 'success',
+   loser: answerCount.userId,
+   winner: answerCountB.userId,
+   awards: awards,
+   draw: false
+
+   })
+
+   })
+   } catch (err) {
+   return res.status(500).json({
+   where: 'Result',
+   title: 'An error occured',
+   where: 'get results',
+   error: err
+   })
+   }
+
+   }
+   else {
+   try {
+   var awards = {
+   awards: {
+   arenaId: arenaId, winner: {
+   userId: '', arenaId: '', points: 3, experience: 140
+   }, loser: {
+   userId: '', arenaId: '', points: 0, experience: 40
+   }
+   }
+   }
+
+   Awards.findOne({arenaId: arenaId}).exec(function (err, getAwards) {
+   if (!getAwards) {
+   awards = new Awards({
+   arenaId: arenaId, awards: {
+   arenaId: arenaId, draw: {
+   userId: answerCountB.userId._id, points: 1, experience: 70,
+   receivedP1: {
+   userId: answerCount.userId._id,
+   points:1,
+   experience:70
+
+   },
+   receivedP2: {
+   userId:answerCountB.userId._id,
+   points:1,
+   experience:70
+
+   }
+   }
+   }
+   })
+   awards.save(function (err,result) {
+   if(err){
+   console.log(err)
+   }
+
+   })
+
+   } else {
+   awards = getAwards
+
+   }
+   return res.status(200).json({
+   message: 'success',
+   winner: '',
+   loser: ' ',
+   draw: true,
+   awards: awards
+
+   })
+
+   })
+   } catch (err) {
+   return res.status(500).json({
+   where: 'Results',
+   title: 'An error occured',
+   error: err
+   })
+   }
+   }
+   } catch (err) {
+   return res.status(500).json({
+   where: 'Results',
+   title: 'An error occured',
+   error: err
+   })
+
+   }
+
+
+   })
+   })
+   } catch (err) {
+   return res.status(500).json({
+   where: 'Results',
+   title: 'Unable to get Results',
+   error: err
+   })
+   }*/
 
 }

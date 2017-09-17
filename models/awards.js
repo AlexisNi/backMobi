@@ -6,15 +6,27 @@ var Schema = mongoose.Schema
 
 var schema = new Schema({
   arenaId: String,
+  draw:{type:Boolean,default:false},
   awards: {
     winner: {
-      userId: String, points: Number, experience: Number, received: {type: Boolean, default: false}
+      userId: String,
+      points: Number,
+      experience: Number,
+      correctAnswers:Number,
+      received: {type: Boolean, default: false}
     },
     loser: {
-      userId: String, points: Number, experience: Number, received: {type: Boolean, default: false}
+      userId: String,
+      points: Number,
+      experience: Number,
+      correctAnswers:Number,
+      received: {type: Boolean, default: false}
     },
     draw: {
-      userId: String, points: Number, experience: Number,
+      userId: String,
+      points: Number,
+      experience: Number,
+      correctAnswers:Number,
       receivedP1: {
         userId: {
           type: String
