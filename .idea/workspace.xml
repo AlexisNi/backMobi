@@ -6,14 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/controllers/historicData.js" line="118" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js" afterPath="$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sockets/getArenasOnDisconnect.js" afterPath="$PROJECT_DIR$/sockets/getArenasOnDisconnect.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sockets/sendArena.js" afterPath="$PROJECT_DIR$/sockets/sendArena.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sockets/socket.js" afterPath="$PROJECT_DIR$/sockets/socket.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sockets/updateUserStatus.js" afterPath="$PROJECT_DIR$/sockets/updateUserStatus.js" />
-    </list>
+    <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -496,12 +489,12 @@
       <workItem from="1504948668136" duration="15698000" />
       <workItem from="1505056460083" duration="358000" />
       <workItem from="1505397986181" duration="641000" />
-      <workItem from="1505639109502" duration="16661000" />
+      <workItem from="1505639109502" duration="17365000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="516675000" />
+    <option name="totallyTimeSpent" value="517379000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4809" y="-9" width="2418" height="1368" extended-state="6" />
