@@ -8,7 +8,6 @@
  * Created by alex on 11/01/2017.
  */
 var ArenaUser = require('../models/arena')
-var User = require('../models/user')
 
 module.exports = function (req, connectedUserList) {
   try {

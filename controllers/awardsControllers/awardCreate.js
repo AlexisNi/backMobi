@@ -6,10 +6,10 @@ var Awards = require('../../models/awards')
 
 exports.awardCreate = function (userId, inviteId, arenaId) {
 
-  var arenaId = arenaId
-  var userId = userId
-  var userOneLength
-  var userTwoLenth
+  var userOneLength;
+  var userTwoLenth;
+
+
   console.log('inside create award')
 
   try {
@@ -63,12 +63,12 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
                     arenaId: arenaId,
                     awards: {
                       winner: {
-                        userId: answerCount.userId._id,
+                        userId: userId,
                         points: 3,
                         experience: 140,
                         correctAnswers: userOneLength
                       }, loser: {
-                        userId: answerCountB.userId._id,
+                        userId: inviteId,
                         points: 0,
                         experience: 40,
                         correctAnswers: userTwoLenth
@@ -97,12 +97,12 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
                     arenaId: arenaId,
                     awards: {
                       winner: {
-                        userId: answerCountB.userId._id,
+                        userId: inviteId,
                         points: 3,
                         experience: 140,
                         correctAnswers: userTwoLenth
                       }, loser: {
-                        userId: answerCount.userId._id,
+                        userId: userId,
                         points: 0,
                         experience: 40,
                         correctAnswers: userOneLength
@@ -134,17 +134,17 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
                         awards: {
                           arenaId: arenaId,
                           draw: {
-                            userId: answerCountB.userId._id,
+                            userId: inviteId,
                             points: 1,
                             experience: 70,
                             correctAnswers: userOneLength,
                             receivedP1: {
-                              userId: answerCount.userId._id,
+                              userId: userId,
                               points: 1,
                               experience: 70
                             },
                             receivedP2: {
-                              userId: answerCountB.userId._id,
+                              userId: inviteId,
                               points: 1,
                               experience: 70,
                               correctAnswers: userTwoLenth
