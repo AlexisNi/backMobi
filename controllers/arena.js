@@ -29,14 +29,16 @@ exports.createArena = function (req, res, next) {
             status: '500'
           })
         }
-/*
-        Questions.syncRandom(function (err, result) {
+
+
+/*        Questions.syncRandom(function (err, result) {
          if(err){
          console.log(err);
          }
          console.log(result);
-         });
-*/
+         });*/
+
+
 
         var level1 = {level: 1}
         var level2 = {level: 2}

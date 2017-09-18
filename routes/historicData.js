@@ -15,6 +15,7 @@ var router=express.Router();
 
 
 router.post('/', middleware,historicDataController.getHistoricDataVsOpponent);
+router.post('/stats', middleware,historicDataController.getStats);
 
 
 

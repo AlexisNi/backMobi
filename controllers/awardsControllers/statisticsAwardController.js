@@ -5,13 +5,13 @@ var Statistics = require('../../models/statistics')
 var User = require('../../models/user')
 var level
 var experience
-var HistoryLogs = require('../../models/history');
+var HistoryLogs = require('../../models/history')
 
-exports.statisticsAddedWinner=function (req,res,next,userId,result,arenaId) {
+exports.statisticsAddedWinner = function (req, res, next, userId, result, arenaId) {
   return new Promise(function (resolve, reject) {
     Statistics.findOne({user: userId}).exec(function (err, statistics) {
       if (err) {
-        reject({error:err,message:'CouldNot get award',where:'14-statisticsAddedWinner'});
+        reject({error: err, message: 'CouldNot get award', where: '14-statisticsAddedWinner'})
 
       }
 
@@ -21,6 +21,13 @@ exports.statisticsAddedWinner=function (req,res,next,userId,result,arenaId) {
         var levelInfo = require('.././LevelUp')(statistics.level, statistics.currentExp)
         statistics.currentExp = levelInfo.currentExperience
         statistics.level = levelInfo.level
+        statistics.winningStreak.currentStreak = statistics.winningStreak.currentStreak + 1
+        if (statistics.winningStreak.currentStreak > statistics.winningStreak.longestStreak) {
+          statistics.winningStreak.longestStreak = statistics.winningStreak.currentStreak
+        }
+        statistics.losingStreak.currentStreak = 0
+        statistics.drawStreak.currentStreak = 0
+        statistics.rightQuestionsNumber = result.awards.winner.correctAnswers + statistics.rightQuestionsNumber
         statistics.save(function (err, statsResult) {
           var loserId = result.awards.loser.userId
           require('.././historicData').historicWinner(req, res, next, userId, loserId).then(function (history) {
@@ -32,7 +39,7 @@ exports.statisticsAddedWinner=function (req,res,next,userId,result,arenaId) {
                 .exec(function (err, user) {
 
                   if (err) {
-                    reject({error:err,message:'CouldNot get award',where:'36-statisticsAddedWinner'});
+                    reject({error: err, message: 'CouldNot get award', where: '36-statisticsAddedWinner'})
 
                   }
                   try {
@@ -43,13 +50,17 @@ exports.statisticsAddedWinner=function (req,res,next,userId,result,arenaId) {
                     user.arenas.pull({_id: arenaId})
                     user.save(function (err, saveres) {
                       if (err) {
-                        reject({error:err,message:'CouldNot get award',where:'47-statisticsAddedWinner userSave'});
+                        reject({error: err, message: 'CouldNot get award', where: '47-statisticsAddedWinner userSave'})
 
                       }
                       ArenaUser.findOne({_id: arenaId})
                         .exec(function (err, arena) {
                           if (err) {
-                            reject({error:err,message:'CouldNot get award',where:'54-statisticsAddedWinner ArenaUser'});
+                            reject({
+                              error: err,
+                              message: 'CouldNot get award',
+                              where: '54-statisticsAddedWinner ArenaUser'
+                            })
 
                           }
                           try {
@@ -68,17 +79,24 @@ exports.statisticsAddedWinner=function (req,res,next,userId,result,arenaId) {
 
                               arena.remove(function (err, resultArena) {
                                 if (err) {
-                                  reject({error:err,message:'CouldNot get award',where:'73-statisticsAddedWinner arenaremove'});
+                                  reject({
+                                    error: err,
+                                    message: 'CouldNot get award',
+                                    where: '73-statisticsAddedWinner arenaremove'
+                                  })
 
                                 }
                                 if (result) {
                                   result.remove(function (err, resultArena) {
                                     if (err) {
-                                      reject({error:err,message:'CouldNot get award',where:'73-statisticsAddedWinner awardremove'});
+                                      reject({
+                                        error: err,
+                                        message: 'CouldNot get award',
+                                        where: '73-statisticsAddedWinner awardremove'
+                                      })
 
                                     }
-                                    resolve({message: 'Arena award remove'});
-
+                                    resolve({message: 'Arena award remove'})
 
                                   })
                                 }
@@ -86,54 +104,63 @@ exports.statisticsAddedWinner=function (req,res,next,userId,result,arenaId) {
                               })
                             }
                             else {
-                              resolve({message: 'All saved'});
-
+                              resolve({message: 'All saved'})
 
                             }
                           } catch (err) {
-                            reject({error:err,message:'CouldNot get award',where:'statisticsAddedWinner first catch'});
+                            reject({
+                              error: err,
+                              message: 'CouldNot get award',
+                              where: 'statisticsAddedWinner first catch'
+                            })
 
                           }
                         })
 
                     })
                   } catch (err) {
-                    reject({error:err,message:'CouldNot get award',where:'statisticsAddedWinner second catch'});
+                    reject({error: err, message: 'CouldNot get award', where: 'statisticsAddedWinner second catch'})
 
                   }
                 })
 
             }).catch(function (err) {
-              reject({error: err, message: 'CouldNot get award', where: 'Last 5 loser promise catch'});
+              reject({error: err, message: 'CouldNot get award', where: 'Last 5 loser promise catch'})
             })
           }).catch(function (err) {
-            reject({error: err, message: 'CouldNot get award', where: 'HistoricData loser promise catch'});
+            reject({error: err, message: 'CouldNot get award', where: 'HistoricData loser promise catch'})
           })
         })
       } catch (err) {
-        reject({error:err,message:'CouldNot get award',where:'statisticsAddedWinner third catch'});
+        reject({error: err, message: 'CouldNot get award', where: 'statisticsAddedWinner third catch'})
       }
 
     })
-  });
+  })
 
 }
 
-
-exports.statisticsAddedLoser=function (req,res,next,userId,result,arenaId) {
+exports.statisticsAddedLoser = function (req, res, next, userId, result, arenaId) {
   return new Promise(function (resolve, reject) {
 
     Statistics.findOne({user: userId}).exec(function (err, statistics) {
       if (err) {
-        reject({error: err, message: 'Couldnt save award', where: '90-staticsAddedLoser'});
+        reject({error: err, message: 'Couldnt save award', where: '90-staticsAddedLoser'})
       }
-      statistics.currentExp = statistics.currentExp + result.awards.loser.experience;
-      statistics.loses = statistics.loses + 1;
-      var levelInfo = require('.././LevelUp')(statistics.level, statistics.currentExp);
-      statistics.currentExp = levelInfo.currentExperience;
-      statistics.level = levelInfo.level;
+      statistics.currentExp = statistics.currentExp + result.awards.loser.experience
+      statistics.loses = statistics.loses + 1
+      var levelInfo = require('.././LevelUp')(statistics.level, statistics.currentExp)
+      statistics.currentExp = levelInfo.currentExperience
+      statistics.level = levelInfo.level
+      statistics.losingStreak.currentStreak = statistics.losingStreak.currentStreak + 1
+      if (statistics.losingStreak.currentStreak > statistics.losingStreak.longestStreak) {
+        statistics.losingStreak.longestStreak = statistics.losingStreak.currentStreak
+      }
+      statistics.winningStreak.currentStreak = 0
+      statistics.drawStreak.currentStreak = 0
+      statistics.rightQuestionsNumber = result.awards.winner.correctAnswers + statistics.rightQuestionsNumber
       statistics.save(function (err, loserUser) {
-        var winnerdId = result.awards.winner.userId;
+        var winnerdId = result.awards.winner.userId
 
         require('.././historicData').historicLoser(req, res, next, userId, winnerdId).then(function (history) {
           require('.././last5Matches').update5Matches(req, res, next, userId, winnerdId, 'L').then(function (matches) {
@@ -142,78 +169,78 @@ exports.statisticsAddedLoser=function (req,res,next,userId,result,arenaId) {
               .populate({path: 'arenas', match: {_id: arenaId}})
               .exec(function (err, user) {
                 if (err) {
-                  reject({error: err, message: 'Couldnt save award', where: '107-staticsAddedLoser'});
+                  reject({error: err, message: 'Couldnt save award', where: '107-staticsAddedLoser'})
                 }
                 result.awards.loser.received = true
-                result.save();
+                result.save()
                 user.last5Matches = matches
                 user.arenas.pull({_id: arenaId})
                 user.save(function (err, saveres) {
                   if (err) {
-                    reject({error: err, message: 'Couldnt save award', where: '115-staticsAddedLoser'});
+                    reject({error: err, message: 'Couldnt save award', where: '115-staticsAddedLoser'})
                   }
                   ArenaUser.findOne({_id: arenaId})
                     .exec(function (err, arena) {
                       if (err) {
-                        reject({error: err, message: 'Couldnt save award', where: '120-staticsAddedLoser'});
+                        reject({error: err, message: 'Couldnt save award', where: '120-staticsAddedLoser'})
                       }
                       if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
                         || result.awards.winner.received == true && result.awards.loser.received == true) {
                         ArenaQuestions.find({arenaId: arenaId})
                           .exec(function (err, ansResult) {
                             if (err) {
-                              reject({error: err, message: 'Couldnt save award', where: '127-staticsAddedLoser'});
+                              reject({error: err, message: 'Couldnt save award', where: '127-staticsAddedLoser'})
                             }
                             if (ansResult) {
                               for (var i = 0; i < ansResult.length; i++) {
                                 ansResult[i].remove()
                               }
                             }
-                          });
+                          })
 
                         arena.remove(function (err, Arenaresult) {
                           if (err) {
-                            reject({error: err, message: 'Couldnt save award', where: '138-staticsAddedLoser'});
+                            reject({error: err, message: 'Couldnt save award', where: '138-staticsAddedLoser'})
                           }
                           if (Arenaresult) {
                             result.remove(function (err, resu) {
                               if (err) {
-                                reject({error: err, message: 'Couldnt save award', where: '143-staticsAddedLoser'});
+                                reject({error: err, message: 'Couldnt save award', where: '143-staticsAddedLoser'})
                               }
-                              resolve({message: 'arena and award removed'});
+                              resolve({message: 'arena and award removed'})
                             })
                           }
                         })
                       }
                       else {
-                        resolve({message: 'All saved'});
+                        resolve({message: 'All saved'})
                       }
                     })
                 })
               })
           }).catch(function (err) {
-            reject({error: err, message: 'CouldNot get award', where: 'Last 5 loser promise catch'});
+            reject({error: err, message: 'CouldNot get award', where: 'Last 5 loser promise catch'})
 
           })
         }).catch(function (err) {
-          reject({error: err, message: 'CouldNot get award', where: 'HistoricData loser promise catch'});
+          reject({error: err, message: 'CouldNot get award', where: 'HistoricData loser promise catch'})
 
         })
 
       })
     })
-  });
+  })
 }
 
-exports.statisticsAddedDraw=function (req,res,next,userId,result,arenaId) {
-  console.log('ARENA ID ',arenaId);
+exports.statisticsAddedDraw = function (req, res, next, userId, result, arenaId) {
+  console.log('ARENA ID ', arenaId)
   return new Promise(function (resolve, reject) {
 
     Statistics.findOne({user: userId}).exec(function (err, statistics) {
       if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP2.userId == userId) {
-        reject({error: 'award received', message: 'Award aleady received', where: 'Award draw'});
+        reject({error: 'award received', message: 'Award aleady received', where: 'Award draw'})
       } else if (result.awards.draw.receivedP1.received == true && result.awards.draw.receivedP1.userId == userId) {
-        reject({error: 'award received', message: 'Award aleady received', where: 'Award draw'});
+        reject({error: 'award received', message: 'Award aleady received', where: 'Award draw'})
 
       } else {
         statistics.currentExp = statistics.currentExp + result.awards.draw.experience
@@ -222,16 +249,22 @@ exports.statisticsAddedDraw=function (req,res,next,userId,result,arenaId) {
         var levelInfo = require('.././LevelUp')(statistics.level, statistics.currentExp)
         statistics.currentExp = levelInfo.currentExperience
         statistics.level = levelInfo.level
+        statistics.drawStreak.currentStreak = statistics.drawStreak.currentStreak + 1
+        if (statistics.drawStreak.currentStreak > statistics.drawStreak.longestStreak) {
+          statistics.drawStreak.longestStreak = statistics.drawStreak.currentStreak;
+        }
+        statistics.winningStreak.currentStreak = 0;
+        statistics.losingStreak.currentStreak = 0;
         statistics.save(function (err, statisticDrawResultP1) {
           if (err) {
-            reject({error: err, message: 'Couldnt get award', where: '193-statisticsAddedDraw save'});
+            reject({error: err, message: 'Couldnt get award', where: '193-statisticsAddedDraw save'})
           }
           if (result.awards.draw.receivedP1.received == false && result.awards.draw.receivedP1.userId == userId) {
             var otherId = result.awards.draw.receivedP2.userId
             result.awards.draw.receivedP1.received = true
             result.save(function (err, resultSaveHistory) {
               if (err) {
-                reject({error: err, message: 'Couldnt get award', where: '201-statisticsAddedDraw save'});
+                reject({error: err, message: 'Couldnt get award', where: '201-statisticsAddedDraw save'})
 
               }
             })
@@ -243,25 +276,41 @@ exports.statisticsAddedDraw=function (req,res,next,userId,result,arenaId) {
                   .populate({path: 'arenas', match: {_id: arenaId}})
                   .exec(function (err, user) {
                     if (err) {
-                      reject({error: err, message: 'Couldnt get award', where: '212-statisticsAddedDraw.inside histroy-last5'});
+                      reject({
+                        error: err,
+                        message: 'Couldnt get award',
+                        where: '212-statisticsAddedDraw.inside histroy-last5'
+                      })
                     }
                     user.last5Matches = matches
                     user.arenas.pull({_id: arenaId})
                     user.save(function (err, saveres) {
                       if (err) {
-                        reject({error: err, message: 'Couldnt get award', where: '218-statisticsAddedDraw.inside userSave'});
+                        reject({
+                          error: err,
+                          message: 'Couldnt get award',
+                          where: '218-statisticsAddedDraw.inside userSave'
+                        })
                       }
                       ArenaUser.findOne({_id: arenaId})
                         .exec(function (err, arena) {
                           if (err) {
-                            reject({error: err, message: 'Couldnt get award', where: '223-statisticsAddedDraw.inside ArenaUser'});
+                            reject({
+                              error: err,
+                              message: 'Couldnt get award',
+                              where: '223-statisticsAddedDraw.inside ArenaUser'
+                            })
                           }
                           if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
                             || result.awards.winner.received == true && result.awards.loser.received == true) {
                             ArenaQuestions.find({arenaId: arenaId})
                               .exec(function (err, ansResult) {
                                 if (err) {
-                                  reject({error: err, message: 'Couldnt get award', where: '230-statisticsAddedDraw.inside ArenaQuestions'});
+                                  reject({
+                                    error: err,
+                                    message: 'Couldnt get award',
+                                    where: '230-statisticsAddedDraw.inside ArenaQuestions'
+                                  })
                                 }
                                 if (ansResult) {
                                   for (var i = 0; i < ansResult.length; i++) {
@@ -272,33 +321,40 @@ exports.statisticsAddedDraw=function (req,res,next,userId,result,arenaId) {
 
                             arena.remove(function (err, arenaresult) {
                               if (err) {
-                                reject({error: err, message: 'Couldnt get award', where: '242-statisticsAddedDraw.inside arenaRemove'});
+                                reject({
+                                  error: err,
+                                  message: 'Couldnt get award',
+                                  where: '242-statisticsAddedDraw.inside arenaRemove'
+                                })
 
                               }
                               if (arenaresult) {
                                 result.remove(function (err, resu) {
                                   if (err) {
-                                    reject({error: err, message: 'Couldnt get award', where: '248-statisticsAddedDraw.inside award remove'});
+                                    reject({
+                                      error: err,
+                                      message: 'Couldnt get award',
+                                      where: '248-statisticsAddedDraw.inside award remove'
+                                    })
 
                                   }
-                                  resolve({message: 'arena and award removed'});
-
+                                  resolve({message: 'arena and award removed'})
 
                                 })
                               }
                             })
                           } else {
 
-                            resolve({message: 'All saved'});
+                            resolve({message: 'All saved'})
                           }
                         })
                     })
                   })
               }).catch(function (err) {
-                reject({error: err, message: 'CouldNot get award', where: 'last5matches1 draw promise catch'});
+                reject({error: err, message: 'CouldNot get award', where: 'last5matches1 draw promise catch'})
               })
             }).catch(function (err) {
-              reject({error: err, message: 'CouldNot get award', where: 'HistoricDataP1 draw promise catch'});
+              reject({error: err, message: 'CouldNot get award', where: 'HistoricDataP1 draw promise catch'})
             })
 
           }
@@ -307,7 +363,7 @@ exports.statisticsAddedDraw=function (req,res,next,userId,result,arenaId) {
             result.awards.draw.receivedP2.received = true
             result.save(function (err, resultSaveHistory) {
               if (err) {
-                reject({error: err, message: 'Couldnt get award', where: '278-statisticsAddedDrawP2 save true'});
+                reject({error: err, message: 'Couldnt get award', where: '278-statisticsAddedDrawP2 save true'})
               }
             })
             require('.././historicData').historicDraw(req, res, next, userId, otherId, result).then(function (history) {
@@ -317,27 +373,35 @@ exports.statisticsAddedDraw=function (req,res,next,userId,result,arenaId) {
                   .populate({path: 'arenas', match: {_id: arenaId}})
                   .exec(function (err, user) {
                     if (err) {
-                      reject({error: err, message: 'Couldnt get award', where: '289-statisticsAddedDrawP2 findUser'});
+                      reject({error: err, message: 'Couldnt get award', where: '289-statisticsAddedDrawP2 findUser'})
                     }
 
                     user.last5Matches = matches
                     user.arenas.pull({_id: arenaId})
                     user.save(function (err, saveres) {
                       if (err) {
-                        reject({error: err, message: 'Couldnt get award', where: '296-statisticsAddedDrawP2 userSave'});
+                        reject({error: err, message: 'Couldnt get award', where: '296-statisticsAddedDrawP2 userSave'})
 
                       }
                       ArenaUser.findOne({_id: arenaId})
                         .exec(function (err, arena) {
                           if (err) {
-                            reject({error: err, message: 'Couldnt get award', where: '301-statisticsAddedDrawP2 arenaUser'});
+                            reject({
+                              error: err,
+                              message: 'Couldnt get award',
+                              where: '301-statisticsAddedDrawP2 arenaUser'
+                            })
                           }
                           if (result.awards.draw.receivedP2.received == true && result.awards.draw.receivedP1.received == true
                             || result.awards.winner.received == true && result.awards.loser.received == true) {
                             ArenaQuestions.find({arenaId: arenaId})
                               .exec(function (err, ansResult) {
                                 if (err) {
-                                  reject({error: err, message: 'Couldnt get award', where: '307-statisticsAddedDrawP2 ArenaQuestions'});
+                                  reject({
+                                    error: err,
+                                    message: 'Couldnt get award',
+                                    where: '307-statisticsAddedDrawP2 ArenaQuestions'
+                                  })
                                 }
                                 if (ansResult) {
                                   for (var i = 0; i < ansResult.length; i++) {
@@ -347,43 +411,54 @@ exports.statisticsAddedDraw=function (req,res,next,userId,result,arenaId) {
                               })
                             arena.remove(function (err, arenaresult) {
                               if (err) {
-                                reject({error: err, message: 'Couldnt get award', where: '321-statisticsAddedDrawP2 arenaRemove'});
+                                reject({
+                                  error: err,
+                                  message: 'Couldnt get award',
+                                  where: '321-statisticsAddedDrawP2 arenaRemove'
+                                })
 
                               }
                               if (arenaresult) {
                                 result.remove(function (err, resu) {
                                   if (err) {
-                                    reject({error: err, message: 'Couldnt get award', where: '328-statisticsAddedDrawP2 AwardRemove'});
+                                    reject({
+                                      error: err,
+                                      message: 'Couldnt get award',
+                                      where: '328-statisticsAddedDrawP2 AwardRemove'
+                                    })
 
                                   }
-                                  resolve({message: 'arena and award removed'});
+                                  resolve({message: 'arena and award removed'})
 
                                 })
                               }
                             })
                           } else {
-                            resolve({message: 'All saved'});
+                            resolve({message: 'All saved'})
 
                           }
                         })
                     })
                   })
               }).catch(function (err) {
-                reject({error: err, message: 'CouldNot get award', where: 'HistoricDataP2 draw promise catch'});
+                reject({error: err, message: 'CouldNot get award', where: 'HistoricDataP2 draw promise catch'})
               })
 
             }).catch(function (err) {
-              reject({error: err, message: 'CouldNot get award', where: 'HistoricDataP2 draw promise catch'});
+              reject({error: err, message: 'CouldNot get award', where: 'HistoricDataP2 draw promise catch'})
             })
           } else {
-            reject({error: 'Couldnt get award', message: 'Couldnt get award', where: '346-statisticsAddedDrawP2 last line'});
+            reject({
+              error: 'Couldnt get award',
+              message: 'Couldnt get award',
+              where: '346-statisticsAddedDrawP2 last line'
+            })
 
           }
         })
 
       }
     })
-  });
+  })
 
-
-  }
+}

@@ -1,5 +1,6 @@
 var User = require('../models/user')
 var HistoryLogs = require('../models/history')
+var Statistics = require('../models/statistics')
 
 exports.getHistoricDataVsOpponent = function (req, res, next) {
   var userId = req.body.userId
@@ -34,13 +35,13 @@ exports.historicWinner = function (req, res, next, userId, loserId) {
 
     User.findOne({_id: userId}).exec(function (err, winnerUser) {
       if (err) {
-        reject({error:err,message:'Couldnt save award',where:'37-historicWinner'});
+        reject({error: err, message: 'Couldnt save award', where: '37-historicWinner'})
 
       }
       if (winnerUser) {
         HistoryLogs.findOne({$and: [{userId: userId, opponentId: loserId}]}).exec(function (err, history) {
           if (err) {
-            reject({error:err,message:'Couldnt save award',where:'43-historiWinner.logs'});
+            reject({error: err, message: 'Couldnt save award', where: '43-historiWinner.logs'})
 
           }
           if (history == undefined || history == null) {
@@ -53,12 +54,12 @@ exports.historicWinner = function (req, res, next, userId, loserId) {
             })
             newHistory.save(function (err, historyRes) {
               if (err) {
-                reject({error:err,message:'Couldnt save award',where:'56-historiWinner.hisotrysave'});
+                reject({error: err, message: 'Couldnt save award', where: '56-historiWinner.hisotrysave'})
               } else {
-                winnerUser.history.push(historyRes);
+                winnerUser.history.push(historyRes)
                 winnerUser.save(function (err, reHistory) {
                   if (err) {
-                    reject({error:err,message:'Couldnt save award',where:'61-historiWinner.hisotrysave'});
+                    reject({error: err, message: 'Couldnt save award', where: '61-historiWinner.hisotrysave'})
 
                   } else {
                     resolve('Saved New Hisotry')
@@ -72,7 +73,7 @@ exports.historicWinner = function (req, res, next, userId, loserId) {
             history.wins = history.wins + 1
             history.save(function (err, reHistory) {
               if (err) {
-                reject({error:err,message:'Couldnt save award',where:'75-historiWinner.75'});
+                reject({error: err, message: 'Couldnt save award', where: '75-historiWinner.75'})
 
               } else {
                 resolve('History updated')
@@ -92,13 +93,13 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
 
     User.findOne({_id: userId}).exec(function (err, loserUser) {
       if (err) {
-        reject({error:err,message:'Couldnt save award',where:'95-historiLoser'});
+        reject({error: err, message: 'Couldnt save award', where: '95-historiLoser'})
 
       }
       if (loserUser) {
         HistoryLogs.findOne({$and: [{userId: userId, opponentId: winnerId}]}).exec(function (err, history) {
           if (err) {
-            reject({error:err,message:'Couldnt save award',where:'100-historiLoser.hisotrylogs'});
+            reject({error: err, message: 'Couldnt save award', where: '100-historiLoser.hisotrylogs'})
 
           }
           if (history == undefined || history == null) {
@@ -111,14 +112,13 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
             })
             newHistory.save(function (err, historyRes) {
               if (err) {
-                reject({error:err,message:'Couldnt save award',where:'114-historiLoser.newHisotry'});
-
+                reject({error: err, message: 'Couldnt save award', where: '114-historiLoser.newHisotry'})
 
               }
               loserUser.history.push(historyRes)
               loserUser.save(function (err, reHistory) {
                 if (err) {
-                  reject({error:err,message:'Couldnt save award',where:'121-historiLoser.newHisotry'});
+                  reject({error: err, message: 'Couldnt save award', where: '121-historiLoser.newHisotry'})
                 } else {
                   resolve('History updated')
                 }
@@ -129,7 +129,7 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
             history.loses = history.loses + 1
             history.save(function (err, reHistory) {
               if (err) {
-                reject({error:err,message:'Couldnt save award',where:'132-historiLoser.newHisotry'});
+                reject({error: err, message: 'Couldnt save award', where: '132-historiLoser.newHisotry'})
 
               } else {
                 resolve(reHistory)
@@ -171,20 +171,20 @@ exports.historicDraw = function (req, res, next, userId, otherId) {
                 reject(err)
               }
               user.history.push(historyRes)
-        /*      user.save(function (err, reHistory) {
-                if (err) {
-                  reject({error:err,message:'Couldnt save award',where:'178-historidraw.newHisotry'});
-                } else {
-                  resolve('History updated')
-                }
-              })*/
+              /*      user.save(function (err, reHistory) {
+               if (err) {
+               reject({error:err,message:'Couldnt save award',where:'178-historidraw.newHisotry'});
+               } else {
+               resolve('History updated')
+               }
+               })*/
             })
 
           } else {
             history.draws = history.draws + 1
             history.save(function (err, reHistory) {
               if (err) {
-                reject({error:err,message:'Couldnt save award',where:'189-historidraw.newHisotry'});
+                reject({error: err, message: 'Couldnt save award', where: '189-historidraw.newHisotry'})
 
               } else {
                 resolve(reHistory)
@@ -198,4 +198,51 @@ exports.historicDraw = function (req, res, next, userId, otherId) {
     })
   })
 
+}
+exports.getStats = function (req, res, next) {
+  console.log('inside get stats')
+  var userId = req.body.userId
+  var statsProm = new Promise(function (resolve, reject) {
+    Statistics.findOne({user: userId}).exec(function (err, result) {
+      if (err) {
+        reject(err);
+      }
+      if (result) {
+        resolve(result);
+      }
+    })
+  })
+  var last5matchPromise= new Promise(function (resolve, reject) {
+    User.findOne({_id: userId}).exec(function (err, result) {
+      if (err) {
+        reject(err);
+      }
+      if (result) {
+        resolve(result);
+      }
+    })
+  })
+  statsProm.then(function (stats) {
+   last5matchPromise.then(function (last5Matches) {
+     return res.status(200).json({
+       message:'success',
+       last5Matches:last5Matches.last5Matches,
+       stats:stats
+     })
+
+   }).catch(function (err) {
+     return res.status(500).json({
+       where: 'last5',
+       message: 'Couldnt get last 5 matches',
+       error: err
+     })
+   })
+
+  }).catch(function (err) {
+    return res.status(500).json({
+      where: 'stats',
+      message: 'Couldnt get stats',
+      error: err
+    })
+  })
 }
