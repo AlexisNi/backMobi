@@ -158,7 +158,7 @@ exports.statisticsAddedLoser = function (req, res, next, userId, result, arenaId
       }
       statistics.winningStreak.currentStreak = 0
       statistics.drawStreak.currentStreak = 0
-      statistics.rightQuestionsNumber = result.awards.winner.correctAnswers + statistics.rightQuestionsNumber
+      statistics.rightQuestionsNumber = result.awards.loser.correctAnswers + statistics.rightQuestionsNumber
       statistics.save(function (err, loserUser) {
         var winnerdId = result.awards.winner.userId
 
@@ -255,7 +255,7 @@ exports.statisticsAddedDraw = function (req, res, next, userId, result, arenaId)
         }
         statistics.winningStreak.currentStreak = 0;
         statistics.losingStreak.currentStreak = 0;
-        statistics.rightQuestionsNumber = result.awards.winner.correctAnswers + statistics.rightQuestionsNumber
+        statistics.rightQuestionsNumber = result.awards.draw.correctAnswers + statistics.rightQuestionsNumber;
         statistics.save(function (err, statisticDrawResultP1) {
           if (err) {
             reject({error: err, message: 'Couldnt get award', where: '193-statisticsAddedDraw save'})
