@@ -175,7 +175,7 @@ exports.historicDraw = function (req, res, next, userId, otherId) {
                 reject(err)
               }
               user.history.push(historyRes)
-                   user.save(function (err, reHistory) {
+              user.save(function (err, reHistory) {
                if (err) {
                reject({error:err,message:'Couldnt save award',where:'178-historidraw.newHisotry'});
                } else {

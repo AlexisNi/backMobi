@@ -205,7 +205,7 @@ exports.getCorrectNumber = function (req, res, next) {
           if (answerCount != null) {
             return res.status(200).json({
               message: 'Correct',
-              correct: answerCount.questionAnswer.length - 1,
+              correct: answerCount.questionAnswer.length ,
             })
 
           } else {
