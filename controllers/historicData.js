@@ -40,6 +40,7 @@ exports.historicWinner = function (req, res, next, userId, loserId) {
       }
       if (winnerUser) {
         HistoryLogs.findOne({$and: [{userId: userId, opponentId: loserId}]}).exec(function (err, history) {
+          console.log('history log',history);
           if (err) {
             reject({error: err, message: 'Couldnt save award', where: '43-historiWinner.logs'})
 
@@ -53,6 +54,7 @@ exports.historicWinner = function (req, res, next, userId, loserId) {
               wins: 1
             })
             newHistory.save(function (err, historyRes) {
+
               if (err) {
                 reject({error: err, message: 'Couldnt save award', where: '56-historiWinner.hisotrysave'})
               } else {
@@ -103,6 +105,8 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
 
           }
           if (history == undefined || history == null) {
+            console.log('history log',history);
+
             var newHistory = new HistoryLogs({
               userId: userId,
               opponentId: winnerId,
@@ -158,7 +162,7 @@ exports.historicDraw = function (req, res, next, userId, otherId) {
 
           }
           if (history == undefined || history == null) {
-            console.log('New History')
+            console.log('history log',history);
             var newHistory = new HistoryLogs({
               userId: userId,
               opponentId: otherId,
@@ -171,16 +175,18 @@ exports.historicDraw = function (req, res, next, userId, otherId) {
                 reject(err)
               }
               user.history.push(historyRes)
-              /*      user.save(function (err, reHistory) {
+                   user.save(function (err, reHistory) {
                if (err) {
                reject({error:err,message:'Couldnt save award',where:'178-historidraw.newHisotry'});
                } else {
                resolve('History updated')
                }
-               })*/
+               })
             })
 
           } else {
+            console.log('history log',history);
+
             history.draws = history.draws + 1
             history.save(function (err, reHistory) {
               if (err) {

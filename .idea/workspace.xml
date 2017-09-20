@@ -3,12 +3,13 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/routes/user.js" line="13" />
     <bookmark url="file://$PROJECT_DIR$/controllers/firebaseDevice.js" line="26" />
-    <bookmark url="file://$PROJECT_DIR$/controllers/historicData.js" line="118" />
+    <bookmark url="file://$PROJECT_DIR$/controllers/historicData.js" line="122" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/awardsControllers/statisticsAwardController.js" afterPath="$PROJECT_DIR$/controllers/awardsControllers/statisticsAwardController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/historicData.js" afterPath="$PROJECT_DIR$/controllers/historicData.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,21 +27,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="historicData.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="historicData.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/historicData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="228" column="19" lean-forward="false" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="19" />
+            <state relative-caret-position="207">
+              <caret line="177" column="14" lean-forward="false" selection-start-line="177" selection-start-column="14" selection-end-line="177" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="awards.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/awards.js">
+      <file leaf-file-name="history.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/history.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1360">
-              <caret line="110" column="12" lean-forward="false" selection-start-line="110" selection-start-column="12" selection-end-line="114" selection-end-column="16" />
+            <state relative-caret-position="255">
+              <caret line="15" column="35" lean-forward="false" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -49,70 +50,18 @@
       <file leaf-file-name="updateUserStatus.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sockets/updateUserStatus.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="48" lean-forward="false" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
+            <state relative-caret-position="398">
+              <caret line="35" column="76" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="awardCreate.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="73" column="31" lean-forward="false" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#42#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="awards.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/awards.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="statisticsAwardController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="statisticsAwardController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/awardsControllers/statisticsAwardController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="257" column="39" lean-forward="false" selection-start-line="257" selection-start-column="19" selection-end-line="257" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="statistics.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/statistics.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activeArena.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/activeArena.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="historicData.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/historicData.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="513">
+              <caret line="132" column="8" lean-forward="false" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -131,29 +80,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>remove</find>
-      <find>prom</find>
-      <find>comp</find>
-      <find>com</find>
-      <find>then</find>
-      <find>level</find>
-      <find>levelup</find>
-      <find>award alread</find>
-      <find>ARENAID</find>
-      <find>console.log</find>
-      <find>sync</find>
-      <find>return</find>
-      <find>ma</find>
-      <find>match</find>
-      <find>statuspla</find>
-      <find>require</find>
-      <find>arenaid</find>
-      <find>getre</find>
       <find>winner</find>
       <find>res</find>
       <find>draw</find>
       <find>req</find>
-      <find>console</find>
       <find>stats</find>
       <find>get</find>
       <find>g</find>
@@ -161,6 +91,25 @@
       <find>getst</find>
       <find>stat</find>
       <find>correct</find>
+      <find>xons</find>
+      <find>xon</find>
+      <find>xo</find>
+      <find>c</find>
+      <find>console</find>
+      <find>console.</find>
+      <find>console.l</find>
+      <find>console.log</find>
+      <find>Α</find>
+      <find>ΑΡ</find>
+      <find>ΑΡΕ</find>
+      <find>ΑΡΕΝ</find>
+      <find>ΑΡΕΝΑ</find>
+      <find>ΑΡΕΝΑ</find>
+      <find>ΑΡΕΝΑ ΙΔ</find>
+      <find>ΑΡΕΝΑ Ι</find>
+      <find>A</find>
+      <find>ARENA</find>
+      <find>ARENA ID</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -208,18 +157,18 @@
         <option value="$PROJECT_DIR$/controllers/last5Matches.js" />
         <option value="$PROJECT_DIR$/controllers/awards.js" />
         <option value="$PROJECT_DIR$/models/awards.js" />
-        <option value="$PROJECT_DIR$/controllers/activeArena.js" />
         <option value="$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js" />
         <option value="$PROJECT_DIR$/sockets/updateUserStatus.js" />
         <option value="$PROJECT_DIR$/sockets/sendArena.js" />
         <option value="$PROJECT_DIR$/sockets/socket.js" />
         <option value="$PROJECT_DIR$/sockets/getArenasOnDisconnect.js" />
         <option value="$PROJECT_DIR$/models/statistics.js" />
-        <option value="$PROJECT_DIR$/controllers/arena.js" />
         <option value="$PROJECT_DIR$/sockets/updateStats.js" />
         <option value="$PROJECT_DIR$/routes/historicData.js" />
-        <option value="$PROJECT_DIR$/controllers/historicData.js" />
+        <option value="$PROJECT_DIR$/controllers/arena.js" />
+        <option value="$PROJECT_DIR$/controllers/activeArena.js" />
         <option value="$PROJECT_DIR$/controllers/awardsControllers/statisticsAwardController.js" />
+        <option value="$PROJECT_DIR$/controllers/historicData.js" />
       </list>
     </option>
   </component>
@@ -235,7 +184,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3832" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
@@ -255,6 +204,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -343,7 +293,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -548,33 +497,35 @@
       <workItem from="1505397986181" duration="641000" />
       <workItem from="1505639109502" duration="18657000" />
       <workItem from="1505720102074" duration="9147000" />
-      <workItem from="1505733966397" duration="4047000" />
+      <workItem from="1505733966397" duration="4842000" />
+      <workItem from="1505769536538" duration="267000" />
+      <workItem from="1505920458056" duration="6179000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="531865000" />
+    <option name="totallyTimeSpent" value="539106000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3832" y="-8" width="1936" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20916754" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960339" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24299066" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3520249" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281412" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -618,8 +569,74 @@
           <line>16</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>33</line>
+          <properties />
+          <option name="timeStamp" value="174" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>42</line>
+          <properties />
+          <option name="timeStamp" value="177" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>44</line>
+          <properties />
+          <option name="timeStamp" value="178" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>47</line>
+          <properties />
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>50</line>
+          <properties />
+          <option name="timeStamp" value="180" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>60</line>
+          <properties />
+          <option name="timeStamp" value="181" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>62</line>
+          <properties />
+          <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>65</line>
+          <properties />
+          <option name="timeStamp" value="183" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controllers/historicData.js</url>
+          <line>73</line>
+          <properties />
+          <option name="timeStamp" value="184" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="148" />
+      <option name="time" value="187" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -650,13 +667,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="546">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/history.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="35" lean-forward="false" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -696,13 +706,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="23" column="39" lean-forward="false" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/activeArena.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -798,13 +801,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/activeArena.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="46" column="14" lean-forward="true" selection-start-line="41" selection-start-column="12" selection-end-line="46" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sockets/sendArena.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -847,13 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/arena.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sockets/updateStats.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -889,14 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/historicData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="228" column="19" lean-forward="false" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/historicData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -923,7 +904,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/awards.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
+        <state relative-caret-position="408">
           <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="8" />
           <folding />
         </state>
@@ -931,23 +912,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/awards.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="110" column="12" lean-forward="false" selection-start-line="110" selection-start-column="12" selection-end-line="114" selection-end-column="16" />
+        <state relative-caret-position="102">
+          <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sockets/updateUserStatus.js">
+    <entry file="file://$PROJECT_DIR$/controllers/activeArena.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="48" lean-forward="false" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
+        <state relative-caret-position="279">
+          <caret line="243" column="31" lean-forward="false" selection-start-line="243" selection-start-column="25" selection-end-line="243" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="1207">
           <caret line="73" column="31" lean-forward="false" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="31" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
@@ -955,10 +936,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/arena.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="267" column="42" lean-forward="false" selection-start-line="267" selection-start-column="41" selection-end-line="267" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/activeArena.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/awardsControllers/statisticsAwardController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="257" column="39" lean-forward="false" selection-start-line="257" selection-start-column="19" selection-end-line="257" selection-end-column="39" />
+        <state relative-caret-position="513">
+          <caret line="132" column="8" lean-forward="false" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/history.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="35" lean-forward="false" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sockets/updateUserStatus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="35" column="76" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/historicData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="177" column="14" lean-forward="false" selection-start-line="177" selection-start-column="14" selection-end-line="177" selection-end-column="14" />
           <folding />
         </state>
       </provider>

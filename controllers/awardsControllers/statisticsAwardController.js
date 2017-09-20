@@ -277,6 +277,7 @@ exports.statisticsAddedDraw = function (req, res, next, userId, result, arenaId)
                   .populate({path: 'arenas', match: {_id: arenaId}})
                   .exec(function (err, user) {
                     if (err) {
+                      console.log(err);
                       reject({
                         error: err,
                         message: 'Couldnt get award',
@@ -287,6 +288,7 @@ exports.statisticsAddedDraw = function (req, res, next, userId, result, arenaId)
                     user.arenas.pull({_id: arenaId})
                     user.save(function (err, saveres) {
                       if (err) {
+                        console.log(err);
                         reject({
                           error: err,
                           message: 'Couldnt get award',
