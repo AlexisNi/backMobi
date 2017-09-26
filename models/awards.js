@@ -23,10 +23,6 @@ var schema = new Schema({
       received: {type: Boolean, default: false}
     },
     draw: {
-      userId: String,
-      points: Number,
-      experience: Number,
-      correctAnswers:Number,
       receivedP1: {
         userId: {
           type: String
@@ -38,7 +34,8 @@ var schema = new Schema({
         points: {
           type: Number
         },
-        experience: Number
+        experience: Number,
+        correctAnswers:Number
       },
       receivedP2: {
         userId: {
@@ -51,7 +48,9 @@ var schema = new Schema({
         points: {
           type: Number
         },
-        experience: Number
+        experience: Number,
+        correctAnswers:Number
+
       }
 
     }

@@ -8,10 +8,10 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
 
   var userOneLength;
   var userTwoLenth;
-
-
-  console.log('inside create award')
-
+  var pointsA=0;
+  var pointsB=0;
+  var bonusPlayerA=0;
+  var bonusPlayerB=0;
   try {
     ArenaQuestions.findOne().where({$and: [{arenaId: arenaId}, {userId: userId}]})
       .populate('userId', 'userName')
@@ -20,9 +20,26 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
           console.log(err)
         }
         else if (answerCount == null) {
-          userOneLength = 0
+          userOneLength = 0;
+          bonusPlayerA=0;
         } else {
-          userOneLength = answerCount.questionAnswer.length
+          userOneLength = answerCount.questionAnswer.length;
+          for(var i=0; i<answerCount.questionAnswer.length;i++){
+            if(answerCount.questionAnswer[i].time>25){
+              bonusPlayerA=bonusPlayerA+0.05;
+            }
+            else if(answerCount.questionAnswer[i].time>20&&answerCount.questionAnswer[i].time<25){
+              bonusPlayerA=bonusPlayerA+0.03
+
+            }else{
+              bonusPlayerA=bonusPlayerA+0;
+
+            }
+            pointsA=10+pointsA;
+
+
+          }
+
         }
         ArenaQuestions.findOne().where({$and: [{arenaId: arenaId}, {userId: {$ne: userId}}]})
           .populate('userId', 'userName')
@@ -34,42 +51,46 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
               console.log(err)
             }
             else if (answerCountB == null) {
-              userTwoLenth = 0
+              userTwoLenth = 0;
+              bonusPlayerB=0;
             } else {
-              userTwoLenth = answerCountB.questionAnswer.length
+              userTwoLenth = answerCountB.questionAnswer.length;
+              for(var i=0; i<answerCountB.questionAnswer.length;i++){
+                if(answerCount.questionAnswer[i].time>25){
+                  bonusPlayerB=bonusPlayerB+0.05;
+                }
+                else if(answerCount.questionAnswer[i].time>20&&answerCount.questionAnswer[i].time<25){
+                  bonusPlayerB=bonusPlayerB+0.03
+
+                }else{
+                  bonusPlayerB=bonusPlayerB+0;
+                }
+                pointsB=10+pointsB;
+
+              }
+
             }
             try {
               if (userOneLength > userTwoLenth) {
+                pointsA=pointsA+50;
+                pointsA=(pointsA*bonusPlayerA)+pointsA;
+
+                pointsB=pointsB+10;
+                pointsB=(pointsB*bonusPlayerB)+pointsB;
+
+
                 try {
-                  var awards = {
-                    awards: {
-                      arenaId: arenaId,
-                      winner: {
-                        userId: '',
-                        arenaId: '',
-                        points: 3,
-                        experience: 140,
-                        correctAnswers: userOneLength
-                      }, loser: {
-                        userId: '',
-                        arenaId: '',
-                        points: 0,
-                        experience: 40,
-                        correctAnswers: userTwoLenth
-                      }
-                    }
-                  }
-                  awards = new Awards({
+                 var awards = new Awards({
                     arenaId: arenaId,
                     awards: {
                       winner: {
                         userId: userId,
-                        points: 3,
+                        points: pointsA,
                         experience: 140,
                         correctAnswers: userOneLength
                       }, loser: {
                         userId: inviteId,
-                        points: 0,
+                        points: pointsB,
                         experience: 40,
                         correctAnswers: userTwoLenth
 
@@ -83,27 +104,25 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
                 }
 
               } else if (userOneLength < userTwoLenth) {
+                pointsA=pointsA+10;
+                pointsA=(pointsA*bonusPlayerA)+pointsA;
+
+                pointsB=pointsB+50;
+                pointsB=(pointsB*bonusPlayerB)+pointsB;
+
                 try {
-                  var awards = {
-                    awards: {
-                      arenaId: arenaId, winner: {
-                        userId: '', arenaId: '', points: 3, experience: 140
-                      }, loser: {
-                        userId: '', arenaId: '', points: 0, experience: 40
-                      }
-                    }
-                  }
-                  awards = new Awards({
+
+                var  awards = new Awards({
                     arenaId: arenaId,
                     awards: {
                       winner: {
                         userId: inviteId,
-                        points: 3,
+                        points: pointsB,
                         experience: 140,
                         correctAnswers: userTwoLenth
                       }, loser: {
                         userId: userId,
-                        points: 0,
+                        points: pointsA,
                         experience: 40,
                         correctAnswers: userOneLength
                       }
@@ -118,34 +137,27 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
               }
 
               else {
+                pointsA=pointsA+20;
+                pointsA=(pointsA*bonusPlayerA)+pointsA;
+
+                pointsB=pointsB+20;
+                pointsB=(pointsB*bonusPlayerB)+pointsB;
                 try {
-                  var awards = {
-                    awards: {
-                      arenaId: arenaId, winner: {
-                        userId: '', arenaId: '', points: 3, experience: 140
-                      }, loser: {
-                        userId: '', arenaId: '', points: 0, experience: 40
-                      }
-                    }
-                  }
                       awards = new Awards({
                         draw:true,
                         arenaId: arenaId,
                         awards: {
                           arenaId: arenaId,
                           draw: {
-                            userId: inviteId,
-                            points: 1,
-                            experience: 70,
-                            correctAnswers: userOneLength,
                             receivedP1: {
                               userId: userId,
-                              points: 1,
-                              experience: 70
+                              points: pointsA,
+                              experience: 70,
+                              correctAnswers: userOneLength
                             },
                             receivedP2: {
                               userId: inviteId,
-                              points: 1,
+                              points: pointsB,
                               experience: 70,
                               correctAnswers: userTwoLenth
                             }

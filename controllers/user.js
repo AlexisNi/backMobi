@@ -91,7 +91,11 @@ exports.userCreate = function (req, res, next) {
                   })
                 }
               }
-              var statistics = new Statistics({user: result, firebase_id: userId})
+              var statistics = new Statistics({
+                user: result,
+                firebase_id: userId
+
+              })
               statistics.save(function (err, stats) {
                 if (err) {
 

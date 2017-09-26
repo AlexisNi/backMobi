@@ -28,6 +28,9 @@ exports.statisticsAddedWinner = function (req, res, next, userId, result, arenaI
         statistics.losingStreak.currentStreak = 0
         statistics.drawStreak.currentStreak = 0
         statistics.rightQuestionsNumber = result.awards.winner.correctAnswers + statistics.rightQuestionsNumber
+
+        statistics.rating=result.awards.winner.points+statistics.rating;
+
         statistics.save(function (err, statsResult) {
           var loserId = result.awards.loser.userId
           require('.././historicData').historicWinner(req, res, next, userId, loserId).then(function (history) {
@@ -158,7 +161,10 @@ exports.statisticsAddedLoser = function (req, res, next, userId, result, arenaId
       }
       statistics.winningStreak.currentStreak = 0
       statistics.drawStreak.currentStreak = 0
-      statistics.rightQuestionsNumber = result.awards.loser.correctAnswers + statistics.rightQuestionsNumber
+      statistics.rightQuestionsNumber = result.awards.loser.correctAnswers + statistics.rightQuestionsNumber;
+
+      statistics.rating=result.awards.loser.points+statistics.rating;
+
       statistics.save(function (err, loserUser) {
         var winnerdId = result.awards.winner.userId
 
@@ -243,7 +249,7 @@ exports.statisticsAddedDraw = function (req, res, next, userId, result, arenaId)
         reject({error: 'award received', message: 'Award aleady received', where: 'Award draw'})
 
       } else {
-        statistics.currentExp = statistics.currentExp + result.awards.draw.experience
+        statistics.currentExp = statistics.currentExp +result.awards.draw.receivedP1.experience
         statistics.points = statistics.points + 1
         statistics.draws = statistics.draws + 1
         var levelInfo = require('.././LevelUp')(statistics.level, statistics.currentExp)
@@ -255,7 +261,13 @@ exports.statisticsAddedDraw = function (req, res, next, userId, result, arenaId)
         }
         statistics.winningStreak.currentStreak = 0;
         statistics.losingStreak.currentStreak = 0;
-        statistics.rightQuestionsNumber = result.awards.draw.correctAnswers + statistics.rightQuestionsNumber;
+        statistics.rightQuestionsNumber = result.awards.draw.receivedP1.correctAnswers + statistics.rightQuestionsNumber;
+        if(result.awards.draw.receivedP1.userId == userId){
+          statistics.rating=result.awards.draw.receivedP1.points+statistics.rating;
+        }else{
+          statistics.rating=result.awards.draw.receivedP2.points+statistics.rating;
+        }
+
         statistics.save(function (err, statisticDrawResultP1) {
           if (err) {
             reject({error: err, message: 'Couldnt get award', where: '193-statisticsAddedDraw save'})

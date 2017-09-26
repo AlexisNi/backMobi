@@ -32,7 +32,8 @@ module.exports = function (io) {
     })*/
 
     connectedUserList[socket.handshake.query.userId] = socket
-    require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId])
+    require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId]);
+    require('../controllers/leaderboard').leaderBoardCreate();
 
     socket.on('enterArena', function (req) {
       userInfo[socket.id] = req

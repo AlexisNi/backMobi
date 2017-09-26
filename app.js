@@ -20,7 +20,7 @@ admin.initializeApp({
   databaseURL: "https://football-quiz-a9e1e.firebaseio.com"
 });
 var adminControl= require("./config/firebaseMiddleware");
-
+console.log(process.env.NODE_ENV)
 
 
 ///////////////////routes config////////////////////
@@ -31,6 +31,12 @@ var activeArena=require('./routes/activeArena');
 var awards=require('./routes/awards');
 var firebaseRoutes=require('./routes/firebaseAuth');
 var historicDataRoutes=require('./routes/historicData');
+var leaderBoardRoutes=require('./routes/leaderBoard');
+
+require('./controllers/leaderboard').leaderBoardCreate();
+setInterval(function () {
+  require('./controllers/leaderboard').leaderBoardCreate();
+},100000)
 
 ///////////////socket config//////////////////
 var socket_io=require("socket.io");
@@ -79,6 +85,7 @@ app.use('/api/activeArena',activeArena);
 app.use('/api/awards',awards);
 app.use('/api/firebase',firebaseRoutes);
 app.use('/api/historicData',historicDataRoutes);
+app.use('/api/leaderBoard',leaderBoardRoutes)
 app.use(function (req, res, next) {
     return res.render('index');
 });

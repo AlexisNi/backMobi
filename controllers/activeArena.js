@@ -238,6 +238,7 @@ exports.getCorrectNumber = function (req, res, next) {
 }
 exports.getResults = function (req, res, next) {
   var arenaId = req.body.arenaId
+  var userId= req.body.userId;
   console.log(arenaId)
 
   Awards.findOne({arenaId: arenaId})
@@ -250,22 +251,40 @@ exports.getResults = function (req, res, next) {
         })
       } else {
         if (result) {
-          console.log(result.awards.winner.userId);
+          var awardToReturn;
+          if(result.awards.draw.receivedP1.userId==userId){
+            awardToReturn=result.awards.draw.receivedP1;
+          }else{
+            awardToReturn=result.awards.draw.receivedP2;
+          }
           if(result.draw==true) {
+            console.log(awardToReturn);
             return res.status(200).json({
               message: 'success',
-              winner: '',
-              loser: ' ',
               draw: true,
-              awards: result
+              awards: awardToReturn,
+              isWin:false
+
             })
           }else{
+            var awardToReturn;
+            var otherPlayerCorrect;
+            var isWin;
+            if(result.awards.winner.userId==userId){
+              awardToReturn=result.awards.winner;
+              otherPlayerCorrect=result.awards.loser.correctAnswers;
+              isWin=true;
+            }else{
+              awardToReturn=result.awards.loser;
+              otherPlayerCorrect=result.awards.winner.correctAnswers;
+              isWin=false;
+            }
             return res.status(200).json({
               message: 'success',
-              winner: result.awards.winner.userId,
-              loser: result.awards.loser.userId,
               draw: false,
-              awards: result
+              awards: awardToReturn,
+              otherPlayerCorrect:otherPlayerCorrect,
+              isWin:isWin
             })
 
           }

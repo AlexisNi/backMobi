@@ -9,6 +9,9 @@ var schema = new Schema({
   wins: {type: Number, default: 0},
   loses: {type: Number, default: 0},
   draws: {type: Number, default: 0},
+  rating:{type:Number,default:0},
+  previousRanking:{type:Number,default:0},
+  ranking:{type:Number,default:0},
   winningStreak: {
     currentStreak:{type:Number,default:0},
     longestStreak:{type:Number,default:0}
