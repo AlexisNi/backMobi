@@ -20,7 +20,6 @@ admin.initializeApp({
   databaseURL: "https://football-quiz-a9e1e.firebaseio.com"
 });
 var adminControl= require("./config/firebaseMiddleware");
-console.log(process.env.NODE_ENV)
 
 
 ///////////////////routes config////////////////////
@@ -36,7 +35,7 @@ var leaderBoardRoutes=require('./routes/leaderBoard');
 require('./controllers/leaderboard').leaderBoardCreate();
 setInterval(function () {
   require('./controllers/leaderboard').leaderBoardCreate();
-},100000)
+},600000)
 
 ///////////////socket config//////////////////
 var socket_io=require("socket.io");

@@ -16,25 +16,34 @@ var schema = new Schema({
     userId: {
       type: Schema.Types.ObjectId, ref: 'Users'
     },
-    send:{type: Boolean, default: false}
+    send: {type: Boolean, default: false}
   },
   userTwoSendNotification: {
     userId: {
       type: Schema.Types.ObjectId, ref: 'Users'
     },
-    send:{type: Boolean, default: false}
+    send: {type: Boolean, default: false}
   },
   userOneSeeNotification: {
     userId: {
       type: Schema.Types.ObjectId, ref: 'Users'
     },
-    seenArena:{type: Boolean, default: false}
+    seenArena: {type: Boolean, default: false}
   },
   userTwoSeeNotification: {
     userId: {
       type: Schema.Types.ObjectId, ref: 'Users'
     },
-    seenArena:{type: Boolean, default: false}
+    seenArena: {type: Boolean, default: false}
+  },
+  questionsAnswered: {
+    user: {
+      questionNumber: {type: Schema.Types.ObjectId, ref: 'ArenaQuestion'}
+    },
+    invite:{
+      questionNumber: {type: Schema.Types.ObjectId, ref: 'ArenaQuestion'}
+    }
+
   }
 
 })

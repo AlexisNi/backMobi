@@ -250,7 +250,8 @@ exports.getResult = function (req, res, next) {
 exports.getArenas = function (req, res, next) {
 
   var userId = req.body.userId
-  var arenasArray = []
+  var arenasArray = [];
+  var showArenaAsUser=[];
 
   User.findOne({_id: userId})//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE USER ROW AND SHOW THE LAST NAME OF INVITE
     .populate('arenas', '_id')
@@ -273,9 +274,9 @@ exports.getArenas = function (req, res, next) {
         arenasArray.push(arenasArr.arenas[i]._id)
       }
 
-      ArenaUser.find({$and: [{user: arenasArr._id}, {_id: {$in: arenasArray}}]}, 'user invite invite_played  status_accept  user_played')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
+      ArenaUser.find({$and: [{user: arenasArr._id}, {_id: {$in: arenasArray}}]}, 'user invite invite_played  status_accept  user_played questionsAnswered')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
         .populate('invite', 'username')
-        .deepPopulate('questions')
+        .populate('questionsAnswered.user.questionNumber','questionAnswer')
         .exec(function (err, arenas) {
           if (err) {
             return res.status(500).json({
@@ -285,9 +286,8 @@ exports.getArenas = function (req, res, next) {
             })
           }
 
-          ArenaUser.find({$and: [{invite: arenasArr._id}, {_id: {$in: arenasArray}}]}, 'user invite invite_played  status_accept  user_played')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
+          ArenaUser.find({$and: [{invite: arenasArr._id}, {_id: {$in: arenasArray}}]}, 'user invite invite_played  status_accept  user_played questionsAnswered')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
             .populate('user', 'username')
-            .deepPopulate('questions')
             .exec(function (err, arenasUser) {
               if (err) {
                 return res.status(500).json({

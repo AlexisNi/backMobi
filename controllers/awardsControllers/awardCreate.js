@@ -47,9 +47,6 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
             if (err) {
               console.log(err)
             }
-            if (err) {
-              console.log(err)
-            }
             else if (answerCountB == null) {
               userTwoLenth = 0;
               bonusPlayerB=0;

@@ -7,6 +7,8 @@ var User = require('../models/user')
 var Arenas = require('../models/arena')
 
 exports.saveAnsweredQuestion = function (req, res, next) {
+  var arenaId=req.body.arenaId;
+  var userId=req.body.userId;
   try {
     ArenaQuestions.findOne({$and: [{arenaId: req.body.arenaId}, {userId: req.body.userId}]})
       .exec(function (err, arenaQuestion) {
@@ -52,6 +54,27 @@ exports.saveAnsweredQuestion = function (req, res, next) {
                   message: 'An error has occured....',
                   status: '500'
                 })
+              }
+              if(result){
+                Arenas.findOne({_id: arenaId})
+                  .exec(function (err,arenasFound) {
+                    if(err){
+
+                    }
+                    if(arenasFound){
+                      if(arenasFound.user==userId){
+                        arenasFound.questionsAnswered.user.questionNumber=result;
+                        arenasFound.save();
+
+                      }else{
+                        arenasFound.questionsAnswered.invite.questionNumber=result;
+                        arenasFound.save();
+
+                      }
+                    }
+
+                  })
+
               }
               res.status(201).json({
                 message: 'QuestionSaved created',

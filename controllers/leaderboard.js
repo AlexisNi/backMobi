@@ -14,6 +14,7 @@ exports.leaderBoardCreate = function () {
         }
         if (result) {
           for (var i = 0; i < result.length; i++) {
+
             result[i].previousRanking = result[i].ranking
             result[i].ranking = i + 1
             result[i].save();
