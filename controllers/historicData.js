@@ -40,7 +40,7 @@ exports.historicWinner = function (req, res, next, userId, loserId) {
       }
       if (winnerUser) {
         HistoryLogs.findOne({$and: [{userId: userId, opponentId: loserId}]}).exec(function (err, history) {
-          console.log('history log',history);
+
           if (err) {
             reject({error: err, message: 'Couldnt save award', where: '43-historiWinner.logs'})
 
@@ -105,7 +105,7 @@ exports.historicLoser = function (req, res, next, userId, winnerId) {
 
           }
           if (history == undefined || history == null) {
-            console.log('history log',history);
+
 
             var newHistory = new HistoryLogs({
               userId: userId,
@@ -162,7 +162,7 @@ exports.historicDraw = function (req, res, next, userId, otherId) {
 
           }
           if (history == undefined || history == null) {
-            console.log('history log',history);
+
             var newHistory = new HistoryLogs({
               userId: userId,
               opponentId: otherId,

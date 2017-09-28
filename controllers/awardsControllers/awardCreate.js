@@ -5,7 +5,7 @@ var ArenaQuestions = require('../../models/activeArena')
 var Awards = require('../../models/awards')
 
 exports.awardCreate = function (userId, inviteId, arenaId) {
-
+var awardCreatePromise=new Promise(function (resolve,reject) {
   var userOneLength;
   var userTwoLenth;
   var pointsA=0;
@@ -44,6 +44,7 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
         ArenaQuestions.findOne().where({$and: [{arenaId: arenaId}, {userId: {$ne: userId}}]})
           .populate('userId', 'userName')
           .exec(function (err, answerCountB) {
+            console.log('anwseer count b:',answerCountB)
             if (err) {
               console.log(err)
             }
@@ -51,19 +52,23 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
               userTwoLenth = 0;
               bonusPlayerB=0;
             } else {
-              userTwoLenth = answerCountB.questionAnswer.length;
-              for(var i=0; i<answerCountB.questionAnswer.length;i++){
-                if(answerCount.questionAnswer[i].time>25){
-                  bonusPlayerB=bonusPlayerB+0.05;
-                }
-                else if(answerCount.questionAnswer[i].time>20&&answerCount.questionAnswer[i].time<25){
-                  bonusPlayerB=bonusPlayerB+0.03
+              try {
+                userTwoLenth = answerCountB.questionAnswer.length;
+                for (var i = 0; i < answerCountB.questionAnswer.length; i++) {
+                  if (answerCountB.questionAnswer[i].time > 25) {
+                    bonusPlayerB = bonusPlayerB + 0.05;
+                  }
+                  else if (answerCountB.questionAnswer[i].time > 20 && answerCountB.questionAnswer[i].time < 25) {
+                    bonusPlayerB = bonusPlayerB + 0.03
 
-                }else{
-                  bonusPlayerB=bonusPlayerB+0;
-                }
-                pointsB=10+pointsB;
+                  } else {
+                    bonusPlayerB = bonusPlayerB + 0;
+                  }
+                  pointsB = 10 + pointsB;
 
+                }
+              }catch (err){
+                reject(err);
               }
 
             }
@@ -94,7 +99,14 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
                       }
                     }
                   })
-                  awards.save()
+                  awards.save(function (err,result) {
+                    if(err){
+                      reject(err);
+                    }else{
+                      resolve(arenaId);
+                    }
+
+                  })
 
                 } catch (err) {
                   console.log(err);
@@ -125,10 +137,17 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
                       }
                     }
                   })
-                  awards.save()
+                  awards.save(function (err,result) {
+                    if(err){
+                      reject(err);
+                    }else{
+                      resolve(arenaId);
+                    }
+
+                  })
 
                 } catch (err) {
-                console.log(err);
+                  reject(err);
                 }
 
               }
@@ -161,11 +180,14 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
                           }
                         }
                       })
-                      awards.save(function (err, result) {
-                        if (err) {
-                          console.log(err)
-                        }
-                      })
+                  awards.save(function (err,result) {
+                    if(err){
+                      reject(err);
+                    }else{
+                      resolve(arenaId);
+                    }
+
+                   })
                 } catch (err) {
                   console.log(err);
                 }
@@ -178,5 +200,18 @@ exports.awardCreate = function (userId, inviteId, arenaId) {
   } catch (err) {
     console.log(err);
   }
+})
+
+  awardCreatePromise.then(function (arena) {
+    ArenaQuestions.findOne({arenaId:arena})
+      .exec(function (err,result) {
+        if(err){
+          console.log(err);
+        }else if(result){
+          result.remove();
+        }
+      })
+
+  })
 
 }

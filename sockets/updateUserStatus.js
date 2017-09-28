@@ -4,7 +4,7 @@
 var Arenas=require('../models/arena');
 module.exports=function (userId,arenaId) {
     console.log('Post Received played status');
-    console.log('arenaId',arenaId);
+
 
     Arenas.findOne({_id:arenaId})
         .populate('user')

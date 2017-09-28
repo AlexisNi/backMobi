@@ -44,7 +44,10 @@ var UserSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'DeviceTokens'
   }],
-  last5Matches:[{result:String,userName:String}]
+  last5Matches:[{result:String,userName:String}],
+  awards:{
+    type: Schema.Types.ObjectId,
+    ref: 'Awards'}
 })
 
 /*UserSchema.pre('save', function (next) {

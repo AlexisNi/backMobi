@@ -239,7 +239,7 @@ exports.statisticsAddedLoser = function (req, res, next, userId, result, arenaId
 }
 
 exports.statisticsAddedDraw = function (req, res, next, userId, result, arenaId) {
-  console.log('ARENA ID ', arenaId)
+
   return new Promise(function (resolve, reject) {
 
     Statistics.findOne({user: userId}).exec(function (err, statistics) {

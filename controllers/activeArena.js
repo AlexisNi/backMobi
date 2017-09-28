@@ -262,7 +262,6 @@ exports.getCorrectNumber = function (req, res, next) {
 exports.getResults = function (req, res, next) {
   var arenaId = req.body.arenaId
   var userId= req.body.userId;
-  console.log(arenaId)
 
   Awards.findOne({arenaId: arenaId})
     .exec(function (err, result) {
@@ -281,7 +280,6 @@ exports.getResults = function (req, res, next) {
             awardToReturn=result.awards.draw.receivedP2;
           }
           if(result.draw==true) {
-            console.log(awardToReturn);
             return res.status(200).json({
               message: 'success',
               draw: true,

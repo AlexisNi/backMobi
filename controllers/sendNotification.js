@@ -20,7 +20,7 @@ module.exports = function (otherUserId, user, arenaId) {
                   throw err
                 }
                 if (device) {
-                  console.log(device);
+
                   try {
                     var registrationToken=[];
                     for(var i=0; i<device.length; i++){
@@ -80,7 +80,7 @@ module.exports = function (otherUserId, user, arenaId) {
                     .then(function (response) {
                       result.userTwoSendNotification.send = true
                       result.save()
-                      console.log('Successfully sent message:', response)
+
                     })
                     .catch(function (error) {
                       console.log('Error sending message:', error)

@@ -67,7 +67,7 @@ module.exports = function (io) {
 
     socket.on('getQuestions', function (req) {
       console.log('here get questions!')
-      console.log(req)
+
       require('./getQuestion')(req, connectedUserList[req.userId])
 
     })
@@ -90,7 +90,7 @@ module.exports = function (io) {
         require('./updateUserStatus')(userInfo[socket.id].userId, userData.arenaId);
         if (connectedUserList[otherUser] != null) {
           if (otherUser != null) {
-            console.log(otherUser);
+
 
             console.log('other user')
             require('./getArenasOnDisconnect')(otherUser, connectedUserList[otherUser],userData.arenaId)
