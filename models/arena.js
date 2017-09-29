@@ -40,35 +40,38 @@ var schema = new Schema({
     user: {
       questionNumber: {type: Schema.Types.ObjectId, ref: 'ArenaQuestion'}
     },
-    invite:{
+    invite: {
       questionNumber: {type: Schema.Types.ObjectId, ref: 'ArenaQuestion'}
     }
   }
 
 })
 
-schema.pre('save', function  (next) {
-  var arenaModel= mongoose.model('Arena');
-  arenaModel.findOne({
-    $or : [
-      { $and : [ { user : this.user }, { invite : this.invite } ] },
-      { $and : [ { user : this.invite }, { invite : this.user } ] }
-    ]
-  }).exec(function (err,res) {
-    if(err){
+schema.pre('save', function (next) {
+  var arenaModel = mongoose.model('Arena')
+  if (this.isNew) {
+    arenaModel.findOne({
+      $or: [
+        {$and: [{user: this.user}, {invite: this.invite}]},
+        {$and: [{user: this.invite}, {invite: this.user}]}
+      ]
+    }).exec(function (err, res) {
+      if (err) {
 
-    }else{
-      if(res){
-
-        var err=new Error('Arena Already exist')
-        next(err);
-      }else{
-        next();
+      } else {
+        if (res) {
+          var err = new Error('Arena Already exist')
+          next(err)
+        } else {
+          next()
+        }
       }
+    })
+  }else{
 
+    next();
+  }
 
-    }
-  })
 })
 
 schema.index({invite: 1, user: 1}, {unique: true})

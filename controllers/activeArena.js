@@ -58,20 +58,20 @@ exports.saveAnsweredQuestion = function (req, res, next) {
               if(result){
                 Arenas.findOne({_id: arenaId})
                   .exec(function (err,arenasFound) {
-                    if(err){
-
-                    }
-                    if(arenasFound){
-                      if(arenasFound.user==userId){
-                        arenasFound.questionsAnswered.user.questionNumber=result;
-                        arenasFound.save();
-
-                      }else{
-                        arenasFound.questionsAnswered.invite.questionNumber=result;
-                        arenasFound.save();
+                      if(err){
 
                       }
-                    }
+                      if(arenasFound){
+                        if(arenasFound.user==userId){
+                          arenasFound.questionsAnswered.user.questionNumber=result;
+                          arenasFound.save();
+
+                        }else{
+                          arenasFound.questionsAnswered.invite.questionNumber=result;
+                          arenasFound.save();
+
+                        }
+                      }
 
                   })
 
