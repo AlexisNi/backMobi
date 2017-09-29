@@ -159,6 +159,7 @@ exports.statusPlayed = function (req, res, next) {
 
   var userId = req.body.userId
   var arenaId = req.body.arenaId
+  console.log('arenaid',arenaId)
   ArenaUser.findOne({_id: arenaId})
     .populate('user')
     .populate('invite')
@@ -286,8 +287,9 @@ exports.getArenas = function (req, res, next) {
             })
           }
 
-          ArenaUser.find({$and: [{invite: arenasArr._id}, {_id: {$in: arenasArray}}]}, 'user invite invite_played  status_accept  user_played')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
+          ArenaUser.find({$and: [{invite: arenasArr._id}, {_id: {$in: arenasArray}}]}, 'user invite invite_played  status_accept  user_played questionsAnswered')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
             .populate('user', 'username')
+            .populate('questionsAnswered.user.questionNumber','questionAnswer')
             .exec(function (err, arenasUser) {
               if (err) {
                 return res.status(500).json({
