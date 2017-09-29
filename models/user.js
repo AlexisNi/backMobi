@@ -45,10 +45,15 @@ var UserSchema = new mongoose.Schema({
     ref: 'DeviceTokens'
   }],
   last5Matches:[{result:String,userName:String}],
-  awards:{
+  awards:[{
     type: Schema.Types.ObjectId,
-    ref: 'Awards'}
+    ref: 'Awards'}],
+  friendList:[{
+    type: Schema.Types.ObjectId,
+    ref: 'FriendList'
+  }]
 })
+
 
 /*UserSchema.pre('save', function (next) {
  this.username = this.username.toLowerCase()
