@@ -28,7 +28,7 @@ function start() {*/
 
   var server = http.createServer(app);
   var io = app.io;
-  io.attach(server);
+  io.attach(server,{'pingInterval': 2000, 'pingTimeout': 5000});
   /**
    * Listen on provided port, on all network interfaces.
    */
