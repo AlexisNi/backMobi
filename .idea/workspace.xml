@@ -6,7 +6,10 @@
     <bookmark url="file://$PROJECT_DIR$/controllers/historicData.js" line="122" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="" />
+    <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sockets/socket.js" afterPath="$PROJECT_DIR$/sockets/socket.js" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -36,7 +39,7 @@
       <file leaf-file-name="awardCreate.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3587">
+            <state relative-caret-position="580">
               <caret line="211" column="9" lean-forward="false" selection-start-line="211" selection-start-column="9" selection-end-line="211" selection-end-column="9" />
               <folding />
             </state>
@@ -53,11 +56,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="socket.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="socket.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sockets/socket.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1530">
-              <caret line="90" column="48" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="48" />
+            <state relative-caret-position="68">
+              <caret line="76" column="34" lean-forward="true" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sendNotification.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/sendNotification.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1360">
+              <caret line="80" column="52" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -66,18 +79,18 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="43" column="42" lean-forward="false" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="42" />
+            <state relative-caret-position="340">
+              <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="www" pinned="false" current-in-tab="true">
+      <file leaf-file-name="www" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/www">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="20" />
+            <state relative-caret-position="373">
+              <caret line="30" column="62" lean-forward="false" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -151,7 +164,6 @@
         <option value="$PROJECT_DIR$/controllers/findRandom.js" />
         <option value="$PROJECT_DIR$/models/history.js" />
         <option value="$PROJECT_DIR$/controllers/users.js" />
-        <option value="$PROJECT_DIR$/controllers/sendNotification.js" />
         <option value="$PROJECT_DIR$/models/todo.js" />
         <option value="$PROJECT_DIR$/models/testUser.js" />
         <option value="$PROJECT_DIR$/models/last5Matches.js" />
@@ -172,7 +184,6 @@
         <option value="$PROJECT_DIR$/controllers/awardsControllers/statisticsAwardController.js" />
         <option value="$PROJECT_DIR$/models/awards.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/sockets/sendArena.js" />
         <option value="$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js" />
         <option value="$PROJECT_DIR$/controllers/arena.js" />
@@ -183,8 +194,10 @@
         <option value="$PROJECT_DIR$/models/arena.js" />
         <option value="$PROJECT_DIR$/sockets/getArenasOnDisconnect.js" />
         <option value="$PROJECT_DIR$/sockets/updateUserStatus.js" />
-        <option value="$PROJECT_DIR$/sockets/socket.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/controllers/sendNotification.js" />
+        <option value="$PROJECT_DIR$/sockets/socket.js" />
       </list>
     </option>
   </component>
@@ -536,12 +549,12 @@
       <workItem from="1506856725749" duration="611000" />
       <workItem from="1506928839019" duration="12125000" />
       <workItem from="1507019385998" duration="116000" />
-      <workItem from="1507019613995" duration="3272000" />
+      <workItem from="1507019613995" duration="4748000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="652877000" />
+    <option name="totallyTimeSpent" value="654353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
@@ -834,13 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/sendNotification.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-500">
-          <caret line="38" column="69" lean-forward="false" selection-start-line="38" selection-start-column="69" selection-end-line="38" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/historicData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-48">
@@ -913,10 +919,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3587">
-          <caret line="211" column="9" lean-forward="false" selection-start-line="211" selection-start-column="9" selection-end-line="211" selection-end-column="9" />
+        <state relative-caret-position="561">
+          <caret line="33" column="11" lean-forward="false" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="30" column="62" lean-forward="false" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
           <folding />
         </state>
       </provider>
@@ -929,34 +951,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/controllers/awardsControllers/awardCreate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="11" lean-forward="false" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="11" />
+        <state relative-caret-position="580">
+          <caret line="211" column="9" lean-forward="false" selection-start-line="211" selection-start-column="9" selection-end-line="211" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/sendNotification.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1360">
+          <caret line="80" column="52" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sockets/socket.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="90" column="48" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="43" column="42" lean-forward="false" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="20" />
+        <state relative-caret-position="68">
+          <caret line="76" column="34" lean-forward="true" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
           <folding />
         </state>
       </provider>

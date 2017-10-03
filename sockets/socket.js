@@ -50,10 +50,6 @@ module.exports = function (io) {
 
     });
 
-/*    socket.on('logout',function () {
-      console.log('log out')
-     socket.disconnect();
-    })*/
 
     socket.on('sendArena', function (req) {
       console.log('send arena')
@@ -75,8 +71,7 @@ module.exports = function (io) {
     })
     socket.on('sendNotication', function (req) {
       console.log('NOTIFICATIONS')
-      var userData = userInfo[socket.id];
-      require('../controllers/sendNotification')(req.userId, userInfo[socket.id].userId, userInfo[socket.id].arenaId)
+      require('../controllers/sendNotification')(req.inviteId, req.userId, req.arenaId);
 
     });
 
