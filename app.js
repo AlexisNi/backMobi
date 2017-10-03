@@ -39,7 +39,7 @@ setInterval(function () {
 
 ///////////////socket config//////////////////
 var socket_io=require("socket.io");
-var io=socket_io();
+var io=socket_io({'pingInterval': 2000, 'pingTimeout': 5000});
 app.io=io;
 var sockets=require('./sockets/socket')(io);
 ///////////////database//////////////////
