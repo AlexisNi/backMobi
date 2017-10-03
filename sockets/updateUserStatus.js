@@ -19,6 +19,7 @@ module.exports=function (userId,arenaId) {
                           if (result) {
                             if (result.user_played == true && result.invite_played == true) {
                               require('../controllers/awardsControllers/awardCreate').awardCreate(arenas.user._id, arenas.invite._id, arenaId);
+
                             }
                           }
                         }
@@ -31,7 +32,6 @@ module.exports=function (userId,arenaId) {
                             throw err;
                         }else{
                           if(result){
-                            console.log(result);
                             if(result.user_played==true && result.invite_played==true){
                               require('../controllers/awardsControllers/awardCreate').awardCreate(arenas.user._id,arenas.invite._id,arenaId);
                             }

@@ -9,8 +9,10 @@ var connectedUserList = []
 var userInfo = []
 
 module.exports = function (io) {
+
   io.on('connection', function (socket) {
     console.log('user connected');
+
 /*    User.find({}).exec(function (err,result) {
       if(err){
 
@@ -73,7 +75,7 @@ module.exports = function (io) {
     })
     socket.on('sendNotication', function (req) {
       console.log('NOTIFICATIONS')
-      var userData = userInfo[socket.id]
+      var userData = userInfo[socket.id];
       require('../controllers/sendNotification')(req.userId, userInfo[socket.id].userId, userInfo[socket.id].arenaId)
 
     });
@@ -90,9 +92,6 @@ module.exports = function (io) {
         require('./updateUserStatus')(userInfo[socket.id].userId, userData.arenaId);
         if (connectedUserList[otherUser] != null) {
           if (otherUser != null) {
-
-
-            console.log('other user')
             require('./getArenasOnDisconnect')(otherUser, connectedUserList[otherUser],userData.arenaId)
 
           }

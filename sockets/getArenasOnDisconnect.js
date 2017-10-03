@@ -2,7 +2,6 @@
  * Created by alex on 11/01/2017.
  */
 var ArenaUser = require('../models/arena')
-var User = require('../models/user')
 module.exports = function (otherUser, connectedUserList,arenaId) {
 
   try {
@@ -15,6 +14,13 @@ module.exports = function (otherUser, connectedUserList,arenaId) {
           if (err) {
             throw err
           }
+          try{
+            arenas.user_played=true;
+          }catch (err) {
+
+          }
+
+
 
           ArenaUser.findOne({$and: [{invite: otherUser}, {_id: arenaId}]}, 'user invite invite_played  status_accept  user_played')//HERE IS SEARCHING WITH THE USER TOKEN PARAMETER IN THE ARENA DATABASE AT THE INVITE ROW AND SHOWS THE LAST NAME OF THE USER
             .populate('user', 'username')
@@ -23,6 +29,11 @@ module.exports = function (otherUser, connectedUserList,arenaId) {
               if (err) {
 
                 throw err
+              }
+              try{
+                arenas.invite_played=true;
+              }catch (err) {
+
               }
               if (connectedUserList != null) {
                 connectedUserList.emit('loadOneArena', {
