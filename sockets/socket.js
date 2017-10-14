@@ -33,7 +33,7 @@ module.exports = function (io) {
 
     })*/
 
-    connectedUserList[socket.handshake.query.userId] = socket
+    connectedUserList[socket.handshake.query.userId] = socket;
     require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId]);
     require('../controllers/leaderboard').leaderBoardCreate();
 
