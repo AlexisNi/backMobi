@@ -9,9 +9,34 @@ var connectedUserList = []
 var userInfo = []
 
 module.exports = function (io) {
+  var mainGameNsp=io.of('/mainGame');
+  var checkUserNsp=io.of('/checkIfUser');
 
-  io.on('connection', function (socket) {
-    console.log('user connected');
+  checkUserNsp.on('connection',function (socket) {
+
+
+    socket.on('checkUser',function (userId) {
+      if(connectedUserList[userId.userId]!=undefined){
+        console.log('user is conected');
+        socket.emit('connectedStatus',{connected:true});
+
+
+
+      }else{
+        console.log('user not connected')
+        socket.emit('connectedStatus',{connected:false});
+      }
+
+    })
+
+
+
+
+  })
+
+
+  mainGameNsp.on('connection', function (socket) {
+    console.log('user connected',socket.handshake.query.userId);
 
 /*    User.find({}).exec(function (err,result) {
       if(err){
@@ -33,7 +58,16 @@ module.exports = function (io) {
 
     })*/
 
-    connectedUserList[socket.handshake.query.userId] = socket;
+      if(connectedUserList[socket.handshake.query.userId]!==undefined){
+        console.log('user is conected')
+
+
+      }else{
+       console.log('userConnected')
+        connectedUserList[socket.handshake.query.userId] = socket;
+
+      }
+
     require('./updateStats')(socket, connectedUserList[socket.handshake.query.userId]);
     require('../controllers/leaderboard').leaderBoardCreate();
 
@@ -100,6 +134,3 @@ module.exports = function (io) {
 
   })
 }
-
-//8dc63f
-//231f20
