@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node  ./bin/www",
-    "restart": "pm2 restart all",
-    "startAll": "pm2 start ./bin/www -i 3",
-    "logs": "pm2 logs"
+    "start": "node  ./bin/www"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
