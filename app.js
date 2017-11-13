@@ -38,12 +38,16 @@ setInterval(function () {
 },600000)
 
 ///////////////socket config//////////////////
+/*
 var mongoAdapter = require('socket.io-adapter-mongo');
+*/
 var socket_io=require("socket.io");
 var io=socket_io();
 app.io=io;
 
+/*
 io.adapter(mongoAdapter('mongodb://Alexis:315551@ds153689.mlab.com:53689/footballquizarena' ));
+*/
 
 var sockets=require('./sockets/socket')(io);
 ///////////////database//////////////////
