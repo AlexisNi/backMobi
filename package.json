@@ -32,6 +32,7 @@
     "socket.io-adapter-mongo": "^2.0.1",
     "socketio-auth": "^0.1.0",
     "throng": "^4.0.0",
-    "tslint": "^5.7.0"
+    "tslint": "^5.7.0",
+    "utf8": "^2.1.2"
   }
 }
