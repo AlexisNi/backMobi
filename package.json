@@ -34,6 +34,7 @@
     "socket.io": "2.0.4",
     "socket.io-adapter-mongo": "2.0.1",
     "throng": "4.0.0",
-    "tslint": "5.7.0"
+    "tslint": "5.7.0",
+    "engine.io-parser":"2.1.1"
   }
 }
