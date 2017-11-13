@@ -18,9 +18,10 @@ function start() {*/
   /**
    * Get port from environment and store in Express.
    */
+/*
   var portTest=+process.env.NODE_APP_INSTANCE+3000;
-  console.log('here is port',portTest);
-  console.log('type of here',typeof portTest)
+*/
+
   var port = normalizePort(process.env.PORT || 3000);
   app.set('port', port);
 
