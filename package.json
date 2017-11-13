@@ -29,9 +29,9 @@
     "passport.socketio": "^3.7.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^2.0.4",
+    "socket.io-adapter-mongo": "^2.0.1",
     "socketio-auth": "^0.1.0",
     "throng": "^4.0.0",
-    "tslint": "^5.7.0",
-    "utf8": "^2.1.2"
+    "tslint": "^5.7.0"
   }
 }
