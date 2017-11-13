@@ -38,9 +38,13 @@ setInterval(function () {
 },600000)
 
 ///////////////socket config//////////////////
+var mongoAdapter = require('socket.io-adapter-mongo');
 var socket_io=require("socket.io");
 var io=socket_io();
 app.io=io;
+
+io.adapter(mongoAdapter('mongodb://Alexis:315551@ds153689.mlab.com:53689/footballquizarena' ));
+
 var sockets=require('./sockets/socket')(io);
 ///////////////database//////////////////
 mongoose.connect(  'Alexis:315551@ds153689.mlab.com:53689/footballquizarena');
@@ -86,7 +90,7 @@ app.use('/api/firebase',firebaseRoutes);
 app.use('/api/historicData',historicDataRoutes);
 app.use('/api/leaderBoard',leaderBoardRoutes)
 app.use(function (req, res, next) {
-    return res.render('index');
+  return res.render('index',{title:'Express and port listeninig is'+process.env.NODE_APP_INSTANCE});
 });
 
 

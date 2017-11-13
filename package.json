@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node  ./bin/www ",
-    "pm2": "pm2 start ./bin/www"
+    "start": "node  ./bin/www",
+    "restart": "pm2 restart all",
+    "startAll": "pm2 start ./bin/www -i 3",
+    "logs": "pm2 logs"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -29,7 +31,8 @@
     "passport-local": "^1.0.0",
     "passport.socketio": "^3.7.0",
     "serve-favicon": "~2.3.0",
-    "socket.io": "^1.7.3",
+    "socket.io": "^2.0.4",
+    "socket.io-adapter-mongo": "^2.0.1",
     "socketio-auth": "^0.1.0",
     "throng": "^4.0.0",
     "tslint": "^5.7.0"
