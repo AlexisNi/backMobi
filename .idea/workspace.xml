@@ -8,7 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c800f982-5bf3-415b-b094-433f782b632f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,21 +26,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="36" column="15" lean-forward="false" selection-start-line="36" selection-start-column="15" selection-end-line="36" selection-end-column="15" />
+            <state relative-caret-position="373">
+              <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package-lock.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package-lock.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package-lock.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="504" column="12" lean-forward="false" selection-start-line="504" selection-start-column="12" selection-end-line="504" selection-end-column="12" />
+            <state relative-caret-position="203">
+              <caret line="784" column="22" lean-forward="false" selection-start-line="784" selection-start-column="22" selection-end-line="784" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -59,8 +59,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>re</find>
-      <find>render</find>
       <find>\n    \&quot;compression\&quot;\: \&quot;\^1\.7\.0\&quot;\,</find>
       <find>utf-8</find>
       <find>utf-</find>
@@ -86,9 +84,11 @@
       <find>engine-i</find>
       <find>engine-</find>
       <find>engine.io</find>
-      <find>engine</find>
       <find>engine.io-p</find>
       <find>engine.</find>
+      <find>engine</find>
+      <find>client</find>
+      <find>socket</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,8 +146,8 @@
         <option value="$PROJECT_DIR$/.buildpacks" />
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/package-lock.json" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/package-lock.json" />
       </list>
     </option>
   </component>
@@ -466,12 +466,12 @@
       <workItem from="1510129373896" duration="1297000" />
       <workItem from="1510222758025" duration="13620000" />
       <workItem from="1510312273809" duration="20041000" />
-      <workItem from="1510565171734" duration="9132000" />
+      <workItem from="1510565171734" duration="9512000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="740838000" />
+    <option name="totallyTimeSpent" value="741218000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
@@ -904,18 +904,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="504" column="12" lean-forward="false" selection-start-line="504" selection-start-column="12" selection-end-line="504" selection-end-column="12" />
+        <state relative-caret-position="373">
+          <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="36" column="15" lean-forward="false" selection-start-line="36" selection-start-column="15" selection-end-line="36" selection-end-column="15" />
+        <state relative-caret-position="203">
+          <caret line="784" column="22" lean-forward="false" selection-start-line="784" selection-start-column="22" selection-end-line="784" selection-end-column="22" />
           <folding />
         </state>
       </provider>
