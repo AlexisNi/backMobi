@@ -58,7 +58,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  next();
+});
+/*
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
 
@@ -75,6 +82,7 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+*/
 
 
 app.set('views', path.join(__dirname, 'views'));
