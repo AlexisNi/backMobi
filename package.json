@@ -6,10 +6,6 @@
     "node": "8.4.0",
     "npm": "5.3.0"
   },
-  "scripts": {
-    "preinstall": "npm i -g pm2",
-    "start":"pm2 start ./bin/www -i 3"
-  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.15.2",
