@@ -1,1 +1,1 @@
-web: bin/start-nginx pm2 start ./bin/www -i 3
+web: bin/start-nginx node index.js
