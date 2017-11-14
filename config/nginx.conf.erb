@@ -17,6 +17,8 @@ http {
       ip_hash;
       server 127.0.0.1:3000;
       server 127.0.0.1:3001;
+      server 127.0.0.1:3002;
+      server 127.0.0.1:3003;
 
     }
 
@@ -49,7 +51,7 @@ http {
             proxy_pass http://io_nodes/api/;
 		}
 			location = /api/arenas/getArenas{
-        	    	proxy_next_upstream     error timeout;
+        	    	proxy_next_upstream     error timeout invalid_header;
                     proxy_connect_timeout   2;
                 	proxy_set_header Upgrade $http_upgrade;
                     proxy_set_header Connection "upgrade";
