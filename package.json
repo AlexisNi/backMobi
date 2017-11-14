@@ -8,7 +8,7 @@
   },
   "scripts": {
     "preinstall": "npm i -g pm2",
-    "start": "node index.js"
+    "start":"pm2 start ./bin/www -i 3"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
