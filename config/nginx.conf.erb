@@ -35,7 +35,7 @@ http {
 
 	server {
 		listen <%= ENV["PORT"] %>;
-		server_name ;
+		server_name _;
 		keepalive_timeout 5;
 
     root   /app/public;
