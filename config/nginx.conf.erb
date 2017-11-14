@@ -1,7 +1,6 @@
 daemon off;
 #Heroku dynos have at least 4 cores.
-worker_processes  1;
-
+worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
 events {
 	worker_connections 1024;
 }
@@ -18,8 +17,6 @@ http {
       server 127.0.0.1:3000;
       server 127.0.0.1:3001;
       server 127.0.0.1:3002;
-      server 127.0.0.1:3003;
-
     }
 
 	server {
