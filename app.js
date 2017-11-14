@@ -90,7 +90,7 @@ app.use('/api/firebase',firebaseRoutes);
 app.use('/api/historicData',historicDataRoutes);
 app.use('/api/leaderBoard',leaderBoardRoutes)
 app.use(function (req, res, next) {
-  return res.render('index',{title:'Express and port listeninig is'+process.env.pp + 'process '+ process.env.WEB_CONCURRENCY });
+  return res.render('index',{title:'Express and port listeninig is'+process.env.pp + ' process '+ process.env.WEB_CONCURRENCY });
 });
 
 
