@@ -19,7 +19,7 @@ function start() {*/
   /**
    * Get port from environment and store in Express.
    */
-  var portTest=+process.env.NODE_APP_INSTANCE+3000;
+  var portTest=3001;
 
 
   var port = normalizePort(portTest);
