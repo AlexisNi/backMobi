@@ -51,5 +51,13 @@ http {
             proxy_http_version 1.1;
             proxy_pass http://io_nodes;
 		}
+
+		location = /socket.io/ {
+        	      proxy_pass http://io_nodes;
+        	}
+        location = /socket.io/ {
+
+                    	  proxy_pass http://io_nodes;
+                  	}
 	}
 }
