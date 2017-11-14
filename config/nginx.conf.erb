@@ -37,12 +37,12 @@ http {
 	    	upstream io_nodes {
       ip_hash;
       #hash $remote_addr consistent;;
-      server localhost:3000;
-      server localhost:3001;
-      server localhost:3002;
+      server http://127.0.0.1:3000;
+      server http://127.0.0.1:3001;
+      server http://127.0.0.1:3002;
     }
     	server {
-            listen       80;
+            listen      <%= ENV["PORT"] %>;
             server_name  _;
 
 
