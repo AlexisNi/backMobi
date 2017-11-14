@@ -11,7 +11,7 @@ pm2.connect(function() {
     script: './bin/www',
     name: 'FootballQuiz', // ----> THESE ATTRIBUTES ARE OPTIONAL:
     exec_mode: 'cluster', // ----> https://github.com/Unitech/PM2/blob/master/ADVANCED_README.md#schema
-    instances: 1,
+    instances: instances,
     max_memory_restart: maxMemory + 'M', // Auto restart if process taking more than XXmo
   }, function(err) {
     if (err) return console.error('Error while launching applications', err.stack || err);
