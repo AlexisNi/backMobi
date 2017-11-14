@@ -2,6 +2,7 @@
   "name": "myapp",
   "version": "0.0.0",
   "private": true,
+
   "engines": {
     "node": "8.4.0",
     "npm": "5.3.0"
