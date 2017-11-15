@@ -7,7 +7,7 @@
     "npm": "5.3.0"
   },
   "scripts": {
-    "preinstall": "npm install pm2 -g",
+    "preinstall": "npm install pm2@2.0 -g",
     "start": "pm2 start ./bin/www"
   },
   "dependencies": {
