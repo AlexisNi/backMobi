@@ -32,7 +32,7 @@
     "socket.io-adapter-mongo": "2.0.1",
     "throng": "4.0.0",
     "tslint": "5.7.0",
-    "pm2": "^2.7.2"
+    "pm2": "2.0.0"
 
   }
 }
