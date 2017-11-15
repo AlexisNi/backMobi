@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-var fs = require('fs');
 
 /**
  * Module dependencies.
@@ -19,15 +18,14 @@ function start() {*/
   /**
    * Get port from environment and store in Express.
    */
+/*
   var portTest=+process.env.NODE_APP_INSTANCE+3000;
+*/
 
-
-  var port = normalizePort(portTest);
+  var port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
-  process.env['pp'] = port;
 
-
-/**
+  /**
    * Create HTTP server.
    */
 
@@ -39,8 +37,14 @@ function start() {*/
    */
 
   server.listen(port,function () {
+    if (process.env.DYNO) {
+      if(process.env.NODE_APP_INSTANCE==1){
         fs.openSync('/tmp/app-initialized', 'w');
+      }
       console.log('This is on Heroku..!!');
+
+    }
+
   });
   server.on('error', onError);
   server.on('listening', onListening);
