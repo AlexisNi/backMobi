@@ -39,9 +39,9 @@ function start() {*/
   server.listen(port,function () {
     if (process.env.DYNO) {
 
-/*
+
         fs.openSync('/tmp/app-initialized', 'w');
-*/
+
 
       console.log('This is on Heroku..!!');
 
