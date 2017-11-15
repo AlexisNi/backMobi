@@ -6,9 +6,6 @@
     "node": "8.4.0",
     "npm": "5.3.0"
   },
-  "scripts": {
-    "start": "node ./node_modules/.bin/pm2 start bin/www -i 3 --attach"
-  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.15.2",
