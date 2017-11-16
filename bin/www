@@ -37,13 +37,13 @@ io.attach(server,{'pingInterval': 2000, 'pingTimeout': 5000});
  */
 
 server.listen(port,function () {
-  if (process.env.DYNO) {
+/*  if (process.env.DYNO) {
 
     fs.openSync('/tmp/app-initialized', 'w');
 
     console.log('This is on Heroku..!!');
 
-  }
+  }*/
 
 });
 server.on('error', onError);
