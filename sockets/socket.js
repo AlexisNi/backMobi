@@ -27,15 +27,15 @@ module.exports = function (io) {
 
   mainGameNsp.on('connection', function (socket) {
     console.log('user connected',socket.handshake.query.userId);
-    socket.broadcast.emit('message', "this is a test");
+ socket.broadcast.emit('message', "this is a test");
 
 
-/*    io.of('/mainGame').adapter.clients(function (err,clients) {
+    io.of('/mainGame').adapter.clients(function (err,clients) {
 
 
       console.log(clients);
 
-    });*/
+    });
 
 
 

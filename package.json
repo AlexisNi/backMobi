@@ -9,7 +9,6 @@
   "scripts": {
     "start": "pm2 start  ./bin/www -i 3"
   },
-
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.15.2",
@@ -33,6 +32,7 @@
     "passport-local": "1.0.0",
     "serve-favicon": "2.3.0",
     "socket.io": "1.7",
+    "socket.io-adapter-mongo": "2.0.1",
     "throng": "4.0.0",
     "tslint": "5.7.0",
     "pm2": "^2.7.2"
