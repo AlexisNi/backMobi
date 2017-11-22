@@ -38,7 +38,9 @@ setInterval(function () {
 },600000)
 
 ///////////////socket config//////////////////
+/*
 var mongoAdapter = require('socket.io-adapter-mongo');
+*/
 var socket_io=require("socket.io");
 var io=socket_io();
 app.io=io;
