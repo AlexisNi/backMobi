@@ -1,6 +1,7 @@
 var User = require('../models/user')
 var Statistics = require('../models/statistics')
 var TU = require('../models/testUser');
+var Hints=require('../models/hints');
 exports.userCheck = function (req, res, next) {
   var userId = req.body.uid
 
@@ -94,8 +95,7 @@ exports.userCreate = function (req, res, next) {
               var statistics = new Statistics({
                 user: result,
                 firebase_id: userId
-
-              })
+              });
               statistics.save(function (err, stats) {
                 if (err) {
 
@@ -105,7 +105,12 @@ exports.userCreate = function (req, res, next) {
                 }
                 result.statistics = stats
                 result.save()
+              });
+              var hints=new Hints({
+                user:result
               })
+
+
 
               return res.status(200).json({
                 message: 'User created',

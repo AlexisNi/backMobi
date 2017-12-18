@@ -81,6 +81,7 @@ de
       var userData = userInfo[socket.id]
       if (typeof userData !== 'undefined') {
         socket.leave(userData.arenaId)
+        delete  userInfo[socket.id]
       }
 
     });

@@ -40,6 +40,10 @@ var UserSchema = new mongoose.Schema({
   lastLogin: {
     typed: Date
   },
+  hints:{
+    type: Schema.Types.ObjectId,
+    ref:'Hints'
+  },
   deviceToken: [{
     type: Schema.Types.ObjectId,
     ref: 'DeviceTokens'
@@ -51,7 +55,8 @@ var UserSchema = new mongoose.Schema({
   friendList:[{
     type: Schema.Types.ObjectId,
     ref: 'FriendList'
-  }]
+  }],
+
 })
 
 
