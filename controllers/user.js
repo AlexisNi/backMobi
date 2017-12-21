@@ -106,9 +106,12 @@ exports.userCreate = function (req, res, next) {
                 result.statistics = stats
                 result.save()
               });
+
               var hints=new Hints({
-                user:result
+                userId:result
               })
+              hints.save(function (err,stats) {
+              });
 
 
 

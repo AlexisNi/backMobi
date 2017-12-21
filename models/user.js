@@ -30,7 +30,7 @@ var UserSchema = new mongoose.Schema({
   ],
   statistics: {
     type: Schema.Types.ObjectId,
-    ref: 'Stats',
+    ref: 'Stats'
   },
   history: [{
     type: Schema.Types.ObjectId,
@@ -55,7 +55,7 @@ var UserSchema = new mongoose.Schema({
   friendList:[{
     type: Schema.Types.ObjectId,
     ref: 'FriendList'
-  }],
+  }]
 
 })
 

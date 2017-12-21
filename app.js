@@ -9,7 +9,8 @@ var app = express();
 var cors=require('cors');
 var config= require('./config/config.js');
 var compression = require('compression');
-var helmet = require('helmet')
+var helmet = require('helmet');
+var checkIfIsActiveDaemon= require('./controllers/hints').checkIfActiveDaemon();
 
 ////////////////Node js fireBase////////////////////
 var admin = require("firebase-admin");
@@ -31,11 +32,12 @@ var awards=require('./routes/awards');
 var firebaseRoutes=require('./routes/firebaseAuth');
 var historicDataRoutes=require('./routes/historicData');
 var leaderBoardRoutes=require('./routes/leaderBoard');
+var hintsRoutes=require('./routes/hints')
 
 require('./controllers/leaderboard').leaderBoardCreate();
 setInterval(function () {
   require('./controllers/leaderboard').leaderBoardCreate();
-},600000)
+},600000);
 
 ///////////////socket config//////////////////
 var mongoAdapter = require('socket.io-adapter-mongo');
@@ -95,7 +97,10 @@ app.use('/api/activeArena',activeArena);
 app.use('/api/awards',awards);
 app.use('/api/firebase',firebaseRoutes);
 app.use('/api/historicData',historicDataRoutes);
-app.use('/api/leaderBoard',leaderBoardRoutes)
+app.use('/api/leaderBoard',leaderBoardRoutes);
+app.use('/api/hints',hintsRoutes);
+
+
 app.use(function (req, res, next) {
   return res.render('index',{title:'Express and port listeninig is'+process.env.PORT });
 });

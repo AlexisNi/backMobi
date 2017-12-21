@@ -8,6 +8,7 @@ var passport = require('passport')
 var connectedUserList = []
 var userInfo = []
 var Connections=require('../models/connections');
+var Hints=require('../models/hints');
 
 module.exports = function (io) {
   var mainGameNsp=io.of('/mainGame');
@@ -39,23 +40,43 @@ module.exports = function (io) {
 
 
 
-    /*    User.find({}).exec(function (err,result) {
+   /*     User.find({}).exec(function (err,result) {
           if(err){
 
           }
+          result.map(async function (user) {
+                var hint= new Hints({
+                  userId:user
+                })
+            await hint.save(async function(err,res){
+               user.hints=res;
+               await user.save();
+
+            });
+
+          }
+
+
+
+
+
+
           for(var i=0;i<result.length;i++){
               for(var j=0; j<result[i].arenas.length;j++){
-               result[i].arenas[j]=[];
-               console.log()
+            result[i].arenas[j]=[];
 
-
-              }
-            result[i].arenas=[]
-            result[i].save();
 
 
           }
-de
+          result[i].arenas=[]
+          result[i].save();
+
+
+
+
+
+
+        }
 
         })*/
 
