@@ -195,7 +195,7 @@ exports.findUser = function (req, res, next) {
           return res.status(400).json({
             title: 'No results',
             message: 'User Not Found',
-            status: '400'
+            status: '404'
           })
         }
 
