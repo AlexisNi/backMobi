@@ -116,7 +116,7 @@ exports.createArena = function (req, res, next) {
                       if (err) {
                         return res.status(500).json({
                           title: 'Error',
-                          message: 'You already playing with that user ',
+                          message: 'Υπάρχει ήδη ανοιχτη αρενα με τον συγκεκριμένο Παίκτη ή δεν έχει παρει το βράβειο του απο προηγόυμενη αρενα. ',
                           status: '500'
                         })
                       }

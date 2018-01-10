@@ -25,14 +25,13 @@ schema.methods.checkIfActivate = function () {
   try {
     if (this.userId !== undefined) {
       if (this.managerAdvice.isActive===false && moment().isSameOrAfter(this.managerAdvice.willBeActive)) {
-        console.log('inside');
-        this.managerAdvice.isActive = true
-        return this.save()
+        this.managerAdvice.isActive = true;
+        return this.save();
 
       }
       else if (this.extraTime.isActive === false &&  moment().isSameOrAfter( this.extraTime.willBeActive,'day')) {
-        this.extraTime.isActive = true
-        return this.save()
+        this.extraTime.isActive = true;
+        return this.save();
       }else{
         return false;
       }
@@ -40,6 +39,20 @@ schema.methods.checkIfActivate = function () {
     else{
       return false;
     }
+  } catch (err) {
+    return false;
+  }
+}
+schema.methods.checkIfActivateToUse = function () {
+  let managerAdvice=false;
+  let extraTime=false;
+  try {
+    if (this.userId !== undefined) {
+      managerAdvice = this.managerAdvice.isActive !== false;
+      extraTime = this.extraTime.isActive !== false;
+    }
+    return {extraTime:extraTime,managerAdvice:managerAdvice};
+
   } catch (err) {
     return false;
   }
@@ -54,7 +67,7 @@ schema.methods.useHint =  function (hintUsed) {
         console.log('inside manageradvice')
         this.managerAdvice.isActive = false
         this.managerAdvice.willBeActive = moment().add(1, 'h')
-         return this.save()
+        return this.save()
 
       }
       else if (hintUsed === 'extraTime' && this.extraTime.isActive === true) {
