@@ -281,30 +281,40 @@ exports.getResults = function (req, res, next) {
           }
           if(result.draw==true) {
             return res.status(200).json({
-              message: 'success',
+              message: 'ΤΟ ΠΑΙΧΝΙΔΙ ΕΛΗΞΕ ΙΣΟΠΑΛΙΑ!',
               draw: true,
               awards: awardToReturn,
-              isWin:false
+              isWin:false,
+              otherPlayerCorrect:awardToReturn.correctAnswers,
+              myResult:awardToReturn.correctAnswers
+
 
             })
           }else{
             var awardToReturn;
             var otherPlayerCorrect;
             var isWin;
+            let message='';
+            let myResult;
             if(result.awards.winner.userId==userId){
               awardToReturn=result.awards.winner;
               otherPlayerCorrect=result.awards.loser.correctAnswers;
+              myResult=result.awards.winner.correctAnswers;
               isWin=true;
+              message='ΣΥΓΧΑΡΗΤΗΡΙΑ KEΡΔΙΣΕΣ!'
             }else{
               awardToReturn=result.awards.loser;
               otherPlayerCorrect=result.awards.winner.correctAnswers;
+              myResult=result.awards.loser.correctAnswers;
               isWin=false;
+              message='ΔΥΣΤΗΧΩΣ ΕΧΑΣΕΣ!'
             }
             return res.status(200).json({
-              message: 'success',
+              message: message,
               draw: false,
               awards: awardToReturn,
               otherPlayerCorrect:otherPlayerCorrect,
+              myResult:myResult,
               isWin:isWin
             })
 

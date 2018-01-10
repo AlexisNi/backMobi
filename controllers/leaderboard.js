@@ -13,8 +13,8 @@ exports.leaderBoardCreate = function () {
           reject(err)
         }
         if (result) {
+          console.log(result.length);
           for (var i = 0; i < result.length; i++) {
-
             result[i].rating=result[i].rating.toFixed(2);
             result[i].previousRanking = result[i].ranking
             result[i].ranking = i + 1
@@ -40,12 +40,12 @@ exports.leaderBoardCreate = function () {
 
           leaders = res.sort(function (a, b) {
             if (a.statistics.rating < b.statistics.rating) {
-              return 1
+              return 1;
             }
             if (a.statistics.rating > b.statistics.rating) {
-              return -1
-            } else {
-              return 0
+              return -1;
+            }else {
+             return 0;
             }
           })
 
