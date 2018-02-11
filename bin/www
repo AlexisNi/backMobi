@@ -38,16 +38,30 @@ io.attach(server,{'pingInterval': 2000, 'pingTimeout': 5000});
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port,'127.0.0.1',function () {
+/*
+ server.listen(port,'127.0.0.1',function () {
+ */
 /*  if (process.env.DYNO) {
 
-    fs.openSync('/tmp/app-initialized', 'w');
+ fs.openSync('/tmp/app-initialized', 'w');
 
-    console.log('This is on Heroku..!!');
+ console.log('This is on Heroku..!!');
 
-  }*/
+ }*/
 
-});
+/*
+ });
+ */
+
+
+ server.listen(port,function () {
+
+
+
+
+
+ });
+
 server.on('error', onError);
 server.on('listening', onListening);
 
