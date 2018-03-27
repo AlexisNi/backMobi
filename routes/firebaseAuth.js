@@ -17,7 +17,7 @@ router.post('/devToken', firebaseDevice.saveTokenDevice);
 router.post('/checkuser', middleware, userController.userCheck);
 router.post('/createUser', userController.userCreate);*/
 
-router.get('/protected', middleware, function (req, res) {
+/*router.get('/protected', middleware, function (req, res) {
   return res.status(200).json(
     {
       content: 'Success',
@@ -25,6 +25,6 @@ router.get('/protected', middleware, function (req, res) {
     }
   )
 
-})
+})*/
 
 module.exports = router;
