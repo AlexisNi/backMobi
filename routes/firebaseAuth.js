@@ -8,11 +8,14 @@ var firebaseController = require('../controllers/firebase')
 var firebaseDevice=require('../controllers/firebaseDevice')
 var userController = require('../controllers/user')
 var middleware = require('../config/firebaseMiddleware')
+var testMiddleWre=require('../config/authGoogleGameServices');
 
-router.post('/', middleware, firebaseController.checkAuth)
-router.post('/devToken', firebaseDevice.saveTokenDevice)
-router.post('/checkuser', middleware, userController.userCheck)
-router.post('/createUser', userController.userCreate)
+
+router.post('/', testMiddleWre, firebaseController.checkAuth);
+/*router.post('/', middleware, firebaseController.checkAuth);
+router.post('/devToken', firebaseDevice.saveTokenDevice);
+router.post('/checkuser', middleware, userController.userCheck);
+router.post('/createUser', userController.userCreate);*/
 
 router.get('/protected', middleware, function (req, res) {
   return res.status(200).json(
