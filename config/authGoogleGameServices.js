@@ -18,7 +18,13 @@ module.exports =function (req,res,next) {
     // If request specified a G Suite domain:
     //const domain = payload['hd'];
   }
-  verify().catch(console.error);
+  verify().catch(
+    res.status(500).json({
+    where: 'Token play game services',
+    title: 'Token not valid',
+    message: 'We couldnt verify you please try login again',
+    status: '500'
+  }));
 
 }
 
