@@ -15,6 +15,11 @@ module.exports =function (req,res,next) {
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
+    return res.status(500).json({
+      title: 'Token has been succesfull verified !!',
+      message: 'You can now login to the app',
+      status: '200'
+    })
     // If request specified a G Suite domain:
     //const domain = payload['hd'];
   }
