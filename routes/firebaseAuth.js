@@ -11,7 +11,7 @@ var middleware = require('../config/firebaseMiddleware')
 var testMiddleWre=require('../config/authGoogleGameServices');
 
 
-router.post('/', testMiddleWre, firebaseController.checkAuth);
+router.post('/', firebaseController.checkAuth);
 /*router.post('/', middleware, firebaseController.checkAuth);
 router.post('/devToken', firebaseDevice.saveTokenDevice);
 router.post('/checkuser', middleware, userController.userCheck);
