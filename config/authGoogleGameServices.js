@@ -1,8 +1,9 @@
 
 module.exports =function (req,res,next) {
   console.log('/=======INSIDE==========/');
-  let token =req.token;
-  let CLIENT_ID=req.client;
+  const clientJson=require('../client_secret_1094475455230-p1ptvr9t3c46k4so2pbjfpmht91i1jm5.apps.googleusercontent.com.json');
+  let token =req.body.token;
+  let CLIENT_ID=clientJson.web.client_id;
   const {OAuth2Client} = require('google-auth-library');
   const client = new OAuth2Client(CLIENT_ID);
 
