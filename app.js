@@ -32,7 +32,10 @@ var awards=require('./routes/awards');
 var firebaseRoutes=require('./routes/firebaseAuth');
 var historicDataRoutes=require('./routes/historicData');
 var leaderBoardRoutes=require('./routes/leaderBoard');
-var hintsRoutes=require('./routes/hints')
+var hintsRoutes=require('./routes/hints');
+var googlePlayGameRoutes=require('./routes/googlePlayGameServices');
+
+
 
 require('./controllers/leaderboard').leaderBoardCreate();
 setInterval(function () {
@@ -89,7 +92,7 @@ app.use(function(req, res, next) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-
+app.use('/api/gpgs',googlePlayGameRoutes)
 app.use('/api/auth',authethenticationRoute);
 app.use('/api/users',userRoutes);
 app.use('/api/arenas',arenaRoutes);

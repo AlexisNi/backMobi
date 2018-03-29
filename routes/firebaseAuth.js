@@ -11,13 +11,13 @@ var middleware = require('../config/firebaseMiddleware')
 var testMiddleWre=require('../config/authGoogleGameServices');
 
 
-router.post('/',testMiddleWre, firebaseController.checkAuth);
-/*router.post('/', middleware, firebaseController.checkAuth);
+/*router.post('/',testMiddleWre, firebaseController.checkAuth);*/
+router.post('/', middleware, firebaseController.checkAuth);
 router.post('/devToken', firebaseDevice.saveTokenDevice);
 router.post('/checkuser', middleware, userController.userCheck);
-router.post('/createUser', userController.userCreate);*/
+router.post('/createUser', userController.userCreate);
 
-/*router.get('/protected', middleware, function (req, res) {
+router.get('/protected', middleware, function (req, res) {
   return res.status(200).json(
     {
       content: 'Success',
@@ -25,6 +25,6 @@ router.post('/createUser', userController.userCreate);*/
     }
   )
 
-})*/
+})
 
 module.exports = router;
