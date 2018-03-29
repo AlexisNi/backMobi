@@ -1,9 +1,9 @@
 
-module.exports =function (req,res,next) {
+module.exports = (req,res,next) => {
   console.log('/=======INSIDE==========/');
-  console.log(req);
+
   const clientJson=require('../client_secret_1094475455230-p1ptvr9t3c46k4so2pbjfpmht91i1jm5.apps.googleusercontent.com.json');
-  let token =req.body.token;
+  let auth =req.body.auth;
   let CLIENT_ID=clientJson.web.client_id;
   const {OAuth2Client} = require('google-auth-library');
   const client = new OAuth2Client(CLIENT_ID);
@@ -17,15 +17,31 @@ module.exports =function (req,res,next) {
   );
 
 
-  oauth2Client.getToken("4/AADaM--P7eOXGQhEz_QdJbhZwyf6bU3KUlikuJwVegyKHmEWklk59YF-gKNDVjTSZqb72R-oVRyhfMak_IcHTzs", (err, tokens) => {
+   oauth2Client.getToken(auth, (err, tokens) => {
+    console.log('inside get token')
     if(err){
+      res.status(500).json({
+        title: 'Auth is not verified !!',
+        message: 'Please try again later',
+        error:"err"
+      })
+
 
     }
 
     if(tokens){
-      console.log(tokens);
+      res.status(200).json({
+        title: 'Token has been succesfull verified !!',
+        message: 'You can now login to the app',
+        status: '200',
+        token:tokens
+      })
+
     }
   });
+
+
+
 
 
 
