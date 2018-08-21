@@ -1,7 +1,7 @@
 var express = require('express')
 var ArenaUser = require('../models/arena')
-var User = require('../models/user')
-var Questions = require('../models/questions')
+var User = require('../models/user');
+var Questions = require('../models/questions');
 
 exports.createArena = function (req, res, next) {
   if(req.body.userId==req.body.inviteId){

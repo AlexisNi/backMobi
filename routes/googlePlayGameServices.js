@@ -4,14 +4,16 @@
 /**
  * Created by alexn on 28/05/2017.
  */
-var express = require('express'),
+let express = require('express'),
   router = express.Router()
 
-var firebaseController = require('../controllers/firebase')
-var testMiddleWre=require('../config/authGoogleGameServices');
+let firebaseController = require('../controllers/firebase')
+let testMiddleWre=require('../config/authGoogleGameServices').checkAuth;
+let checkTokenMiddleWare= require('../config/authGoogleGameServices').checkToken;
 
 
 router.post('/',testMiddleWre, firebaseController.checkAuth);
+router.post('/checkToken',checkTokenMiddleWare,firebaseController.checkAuth);
 
 
 
